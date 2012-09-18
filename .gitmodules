@@ -1,0 +1,3 @@
+[submodule "OTCocoa"]
+	path = OTCocoa
+	url = https://github.com/Eric-Yeh/OTCocoa.git
