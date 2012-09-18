@@ -13,7 +13,77 @@
 		07834A9816071899009EC369 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 07834A9616071899009EC369 /* Credits.rtf */; };
 		07834A9B16071899009EC369 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07834A9A16071899009EC369 /* AppDelegate.m */; };
 		07834A9E16071899009EC369 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07834A9C16071899009EC369 /* MainMenu.xib */; };
+		07A0C3BD160821FD00573812 /* OTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A0C3B2160821E100573812 /* OTFoundation.framework */; };
+		07A0C3BE160821FD00573812 /* OTUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A0C3B6160821E100573812 /* OTUIKit.framework */; };
+		07A0C3BF1608220600573812 /* OTFoundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 07A0C3B2160821E100573812 /* OTFoundation.framework */; };
+		07A0C3C01608220600573812 /* OTUIKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 07A0C3B6160821E100573812 /* OTUIKit.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		07A0C3AD160821E100573812 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07A0C39F160821E100573812 /* OTCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9FA07CF115C1B2C400B276EC;
+			remoteInfo = OTCocoa;
+		};
+		07A0C3AF160821E100573812 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07A0C39F160821E100573812 /* OTCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9FA07D0915C1B2C400B276EC;
+			remoteInfo = OTCocoaTests;
+		};
+		07A0C3B1160821E100573812 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07A0C39F160821E100573812 /* OTCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9FA07D2615C1B32300B276EC;
+			remoteInfo = OTFoundation;
+		};
+		07A0C3B3160821E100573812 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07A0C39F160821E100573812 /* OTCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9FA07D3715C1B32300B276EC;
+			remoteInfo = OTFoundationTests;
+		};
+		07A0C3B5160821E100573812 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07A0C39F160821E100573812 /* OTCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9FA07D5115C1B33800B276EC;
+			remoteInfo = OTUIKit;
+		};
+		07A0C3B7160821E100573812 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07A0C39F160821E100573812 /* OTCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9FA07D6215C1B33800B276EC;
+			remoteInfo = OTUIKitTests;
+		};
+		07A0C3B9160821E100573812 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07A0C39F160821E100573812 /* OTCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 07B72E4D15E32D55005E4983;
+			remoteInfo = ImageTest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		07A0C3BC160821F200573812 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				07A0C3BF1608220600573812 /* OTFoundation.framework in CopyFiles */,
+				07A0C3C01608220600573812 /* OTUIKit.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		07834A8316071899009EC369 /* OTPieViewExam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OTPieViewExam.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,6 +99,7 @@
 		07834A9916071899009EC369 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		07834A9A16071899009EC369 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		07834A9D16071899009EC369 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		07A0C39F160821E100573812 /* OTCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OTCocoa.xcodeproj; path = OTCocoa/OTCocoa.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +107,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07A0C3BD160821FD00573812 /* OTFoundation.framework in Frameworks */,
+				07A0C3BE160821FD00573812 /* OTUIKit.framework in Frameworks */,
 				07834A8816071899009EC369 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -46,6 +119,7 @@
 		07834A7816071899009EC369 = {
 			isa = PBXGroup;
 			children = (
+				07A0C39F160821E100573812 /* OTCocoa.xcodeproj */,
 				07834A8D16071899009EC369 /* OTPieViewExam */,
 				07834A8616071899009EC369 /* Frameworks */,
 				07834A8416071899009EC369 /* Products */,
@@ -102,6 +176,20 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		07A0C3A0160821E100573812 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07A0C3AE160821E100573812 /* OTCocoa.framework */,
+				07A0C3B0160821E100573812 /* OTCocoaTests.octest */,
+				07A0C3B2160821E100573812 /* OTFoundation.framework */,
+				07A0C3B4160821E100573812 /* OTFoundationTests.octest */,
+				07A0C3B6160821E100573812 /* OTUIKit.framework */,
+				07A0C3B8160821E100573812 /* OTUIKitTests.octest */,
+				07A0C3BA160821E100573812 /* ImageTest.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -112,6 +200,7 @@
 				07834A7F16071899009EC369 /* Sources */,
 				07834A8016071899009EC369 /* Frameworks */,
 				07834A8116071899009EC369 /* Resources */,
+				07A0C3BC160821F200573812 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -141,12 +230,70 @@
 			mainGroup = 07834A7816071899009EC369;
 			productRefGroup = 07834A8416071899009EC369 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 07A0C3A0160821E100573812 /* Products */;
+					ProjectRef = 07A0C39F160821E100573812 /* OTCocoa.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				07834A8216071899009EC369 /* OTPieViewExam */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		07A0C3AE160821E100573812 /* OTCocoa.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OTCocoa.framework;
+			remoteRef = 07A0C3AD160821E100573812 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07A0C3B0160821E100573812 /* OTCocoaTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = OTCocoaTests.octest;
+			remoteRef = 07A0C3AF160821E100573812 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07A0C3B2160821E100573812 /* OTFoundation.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OTFoundation.framework;
+			remoteRef = 07A0C3B1160821E100573812 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07A0C3B4160821E100573812 /* OTFoundationTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = OTFoundationTests.octest;
+			remoteRef = 07A0C3B3160821E100573812 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07A0C3B6160821E100573812 /* OTUIKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OTUIKit.framework;
+			remoteRef = 07A0C3B5160821E100573812 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07A0C3B8160821E100573812 /* OTUIKitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = OTUIKitTests.octest;
+			remoteRef = 07A0C3B7160821E100573812 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07A0C3BA160821E100573812 /* ImageTest.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = ImageTest.app;
+			remoteRef = 07A0C3B9160821E100573812 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		07834A8116071899009EC369 /* Resources */ = {
@@ -291,6 +438,7 @@
 				07834AA316071899009EC369 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
