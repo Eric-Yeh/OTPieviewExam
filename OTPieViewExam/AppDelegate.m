@@ -10,7 +10,6 @@
 
 @implementation AppDelegate
 /* keys used in our preset dictionaries */
-NSString *kCurveKey = @"curve";
 NSString *kLevelKey = @"speed";
 NSString *kTicksKey = @"ticks";
 NSString *kTitleKey = @"title";
@@ -21,8 +20,9 @@ NSString *kTitleKey = @"title";
 @synthesize presetOneValues;
 @synthesize presetTwoValues;
 @synthesize presetThreeValues;
-@synthesize setTokenField;
-
+@synthesize tokenField;
+@synthesize speedSlider;
+@synthesize popUpButton;
 - (void)dealloc
 {
     [super dealloc];
@@ -39,17 +39,14 @@ NSString *kTitleKey = @"title";
 	
     /* set up some default preset values */
     presetOneValues = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                       [NSNumber numberWithFloat:90.0], kCurveKey,
                        [NSNumber numberWithFloat:33.0], kLevelKey,
                        [NSNumber numberWithInt:14], kTicksKey,
                        nil];
     presetTwoValues = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                       [NSNumber numberWithFloat:30.0], kCurveKey,
                        [NSNumber numberWithFloat:56.0], kLevelKey,
                        [NSNumber numberWithInt:9], kTicksKey,
                        nil];
     presetThreeValues = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                         [NSNumber numberWithFloat:75.0], kCurveKey,
                          [NSNumber numberWithFloat:89.0], kLevelKey,
                          [NSNumber numberWithInt:14], kTicksKey,
                          nil];
@@ -59,7 +56,7 @@ NSString *kTitleKey = @"title";
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
-    self.setTokenField.stringValue = @"A,B,C";
+    self.tokenField.stringValue = @"A,B,C";
     [self valueSet:nil];
 }
 
@@ -75,17 +72,15 @@ NSString *kTitleKey = @"title";
 	[theButton setTitle: @"SET"];
 	[*presetValues release];
 	*presetValues = [[[NSDictionary alloc] initWithObjectsAndKeys:
-                      [NSNumber numberWithFloat:[meterView curvature]], kCurveKey,
-                      [NSNumber numberWithFloat:[meterView speed]], kLevelKey,
-                      [NSNumber numberWithInt:[meterView ticks]], kTicksKey,
+                      [NSNumber numberWithFloat:[pieView speed]], kLevelKey,
+                      [NSNumber numberWithInt:[pieView ticks]], kTicksKey,
                       savedTitle, kTitleKey,
                       nil] autorelease];
 }
 
 - (void)gotoPreset:(NSDictionary *)presetValues forButton:(NSButton *)theButton {
     
-	[meterView setCurvature: [[presetValues objectForKey:kCurveKey] floatValue]];
-	[meterView setSpeed: [[presetValues objectForKey:kLevelKey] floatValue]];
+	[pieView setSpeed: [[presetValues objectForKey:kLevelKey] floatValue]];
 	NSString *theTitle = [presetValues objectForKey:kTitleKey];
 	if ( theTitle != nil ) {
         /* set the title back to normal. */
@@ -95,33 +90,44 @@ NSString *kTitleKey = @"title";
 
 - (IBAction)presetOne:(id)sender {
 
-    self.setTokenField.stringValue = @"A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
+    self.tokenField.stringValue = @"A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
     [self valueSet:sender];
 }
 
 - (IBAction)presetTwo:(id)sender {
 
-    self.setTokenField.stringValue = @"一,二,三,四,五,六,七,八,九";
+    self.tokenField.stringValue = @"一,二,三,四,五,六,七,八,九";
     [self valueSet:sender];
 }
 
 - (IBAction)presetThree:(id)sender {
 
-    self.setTokenField.stringValue = @"1,2,3,4,5,6,7,8,9,9,10,11,12";
+    self.tokenField.stringValue = @"1,2,3,4,5,6,7,8,9,9,10,11,12";
     [self valueSet:sender];
 }
 
 - (IBAction)valueSet:(id)sender
 {
-    NSMutableArray *contentArray = [NSMutableArray arrayWithArray:[self.setTokenField.stringValue componentsSeparatedByString:@","]];
+    NSMutableArray *contentArray = [NSMutableArray arrayWithArray:[self.tokenField.stringValue componentsSeparatedByString:@","]];
     //NSLog(@"%@", contentArray);
-    [meterView setLabelArray:contentArray];
-    [meterView setTicks:(int)[meterView.labelArray count]];
+    [pieView setLabelArray:contentArray];
+    [pieView setTicks:(int)[pieView.labelArray count]];
+    self.speedSlider.numberOfTickMarks = [contentArray count] - 1;
+    [popUpButton removeAllItems];
+    for (int i = 0 ; i < [pieView.labelArray count]; i++) {
+        [popUpButton addItemWithTitle:[NSString stringWithFormat:@"%i", i]];
+    }
+    [self goTick:nil];
 }
 
 - (IBAction)speedSet:(id)sender
 {
-    [meterView setSpeed:[sender floatValue]];
+    [pieView setSpeed:[sender floatValue]];
+}
+
+- (IBAction)goTick:(id)sender
+{
+    [pieView goTickMark:[[sender title]intValue]];
 }
 
 @end

@@ -11,20 +11,24 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 {
-    IBOutlet SpeedometerView *meterView;
+    IBOutlet OTPieView *pieView;
     NSMutableDictionary *presetOneValues, *presetTwoValues, *presetThreeValues;
 	
     NSButton* presetButtonOne;
     NSButton* presetButtonTwo;
     NSButton* presetButtonThree;
-    IBOutlet NSTokenField *setTokenField;
+    IBOutlet NSTokenField *tokenField;
+    IBOutlet NSSlider *speedSlider;
+    IBOutlet NSPopUpButton *popUpButton;
 }
 
 @property (assign) IBOutlet NSWindow *window;
 @property (nonatomic, assign) IBOutlet NSButton* presetButtonOne;
 @property (nonatomic, assign) IBOutlet NSButton* presetButtonTwo;
 @property (nonatomic, assign) IBOutlet NSButton* presetButtonThree;
-@property (nonatomic, assign) IBOutlet NSTokenField *setTokenField;
+@property (nonatomic, assign) IBOutlet NSTokenField *tokenField;
+@property (nonatomic, assign) IBOutlet NSSlider *speedSlider;
+@property (nonatomic, assign) IBOutlet NSPopUpButton *popUpButton;
 
 @property (nonatomic, strong) NSMutableDictionary *presetOneValues;
 @property (nonatomic, strong) NSMutableDictionary *presetTwoValues;
@@ -35,4 +39,6 @@
 - (IBAction)presetThree:(id)sender;
 - (IBAction)valueSet:(id)sender;
 - (IBAction)speedSet:(id)sender;
+- (IBAction)goTick:(id)sender;
+
 @end

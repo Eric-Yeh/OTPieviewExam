@@ -17,6 +17,8 @@
 			<string>NSCustomView</string>
 			<string>NSMenu</string>
 			<string>NSMenuItem</string>
+			<string>NSPopUpButton</string>
+			<string>NSPopUpButtonCell</string>
 			<string>NSProgressIndicator</string>
 			<string>NSSlider</string>
 			<string>NSSliderCell</string>
@@ -1320,12 +1322,12 @@
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="412445719"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
-							<string key="NSClassName">SpeedometerView</string>
+							<string key="NSClassName">OTPieView</string>
 						</object>
 						<object class="NSSlider" id="1069449902">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">290</int>
-							<string key="NSFrame">{{101, 32}, {304, 21}}</string>
+							<string key="NSFrame">{{101, 32}, {216, 21}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="926697770"/>
@@ -1476,7 +1478,7 @@
 							<set class="NSMutableSet" key="NSDragTypes">
 								<string>NSStringPboardType</string>
 							</set>
-							<string key="NSFrame">{{103, 70}, {300, 88}}</string>
+							<string key="NSFrame">{{103, 70}, {318, 88}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="931038956"/>
@@ -1541,6 +1543,40 @@
 								<reference key="NSControlView" ref="412445719"/>
 								<reference key="NSBackgroundColor" ref="168723564"/>
 								<reference key="NSTextColor" ref="95632011"/>
+							</object>
+						</object>
+						<object class="NSPopUpButton" id="994935907">
+							<reference key="NSNextResponder" ref="439893737"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{343, 30}, {81, 26}}</string>
+							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
+							<string key="NSReuseIdentifierKey">_NS:9</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSPopUpButtonCell" key="NSCell" id="405419278">
+								<int key="NSCellFlags">-2076049856</int>
+								<int key="NSCellFlags2">2048</int>
+								<reference key="NSSupport" ref="609274182"/>
+								<string key="NSCellIdentifier">_NS:9</string>
+								<reference key="NSControlView" ref="994935907"/>
+								<int key="NSButtonFlags">109199360</int>
+								<int key="NSButtonFlags2">129</int>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">400</int>
+								<int key="NSPeriodicInterval">75</int>
+								<nil key="NSMenuItem"/>
+								<bool key="NSMenuItemRespectAlignment">YES</bool>
+								<object class="NSMenu" key="NSMenu" id="926886331">
+									<string key="NSTitle">OtherViews</string>
+									<array class="NSMutableArray" key="NSMenuItems"/>
+									<reference key="NSMenuFont" ref="609274182"/>
+								</object>
+								<int key="NSSelectedIndex">-1</int>
+								<int key="NSPreferredEdge">1</int>
+								<bool key="NSUsesItemFromMenu">YES</bool>
+								<bool key="NSAltersState">YES</bool>
+								<int key="NSArrowPosition">2</int>
 							</object>
 						</object>
 					</array>
@@ -2243,14 +2279,6 @@
 					<int key="connectionID">532</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">setTokenField</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="440815007"/>
-					</object>
-					<int key="connectionID">625</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">valueSet:</string>
 						<reference key="source" ref="976324537"/>
@@ -2307,20 +2335,52 @@
 					<int key="connectionID">632</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">meterView</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="869662259"/>
-					</object>
-					<int key="connectionID">635</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">speedSet:</string>
 						<reference key="source" ref="976324537"/>
 						<reference key="destination" ref="1069449902"/>
 					</object>
 					<int key="connectionID">637</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">pieView</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="869662259"/>
+					</object>
+					<int key="connectionID">638</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">tokenField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="440815007"/>
+					</object>
+					<int key="connectionID">639</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">speedSlider</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="1069449902"/>
+					</object>
+					<int key="connectionID">640</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">popUpButton</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="994935907"/>
+					</object>
+					<int key="connectionID">647</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">goTick:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="994935907"/>
+					</object>
+					<int key="connectionID">648</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2848,7 +2908,6 @@
 						<reference key="object" ref="439893737"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="981193648"/>
-							<reference ref="440815007"/>
 							<reference ref="412445719"/>
 							<reference ref="209268536"/>
 							<reference ref="68381564"/>
@@ -2857,6 +2916,8 @@
 							<reference ref="1069449902"/>
 							<reference ref="17804370"/>
 							<reference ref="926697770"/>
+							<reference ref="994935907"/>
+							<reference ref="440815007"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -3447,6 +3508,28 @@
 						<reference key="object" ref="471421773"/>
 						<reference key="parent" ref="1069449902"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">641</int>
+						<reference key="object" ref="994935907"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="405419278"/>
+						</array>
+						<reference key="parent" ref="439893737"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">642</int>
+						<reference key="object" ref="405419278"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="926886331"/>
+						</array>
+						<reference key="parent" ref="994935907"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">643</int>
+						<reference key="object" ref="926886331"/>
+						<array class="NSMutableArray" key="children"/>
+						<reference key="parent" ref="405419278"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3611,6 +3694,9 @@
 				<string key="567.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="57.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="58.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="641.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="642.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="643.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="74.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3627,7 +3713,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">637</int>
+			<int key="maxID">648</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3640,11 +3726,13 @@
 						<string key="defaultValue:">id</string>
 						<string key="fileTypeChange:">id</string>
 						<string key="getImageInfo:">id</string>
+						<string key="goTick:">id</string>
 						<string key="imageTypeChange:">id</string>
 						<string key="presetOne:">id</string>
 						<string key="presetThree:">id</string>
 						<string key="presetTwo:">id</string>
 						<string key="ratioChange:">id</string>
+						<string key="saveImage2:">id</string>
 						<string key="saveImage:">id</string>
 						<string key="speedSet:">id</string>
 						<string key="valueSet:">id</string>
@@ -3670,6 +3758,10 @@
 							<string key="name">getImageInfo:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="goTick:">
+							<string key="name">goTick:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="imageTypeChange:">
 							<string key="name">imageTypeChange:</string>
 							<string key="candidateClassName">id</string>
@@ -3688,6 +3780,10 @@
 						</object>
 						<object class="IBActionInfo" key="ratioChange:">
 							<string key="name">ratioChange:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="saveImage2:">
+							<string key="name">saveImage2:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="saveImage:">
@@ -3753,6 +3849,8 @@
 						<string key="meterView">SpeedometerView</string>
 						<string key="panel">NSPanel</string>
 						<string key="pathText">NSTextField</string>
+						<string key="pieView">OTPieView</string>
+						<string key="popUpButton">NSPopUpButton</string>
 						<string key="presetButtonOne">NSButton</string>
 						<string key="presetButtonThree">NSButton</string>
 						<string key="presetButtonTwo">NSButton</string>
@@ -3766,6 +3864,8 @@
 						<string key="sharpnessSlider">NSSlider</string>
 						<string key="sharpnessValueText">NSTextField</string>
 						<string key="sizeText">NSTextField</string>
+						<string key="speedSlider">NSSlider</string>
+						<string key="tokenField">NSTokenField</string>
 						<string key="typeText">NSTextField</string>
 						<string key="window">NSWindow</string>
 					</dictionary>
@@ -3966,6 +4066,14 @@
 							<string key="name">pathText</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="pieView">
+							<string key="name">pieView</string>
+							<string key="candidateClassName">OTPieView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="popUpButton">
+							<string key="name">popUpButton</string>
+							<string key="candidateClassName">NSPopUpButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="presetButtonOne">
 							<string key="name">presetButtonOne</string>
 							<string key="candidateClassName">NSButton</string>
@@ -4017,6 +4125,14 @@
 						<object class="IBToOneOutletInfo" key="sizeText">
 							<string key="name">sizeText</string>
 							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="speedSlider">
+							<string key="name">speedSlider</string>
+							<string key="candidateClassName">NSSlider</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="tokenField">
+							<string key="name">tokenField</string>
+							<string key="candidateClassName">NSTokenField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="typeText">
 							<string key="name">typeText</string>
@@ -4092,11 +4208,11 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">SpeedometerView</string>
+					<string key="className">OTPieView</string>
 					<string key="superclassName">NSView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/SpeedometerView.h</string>
+						<string key="minorKey">./Classes/OTPieView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
