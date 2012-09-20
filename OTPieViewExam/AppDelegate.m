@@ -23,6 +23,8 @@ NSString *kTitleKey = @"title";
 @synthesize tokenField;
 @synthesize speedSlider;
 @synthesize popUpButton;
+@synthesize directionMatrix;
+
 - (void)dealloc
 {
     [super dealloc];
@@ -102,16 +104,14 @@ NSString *kTitleKey = @"title";
 
 - (IBAction)presetThree:(id)sender {
 
-    self.tokenField.stringValue = @"1,2,3,4,5,6,7,8,9,9,10,11,12";
+    self.tokenField.stringValue = @"1,2,3,4,5,6,7,8,9,10,11,12";
     [self valueSet:sender];
 }
 
 - (IBAction)valueSet:(id)sender
 {
     NSMutableArray *contentArray = [NSMutableArray arrayWithArray:[self.tokenField.stringValue componentsSeparatedByString:@","]];
-    //NSLog(@"%@", contentArray);
-    [pieView setLabelArray:contentArray];
-    [pieView setTicks:(int)[pieView.labelArray count]];
+    [pieView changeDisplayValue:contentArray];
     self.speedSlider.numberOfTickMarks = [contentArray count] - 1;
     [popUpButton removeAllItems];
     for (int i = 0 ; i < [pieView.labelArray count]; i++) {
@@ -128,6 +128,16 @@ NSString *kTitleKey = @"title";
 - (IBAction)goTick:(id)sender
 {
     [pieView goTickMark:[[sender title]intValue]];
+}
+
+- (IBAction)directionSet:(id)sender
+{
+    if([[sender selectedCell] tag] == 1) {
+        [pieView changeDisplayDirection:YES];
+    } else
+    {
+        [pieView changeDisplayDirection:NO];
+    }
 }
 
 @end

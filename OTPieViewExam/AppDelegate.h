@@ -20,6 +20,7 @@
     IBOutlet NSTokenField *tokenField;
     IBOutlet NSSlider *speedSlider;
     IBOutlet NSPopUpButton *popUpButton;
+    IBOutlet NSMatrix *directionMatrix;
 }
 
 @property (assign) IBOutlet NSWindow *window;
@@ -29,6 +30,7 @@
 @property (nonatomic, assign) IBOutlet NSTokenField *tokenField;
 @property (nonatomic, assign) IBOutlet NSSlider *speedSlider;
 @property (nonatomic, assign) IBOutlet NSPopUpButton *popUpButton;
+@property (nonatomic, assign) IBOutlet NSMatrix *directionMatrix;
 
 @property (nonatomic, strong) NSMutableDictionary *presetOneValues;
 @property (nonatomic, strong) NSMutableDictionary *presetTwoValues;
@@ -40,5 +42,5 @@
 - (IBAction)valueSet:(id)sender;
 - (IBAction)speedSet:(id)sender;
 - (IBAction)goTick:(id)sender;
-
+- (IBAction)directionSet:(id)sender;
 @end
