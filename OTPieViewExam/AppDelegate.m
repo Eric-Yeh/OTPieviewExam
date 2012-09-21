@@ -23,11 +23,17 @@ NSString *kTitleKey = @"title";
 @synthesize tokenField;
 @synthesize speedSlider;
 @synthesize popUpButton;
+@synthesize movePopUpButton;
 @synthesize directionMatrix;
 
 - (void)dealloc
 {
     [super dealloc];
+    if ([movingTickTimer isValid]) {
+            [movingTickTimer invalidate];
+            movingTickTimer = nil;
+        }
+
 }
 
 - (void)awakeFromNib {
@@ -114,8 +120,10 @@ NSString *kTitleKey = @"title";
     [pieView changeDisplayValue:contentArray];
     self.speedSlider.numberOfTickMarks = [contentArray count] - 1;
     [popUpButton removeAllItems];
+    [movePopUpButton removeAllItems];
     for (int i = 0 ; i < [pieView.labelArray count]; i++) {
         [popUpButton addItemWithTitle:[NSString stringWithFormat:@"%i", i]];
+        [movePopUpButton addItemWithTitle:[NSString stringWithFormat:@"%i", i]];
     }
     [self goTick:nil];
 }
@@ -127,6 +135,10 @@ NSString *kTitleKey = @"title";
 
 - (IBAction)goTick:(id)sender
 {
+    if ([movingTickTimer isValid]) {
+        [movingTickTimer invalidate];
+        movingTickTimer = nil;
+    }
     [pieView goTickMark:[[sender title]intValue]];
 }
 
@@ -134,9 +146,43 @@ NSString *kTitleKey = @"title";
 {
     if([[sender selectedCell] tag] == 1) {
         [pieView changeDisplayDirection:YES];
-    } else
-    {
+    } else {
         [pieView changeDisplayDirection:NO];
+    }
+}
+
+- (IBAction)timerTickGo:(id)sender
+{
+
+    newSpeed = pieView.speed;
+    int moveButtonIndex = [[self.movePopUpButton title] intValue];
+    
+    oldSpeed = ((float)moveButtonIndex / ([pieView.labelArray count] - 1)) * 100;
+    NSLog(@"%i", oldSpeed);
+    if ([movingTickTimer isValid]) {
+        [movingTickTimer invalidate];
+        movingTickTimer = nil;
+    }
+    movingTickTimer = [NSTimer scheduledTimerWithTimeInterval:0.005 target:self selector:@selector(updateTimer) userInfo:nil repeats:YES];
+
+}
+
+- (void)updateTimer
+{
+    newSpeed = pieView.speed;
+    if (newSpeed > oldSpeed) {
+        --newSpeed;
+        [pieView setSpeed:newSpeed];
+        
+    } else if (newSpeed < oldSpeed) {
+        ++newSpeed;
+        [pieView setSpeed:newSpeed];
+    } else {
+        if ([movingTickTimer isValid]) {
+            [movingTickTimer invalidate];
+            movingTickTimer = nil;
+//            [popUpButton setTitle:[self.movePopUpButton title]];
+        }
     }
 }
 
