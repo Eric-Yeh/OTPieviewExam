@@ -153,12 +153,17 @@ NSString *kTitleKey = @"title";
 
 - (IBAction)timerTickGo:(id)sender
 {
-
     newSpeed = pieView.speed;
     int moveButtonIndex = [[self.movePopUpButton title] intValue];
-    
-    oldSpeed = ((float)moveButtonIndex / ([pieView.labelArray count] - 1)) * 100;
-    NSLog(@"%i", oldSpeed);
+    if (pieView.clockwise) {
+        oldSpeed = ((float)moveButtonIndex / ([pieView.labelArray count] - 1)) * 100;
+    } else {
+        if (moveButtonIndex == 0) {
+            oldSpeed = 0;
+        } else {
+            oldSpeed = ((float)([pieView.labelArray count] - moveButtonIndex) / ([pieView.labelArray count] - 1)) * 100;            
+        }
+    }
     if ([movingTickTimer isValid]) {
         [movingTickTimer invalidate];
         movingTickTimer = nil;
