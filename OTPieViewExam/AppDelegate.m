@@ -25,6 +25,7 @@ NSString *kTitleKey = @"title";
 @synthesize popUpButton;
 @synthesize movePopUpButton;
 @synthesize directionMatrix;
+@synthesize graphicMatrix;
 
 - (void)dealloc
 {
@@ -100,12 +101,18 @@ NSString *kTitleKey = @"title";
 
     self.tokenField.stringValue = @"A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
     [self valueSet:sender];
+
 }
 
 - (IBAction)presetTwo:(id)sender {
 
     self.tokenField.stringValue = @"一,二,三,四,五,六,七,八,九";
     [self valueSet:sender];
+    
+//    [NSAnimationContext beginGrouping];
+//    [[NSAnimationContext currentContext] setDuration:3.0f];
+//    [[pieView animator] setFrameOrigin:NSMakePoint([pieView frame].origin.x, 10.0)];
+//    [NSAnimationContext endGrouping];
 }
 
 - (IBAction)presetThree:(id)sender {
@@ -139,7 +146,7 @@ NSString *kTitleKey = @"title";
         [movingTickTimer invalidate];
         movingTickTimer = nil;
     }
-    [pieView goTickMark:[[sender title]intValue]];
+    [pieView setTickMark:[[sender title]intValue]];
 }
 
 - (IBAction)directionSet:(id)sender
@@ -151,24 +158,47 @@ NSString *kTitleKey = @"title";
     }
 }
 
+- (IBAction)graphSet:(id)sender
+{
+    if([[sender selectedCell] tag] == 1) {
+        [pieView changePieViewGraph:kGrpah_Circle];
+    } else {
+        [pieView changePieViewGraph:kGrpah_Semicircle];
+    }
+}
+
 - (IBAction)timerTickGo:(id)sender
 {
-    newSpeed = pieView.speed;
-    int moveButtonIndex = [[self.movePopUpButton title] intValue];
-    if (pieView.clockwise) {
-        oldSpeed = ((float)moveButtonIndex / ([pieView.labelArray count] - 1)) * 100;
-    } else {
-        if (moveButtonIndex == 0) {
-            oldSpeed = 0;
-        } else {
-            oldSpeed = ((float)([pieView.labelArray count] - moveButtonIndex) / ([pieView.labelArray count] - 1)) * 100;            
-        }
-    }
-    if ([movingTickTimer isValid]) {
-        [movingTickTimer invalidate];
-        movingTickTimer = nil;
-    }
-    movingTickTimer = [NSTimer scheduledTimerWithTimeInterval:0.005 target:self selector:@selector(updateTimer) userInfo:nil repeats:YES];
+//    [NSAnimationContext beginGrouping];
+//    [[NSAnimationContext currentContext] setDuration:3.0f];
+//    int moveButtonIndex = [[self.movePopUpButton title] intValue];
+//    NSLog(@"newSpeed: %i, oldSpeed: %i", newSpeed, oldSpeed);
+//    [[pieView animator] setTickMark:moveButtonIndex];
+//    [NSAnimationContext endGrouping];
+    
+    
+    int moveButtonIndex = [[self.movePopUpButton title] intValue];    
+    NSLog(@"newSpeed: %i, oldSpeed: %i", newSpeed, oldSpeed);
+    [pieView setTickMark:moveButtonIndex animate:YES];
+    
+//    newSpeed = pieView.speed;
+//    int moveButtonIndex = [[self.movePopUpButton title] intValue];
+//    if (pieView.clockwise) {
+//        oldSpeed = ((float)moveButtonIndex / ([pieView.labelArray count] - 1)) * 100;
+//    } else {
+//        if (moveButtonIndex == 0) {
+//            oldSpeed = 0;
+//        } else {
+//            oldSpeed = ((float)([pieView.labelArray count] - moveButtonIndex) / ([pieView.labelArray count] - 1)) * 100;            
+//        }
+//    }
+
+    
+//    if ([movingTickTimer isValid]) {
+//        [movingTickTimer invalidate];
+//        movingTickTimer = nil;
+//    }
+//    movingTickTimer = [NSTimer scheduledTimerWithTimeInterval:0.005 target:self selector:@selector(updateTimer) userInfo:nil repeats:YES];
 
 }
 

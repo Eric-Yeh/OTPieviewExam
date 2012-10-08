@@ -22,6 +22,7 @@
     IBOutlet NSPopUpButton *popUpButton;
     IBOutlet NSPopUpButton *movePopUpButton;
     IBOutlet NSMatrix *directionMatrix;
+    IBOutlet NSMatrix *graphicMatrix;
     NSTimer *movingTickTimer;
     int newSpeed;
     int oldSpeed;
@@ -36,6 +37,7 @@
 @property (nonatomic, assign) IBOutlet NSPopUpButton *popUpButton;
 @property (nonatomic, assign) IBOutlet NSPopUpButton *movePopUpButton;
 @property (nonatomic, assign) IBOutlet NSMatrix *directionMatrix;
+@property (nonatomic, assign) IBOutlet NSMatrix *graphicMatrix;
 
 @property (nonatomic, strong) NSMutableDictionary *presetOneValues;
 @property (nonatomic, strong) NSMutableDictionary *presetTwoValues;
@@ -48,6 +50,7 @@
 - (IBAction)speedSet:(id)sender;
 - (IBAction)goTick:(id)sender;
 - (IBAction)directionSet:(id)sender;
+- (IBAction)graphSet:(id)sender;
 - (IBAction)timerTickGo:(id)sender;
 
 @end
