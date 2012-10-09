@@ -67,6 +67,9 @@ NSString *kTitleKey = @"title";
     // Insert code here to initialize your application
     self.tokenField.stringValue = @"A,B,C";
     [self valueSet:nil];
+    [pieView changeDisplayDirection:YES];
+    [pieView changePieViewGraph:kGrpah_Circle];
+    
 }
 
 
@@ -81,7 +84,7 @@ NSString *kTitleKey = @"title";
 	[theButton setTitle: @"SET"];
 	[*presetValues release];
 	*presetValues = [[[NSDictionary alloc] initWithObjectsAndKeys:
-                      [NSNumber numberWithFloat:[pieView speed]], kLevelKey,
+                      [NSNumber numberWithFloat:[pieView volume]], kLevelKey,
                       [NSNumber numberWithInt:[pieView ticks]], kTicksKey,
                       savedTitle, kTitleKey,
                       nil] autorelease];
@@ -89,7 +92,7 @@ NSString *kTitleKey = @"title";
 
 - (void)gotoPreset:(NSDictionary *)presetValues forButton:(NSButton *)theButton {
     
-	[pieView setSpeed: [[presetValues objectForKey:kLevelKey] floatValue]];
+	[pieView setVolume: [[presetValues objectForKey:kLevelKey] floatValue]];
 	NSString *theTitle = [presetValues objectForKey:kTitleKey];
 	if ( theTitle != nil ) {
         /* set the title back to normal. */
@@ -125,7 +128,13 @@ NSString *kTitleKey = @"title";
 {
     NSMutableArray *contentArray = [NSMutableArray arrayWithArray:[self.tokenField.stringValue componentsSeparatedByString:@","]];
     [pieView changeDisplayValue:contentArray];
-    self.speedSlider.numberOfTickMarks = [contentArray count] - 1;
+//    if (pieView.otPieViewGraph == kGrpah_Circle) {
+//        self.speedSlider.numberOfTickMarks = [contentArray count] - 1;
+//    } else {
+//        self.speedSlider.numberOfTickMarks = [contentArray count];
+//    }
+    self.speedSlider.numberOfTickMarks = [contentArray count];
+    
     [popUpButton removeAllItems];
     [movePopUpButton removeAllItems];
     for (int i = 0 ; i < [pieView.labelArray count]; i++) {
@@ -137,7 +146,7 @@ NSString *kTitleKey = @"title";
 
 - (IBAction)speedSet:(id)sender
 {
-    [pieView setSpeed:[sender floatValue]];
+    [pieView setVolume:[sender floatValue]];
 }
 
 - (IBAction)goTick:(id)sender
@@ -146,7 +155,7 @@ NSString *kTitleKey = @"title";
         [movingTickTimer invalidate];
         movingTickTimer = nil;
     }
-    [pieView setTickMark:[[sender title]intValue]];
+    [pieView setTickMark:[[sender title]intValue] animate:NO];
 }
 
 - (IBAction)directionSet:(id)sender
@@ -178,7 +187,7 @@ NSString *kTitleKey = @"title";
     
     
     int moveButtonIndex = [[self.movePopUpButton title] intValue];    
-    NSLog(@"newSpeed: %i, oldSpeed: %i", newSpeed, oldSpeed);
+//    NSLog(@"newSpeed: %i, oldSpeed: %i", newSpeed, oldSpeed);
     [pieView setTickMark:moveButtonIndex animate:YES];
     
 //    newSpeed = pieView.speed;
@@ -204,14 +213,14 @@ NSString *kTitleKey = @"title";
 
 - (void)updateTimer
 {
-    newSpeed = pieView.speed;
+    newSpeed = pieView.volume;
     if (newSpeed > oldSpeed) {
         --newSpeed;
-        [pieView setSpeed:newSpeed];
+        [pieView setVolume:newSpeed];
         
     } else if (newSpeed < oldSpeed) {
         ++newSpeed;
-        [pieView setSpeed:newSpeed];
+        [pieView setVolume:newSpeed];
     } else {
         if ([movingTickTimer isValid]) {
             [movingTickTimer invalidate];
