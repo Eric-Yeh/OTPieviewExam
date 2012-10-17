@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <OTUIKit/OTPieView.h>
+#import <OTFoundation/OTFoundation.h>
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 {
