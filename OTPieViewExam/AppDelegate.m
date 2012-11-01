@@ -17,6 +17,7 @@ NSString *kTitleKey = @"title";
 @synthesize presetButtonOne;
 @synthesize presetButtonTwo;
 @synthesize presetButtonThree;
+@synthesize rulerTextField;
 @synthesize presetOneValues;
 @synthesize presetTwoValues;
 @synthesize presetThreeValues;
@@ -26,6 +27,8 @@ NSString *kTitleKey = @"title";
 @synthesize movePopUpButton;
 @synthesize directionMatrix;
 @synthesize graphicMatrix;
+
+@synthesize oriImage, dstImage, tmpImage;
 
 - (void)dealloc
 {
@@ -69,6 +72,10 @@ NSString *kTitleKey = @"title";
     [self valueSet:nil];
     [pieView setDegrees:kGrpah_Circle];
     [pieView setDrawingClockwise:YES];
+    NSImage *nImage = [[NSImage alloc]initByReferencingFile:@"/Users/Eric/Pictures/PNGTest/11.png"];
+//    [self.oriImage setImage:nImage];
+    self.oriImage.image = nImage;
+    [nImage release];
 }
 
 
@@ -116,33 +123,36 @@ NSString *kTitleKey = @"title";
 - (IBAction)presetThree:(id)sender {
     self.tokenField.stringValue = @"1,2,3,4,5,6,7,8,9,10,11,12";
     [self valueSet:sender];
+
 }
 
 - (IBAction)valueSet:(id)sender
 {
     NSMutableArray *contentArray = [NSMutableArray arrayWithArray:[self.tokenField.stringValue componentsSeparatedByString:@","]];
-    [pieView setTickMarkers:contentArray];
+    [pieView initializeLabels:contentArray];
+    self.rulerTextField.stringValue = [NSString stringWithFormat:@"%ld", [pieView.tickMarkers count]];
 
+    [self rulerSet:nil];
+}
 
-//    if (pieView.otPieViewGraph == kGrpah_Circle) {
-//        self.speedSlider.numberOfTickMarks = [contentArray count] - 1;
-//    } else {
-//        self.speedSlider.numberOfTickMarks = [contentArray count];
-//    }
-    self.speedSlider.numberOfTickMarks = [contentArray count];
-    
+- (IBAction)rulerSet:(id)sender
+{
+    self.speedSlider.numberOfTickMarks = [self.rulerTextField.stringValue integerValue];
+    [pieView setTotalTicks:self.speedSlider.numberOfTickMarks];
+//    NSLog(@"%@, marks:%ld", self.rulerTextField.stringValue, self.speedSlider.numberOfTickMarks);
     [popUpButton removeAllItems];
     [movePopUpButton removeAllItems];
-    for (int i = 0 ; i < [pieView.tickMarkers count]; i++) {
+    for (int i = 0 ; i < [self.rulerTextField.stringValue integerValue]; i++) {
         [popUpButton addItemWithTitle:[NSString stringWithFormat:@"%i", i]];
         [movePopUpButton addItemWithTitle:[NSString stringWithFormat:@"%i", i]];
     }
     [self goTick:nil];
+//    [pieView setTotalRuler:self.speedSlider.numberOfTickMarks];
 }
 
 - (IBAction)speedSet:(id)sender
 {
-    [pieView setTotalTicks:[sender floatValue]];
+    [pieView setCurrentTick:[sender floatValue]];
 }
 
 - (IBAction)goTick:(id)sender
@@ -151,7 +161,7 @@ NSString *kTitleKey = @"title";
         [movingTickTimer invalidate];
         movingTickTimer = nil;
     }
-    [pieView setCurrentTick:[[sender title]intValue] animated:NO];
+    [pieView setCurrentTickMark:[[sender title]intValue] animated:NO];
     int moveButtonIndex = [[self.popUpButton title] intValue];
     float value = 360 * (float)moveButtonIndex / (self.speedSlider.numberOfTickMarks - 1);
     self.speedSlider.floatValue = value;
@@ -159,6 +169,7 @@ NSString *kTitleKey = @"title";
 
 - (IBAction)directionSet:(id)sender
 {
+
     if([[sender selectedCell] tag] == 1) {
         [pieView setDrawingClockwise:YES];
     } else {
@@ -187,7 +198,7 @@ NSString *kTitleKey = @"title";
     
     int moveButtonIndex = [[self.movePopUpButton title] intValue];    
 //    NSLog(@"newSpeed: %i, oldSpeed: %i", newSpeed, oldSpeed);
-    [pieView setCurrentTick:moveButtonIndex animated:YES];
+    [pieView setCurrentTickMark:moveButtonIndex animated:YES];
     float value = 360 * (float)moveButtonIndex / (self.speedSlider.numberOfTickMarks - 1);
     self.speedSlider.floatValue = value;
 //    newSpeed = pieView.speed;
@@ -230,4 +241,54 @@ NSString *kTitleKey = @"title";
     }
 }
 
+- (IBAction)saveImageTo:(id)sender
+{
+    self.tmpImage.image.backgroundColor = [NSColor blueColor];
+}
+
+- (IBAction)openImageFrom:(id)sender
+{
+    self.oriImage.image.backgroundColor = [NSColor redColor];
+    NSColor *color = self.oriImage.image.backgroundColor;
+    self.oriImage.image.backgroundColor = [NSColor clearColor];
+//    NSLog(@"Color1: %@, Color2: %@", color, self.oriImage.image.backgroundColor);
+
+    NSRect rect = NSMakeRect(0, 0, self.oriImage.image.size.width, self.oriImage.image.size.height);
+    [self.oriImage.image drawInRect:rect
+             fromRect:NSZeroRect
+            operation:NSCompositeSourceOver //this draws the image using the alpha mask
+             fraction:0.5];
+
+//    NSImage *image = [[NSImage alloc] initWithSize:self.oriImage.image.size];
+//    image.backgroundColor = [NSColor redColor];
+//    [image lockFocus];
+//    [self.oriImage.image drawInRect:rect fromRect:rect operation:NSCompositeDestinationAtop fraction:0.5];
+//    [image unlockFocus];
+//    self.tmpImage.image = image;
+//    [image release];
+//    [self.tmpImage lockFocus];
+//    [self.dstImage.image drawInRect:NSMakeRect(0, 0, self.oriImage.image.size.width, self.oriImage.image.size.height) fromRect:self.oriImage.frame operation:NSCompositeSourceOver fraction:0.5];
+//
+////    [self.tmpImage.image drawAtPoint:NSMakePoint(0, 0) fromRect:rect operation:NSCompositeSourceOver fraction:1];
+//    [self.tmpImage unlockFocus];
+//    NSBitmapImageRep *bmprep = [[NSBitmapImageRep alloc]initWithData:[self.oriImage.image TIFFRepresentation]];
+    NSBitmapImageRep *bmprep = [[self.oriImage.image representations] objectAtIndex:0];
+    NSColor *backColor = [bmprep colorAtX:0 y:0];
+    NSColor *tmpColor;
+    int iColorCount = 0 ;
+    for (int y = 0 ; y < self.oriImage.image.size.height; y++) {
+        for (int x = 0 ; x < self.oriImage.image.size.width; x++) {
+            tmpColor = [bmprep colorAtX:x y:y];
+            if ([backColor isEqual:tmpColor]) {
+                [bmprep setColor:[NSColor brownColor] atX:x y:y];
+                iColorCount++;
+            }
+        }
+    }
+
+    NSLog(@"backColor1: %@, Color2: %@, count: %i", backColor, tmpColor, iColorCount);
+    NSData *jpegData = [bmprep representationUsingType: NSPNGFileType properties: nil];
+    self.dstImage.image = [[[NSImage alloc]initWithData:jpegData]autorelease];
+    [jpegData writeToFile:@"/Users/Eric/Pictures/PNGTest/999.png" atomically:NO];
+}
 @end
