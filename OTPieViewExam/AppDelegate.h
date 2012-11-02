@@ -24,13 +24,12 @@
     IBOutlet NSPopUpButton *movePopUpButton;
     IBOutlet NSMatrix *directionMatrix;
     IBOutlet NSMatrix *graphicMatrix;
+    IBOutlet NSMatrix *originMatrix;
     NSTimer *movingTickTimer;
     int newSpeed;
     int oldSpeed;
     
-    IBOutlet NSImageView *oriImage;
-    IBOutlet NSImageView *dstImage;
-    IBOutlet NSImageView *tmpImage;
+
 }
 
 @property (assign) IBOutlet NSWindow *window;
@@ -45,9 +44,8 @@
 @property (nonatomic, assign) IBOutlet NSPopUpButton *movePopUpButton;
 @property (nonatomic, assign) IBOutlet NSMatrix *directionMatrix;
 @property (nonatomic, assign) IBOutlet NSMatrix *graphicMatrix;
-@property (retain) IBOutlet NSImageView *oriImage;
-@property (retain) IBOutlet NSImageView *dstImage;
-@property (retain) IBOutlet NSImageView *tmpImage;
+@property (nonatomic, assign) IBOutlet NSMatrix *originMatrix;
+
 
 
 @property (nonatomic, strong) NSMutableDictionary *presetOneValues;
@@ -63,8 +61,7 @@
 - (IBAction)goTick:(id)sender;
 - (IBAction)directionSet:(id)sender;
 - (IBAction)graphSet:(id)sender;
+- (IBAction)originSet:(id)sender;
 - (IBAction)timerTickGo:(id)sender;
 
-- (IBAction)saveImageTo:(id)sender;
-- (IBAction)openImageFrom:(id)sender;
 @end

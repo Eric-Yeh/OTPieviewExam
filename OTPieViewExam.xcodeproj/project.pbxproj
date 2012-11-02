@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07619D69164359CD0059E886 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07834A8716071899009EC369 /* Cocoa.framework */; };
+		07619D6F164359CD0059E886 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07619D6D164359CD0059E886 /* InfoPlist.strings */; };
+		07619D71164359CD0059E886 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07619D70164359CD0059E886 /* main.m */; };
+		07619D75164359CD0059E886 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 07619D73164359CD0059E886 /* Credits.rtf */; };
+		07619D78164359CD0059E886 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07619D77164359CD0059E886 /* AppDelegate.m */; };
+		07619D7B164359CD0059E886 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07619D79164359CD0059E886 /* MainMenu.xib */; };
+		07619D80164379950059E886 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07619D7F164379950059E886 /* CorePlot.framework */; };
+		07619D83164379D30059E886 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 07619D7F164379950059E886 /* CorePlot.framework */; };
+		07619D8616439AEC0059E886 /* CorePlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07619D8516439AEC0059E886 /* CorePlotView.m */; };
 		07834A8816071899009EC369 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07834A8716071899009EC369 /* Cocoa.framework */; };
 		07834A9216071899009EC369 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07834A9016071899009EC369 /* InfoPlist.strings */; };
 		07834A9416071899009EC369 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07834A9316071899009EC369 /* main.m */; };
@@ -72,6 +81,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		07619D82164379BC0059E886 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				07619D83164379D30059E886 /* CorePlot.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		07A0C3BC160821F200573812 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -86,6 +105,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		07619D67164359CD0059E886 /* OTHistogram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OTHistogram.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		07619D6C164359CD0059E886 /* OTHistogram-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OTHistogram-Info.plist"; sourceTree = "<group>"; };
+		07619D6E164359CD0059E886 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		07619D70164359CD0059E886 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		07619D72164359CD0059E886 /* OTHistogram-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OTHistogram-Prefix.pch"; sourceTree = "<group>"; };
+		07619D74164359CD0059E886 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		07619D76164359CD0059E886 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		07619D77164359CD0059E886 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		07619D7A164359CD0059E886 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		07619D7F164379950059E886 /* CorePlot.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CorePlot.framework; sourceTree = "<group>"; };
+		07619D8416439AEC0059E886 /* CorePlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlotView.h; sourceTree = "<group>"; };
+		07619D8516439AEC0059E886 /* CorePlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorePlotView.m; sourceTree = "<group>"; };
 		07834A8316071899009EC369 /* OTPieViewExam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OTPieViewExam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07834A8716071899009EC369 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		07834A8A16071899009EC369 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -103,6 +134,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		07619D64164359CD0059E886 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07619D69164359CD0059E886 /* Cocoa.framework in Frameworks */,
+				07619D80164379950059E886 /* CorePlot.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		07834A8016071899009EC369 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -116,11 +156,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07619D6A164359CD0059E886 /* OTHistogram */ = {
+			isa = PBXGroup;
+			children = (
+				07619D76164359CD0059E886 /* AppDelegate.h */,
+				07619D77164359CD0059E886 /* AppDelegate.m */,
+				07619D8416439AEC0059E886 /* CorePlotView.h */,
+				07619D8516439AEC0059E886 /* CorePlotView.m */,
+				07619D79164359CD0059E886 /* MainMenu.xib */,
+				07619D81164379A60059E886 /* private Framework */,
+				07619D6B164359CD0059E886 /* Supporting Files */,
+			);
+			path = OTHistogram;
+			sourceTree = "<group>";
+		};
+		07619D6B164359CD0059E886 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				07619D6C164359CD0059E886 /* OTHistogram-Info.plist */,
+				07619D6D164359CD0059E886 /* InfoPlist.strings */,
+				07619D70164359CD0059E886 /* main.m */,
+				07619D72164359CD0059E886 /* OTHistogram-Prefix.pch */,
+				07619D73164359CD0059E886 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		07619D81164379A60059E886 /* private Framework */ = {
+			isa = PBXGroup;
+			children = (
+				07619D7F164379950059E886 /* CorePlot.framework */,
+			);
+			name = "private Framework";
+			sourceTree = "<group>";
+		};
 		07834A7816071899009EC369 = {
 			isa = PBXGroup;
 			children = (
 				0795EEC3162D5ED400BCE2EC /* OTCocoa.xcodeproj */,
 				07834A8D16071899009EC369 /* OTPieViewExam */,
+				07619D6A164359CD0059E886 /* OTHistogram */,
 				07834A8616071899009EC369 /* Frameworks */,
 				07834A8416071899009EC369 /* Products */,
 			);
@@ -130,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				07834A8316071899009EC369 /* OTPieViewExam.app */,
+				07619D67164359CD0059E886 /* OTHistogram.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -193,6 +269,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		07619D66164359CD0059E886 /* OTHistogram */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07619D7C164359CD0059E886 /* Build configuration list for PBXNativeTarget "OTHistogram" */;
+			buildPhases = (
+				07619D63164359CD0059E886 /* Sources */,
+				07619D64164359CD0059E886 /* Frameworks */,
+				07619D65164359CD0059E886 /* Resources */,
+				07619D82164379BC0059E886 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OTHistogram;
+			productName = OTHistogram;
+			productReference = 07619D67164359CD0059E886 /* OTHistogram.app */;
+			productType = "com.apple.product-type.application";
+		};
 		07834A8216071899009EC369 /* OTPieViewExam */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 07834AA116071899009EC369 /* Build configuration list for PBXNativeTarget "OTPieViewExam" */;
@@ -218,7 +312,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0440;
-				ORGANIZATIONNAME = "Eric Yeh";
+				ORGANIZATIONNAME = "Ortery Technology, Inc.";
 			};
 			buildConfigurationList = 07834A7D16071899009EC369 /* Build configuration list for PBXProject "OTPieViewExam" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -239,6 +333,7 @@
 			projectRoot = "";
 			targets = (
 				07834A8216071899009EC369 /* OTPieViewExam */,
+				07619D66164359CD0059E886 /* OTHistogram */,
 			);
 		};
 /* End PBXProject section */
@@ -296,6 +391,16 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		07619D65164359CD0059E886 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07619D6F164359CD0059E886 /* InfoPlist.strings in Resources */,
+				07619D75164359CD0059E886 /* Credits.rtf in Resources */,
+				07619D7B164359CD0059E886 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		07834A8116071899009EC369 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -309,6 +414,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		07619D63164359CD0059E886 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07619D71164359CD0059E886 /* main.m in Sources */,
+				07619D78164359CD0059E886 /* AppDelegate.m in Sources */,
+				07619D8616439AEC0059E886 /* CorePlotView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		07834A7F16071899009EC369 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -321,6 +436,30 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		07619D6D164359CD0059E886 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07619D6E164359CD0059E886 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		07619D73164359CD0059E886 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07619D74164359CD0059E886 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		07619D79164359CD0059E886 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07619D7A164359CD0059E886 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
 		07834A9016071899009EC369 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -348,6 +487,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		07619D7D164359CD0059E886 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/OTHistogram\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OTHistogram/OTHistogram-Prefix.pch";
+				INFOPLIST_FILE = "OTHistogram/OTHistogram-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		07619D7E164359CD0059E886 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/OTHistogram\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OTHistogram/OTHistogram-Prefix.pch";
+				INFOPLIST_FILE = "OTHistogram/OTHistogram-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 		07834A9F16071899009EC369 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -398,11 +573,13 @@
 		07834AA216071899009EC369 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OTPieViewExam/OTPieViewExam-Prefix.pch";
 				INFOPLIST_FILE = "OTPieViewExam/OTPieViewExam-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -410,11 +587,13 @@
 		07834AA316071899009EC369 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OTPieViewExam/OTPieViewExam-Prefix.pch";
 				INFOPLIST_FILE = "OTPieViewExam/OTPieViewExam-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -422,6 +601,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		07619D7C164359CD0059E886 /* Build configuration list for PBXNativeTarget "OTHistogram" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07619D7D164359CD0059E886 /* Debug */,
+				07619D7E164359CD0059E886 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		07834A7D16071899009EC369 /* Build configuration list for PBXProject "OTPieViewExam" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
