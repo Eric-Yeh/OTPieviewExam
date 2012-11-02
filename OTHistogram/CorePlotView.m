@@ -32,7 +32,7 @@
 {
     self.histogrameDictionary = dictionary;
     maxVolume = maxValue;
-    NSLog(@"%@, maxValue: %d", self.histogrameDictionary, maxVolume);
+//    NSLog(@"%@, maxValue: %d", self.histogrameDictionary, maxVolume);
     [self setNeedsDisplay:YES];
 }
 
@@ -47,27 +47,32 @@
     [borderFrame setLineWidth: 1];
     [[NSColor blackColor] set];
     [borderFrame moveToPoint:NSMakePoint(30, 30)];
-    [borderFrame lineToPoint:NSMakePoint(30, 100)];
+    [borderFrame lineToPoint:NSMakePoint(30, 130)];
     [borderFrame setLineWidth: 1];
     [[NSColor blackColor] set];
-    [borderFrame closePath];
     [borderFrame stroke];
-    [borderFrame closePath];
+//    [borderFrame closePath];
+
 //    borderFrame app
     //畫每個值的量
+    if (!histogrameDictionary) {
+        return;
+    }
     NSBezierPath *volumeFrame = [[[NSBezierPath alloc] init] autorelease];
     float volume;
     for (int i = 0; i < 256; i++) {
         NSString *tmpColorStringValue = [self.histogrameDictionary objectForKey:[NSString stringWithFormat:@"%d", i]];
         int colorValue = [tmpColorStringValue intValue];
-        volume = (float) colorValue / maxVolume;
+        volume = ((float)colorValue / maxVolume) * 100;
+        NSLog(@"volume: %f", volume);
         [volumeFrame moveToPoint:NSMakePoint(30 + i, 30)];
         [volumeFrame lineToPoint:NSMakePoint(30 + i , 30 + volume)];
-        [volumeFrame setLineWidth:0.2];
-        [[NSColor grayColor] set];
+        [volumeFrame setLineWidth:0.5];
+        [[NSColor darkGrayColor] set];
         
     }
-    [borderFrame stroke];
+
+    [volumeFrame stroke];
     [volumeFrame closePath];
     self.boundingFrame = boundingFrame;
     
