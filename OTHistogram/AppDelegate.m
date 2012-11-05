@@ -76,6 +76,8 @@
 //Dictionary
 @synthesize colorDictionary, redDictionary, greenDictionary, blueDictionary;
 
+@synthesize modePopUpButton;
+
 - (void)dealloc
 {
     [colorDictionary release];
@@ -88,8 +90,8 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
-    NSImage *nImage = [[NSImage alloc]initByReferencingFile:@"/Users/Eric/Pictures/PNGTest/11.png"];
-    //    [self.oriImage setImage:nImage];
+    NSImage *nImage = [[NSImage alloc]initByReferencingFile:@"/Users/Eric/Pictures/lion-256height.jpg"];
+    [self loadColorToDictionary];
     self.oriImage.image = nImage;
     [nImage release];
 }
@@ -117,10 +119,15 @@
             self.oriImage.image = [[[NSImage alloc] initWithContentsOfFile:strPath] autorelease];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
                 [self loadColorToDictionary];
+                NSBitmapImageRep *bmprep = [[self.oriImage.image representations] objectAtIndex:0];
+                NSData *jpegData = [bmprep representationUsingType: NSPNGFileType properties: nil];
+                self.dstImage.image = [[[NSImage alloc]initWithData:jpegData]autorelease];
+                [jpegData writeToFile:@"/Users/Eric/Pictures/PNGTest/999.png" atomically:NO];
             });
         }
 
     }
+
 }
 
 - (void)loadColorToDictionary
@@ -131,7 +138,7 @@
 //    self.oriImage.image.backgroundColor = [NSColor clearColor];
     //    NSLog(@"Color1: %@, Color2: %@", color, self.oriImage.image.backgroundColor);
 
-    NSColor *color = [NSColor colorWithCalibratedRed:1.0f green:1.0f blue:1.0f alpha:1.0f];
+//    NSColor *color = [NSColor colorWithCalibratedRed:1.0f green:1.0f blue:1.0f alpha:1.0f];
     NSBitmapImageRep *bmprep = [[self.oriImage.image representations] objectAtIndex:0];
     NSColor *backColor = [bmprep colorAtX:0 y:0];
     NSColor *tmpColor;
@@ -147,35 +154,60 @@
         [mutBlueDictionary setObject:[NSString stringWithFormat:@"0"] forKey:[NSString stringWithFormat:@"%d", i]];
     }
     
-    //    NSLog(@"%@, %@, %@", mutRedDictionary, mutGreenDictionary, mutBlueDictionary);
+//    NSLog(@"Red:%@, Green:%@, Blue:%@", mutRedDictionary, mutGreenDictionary, mutBlueDictionary);
     maxColorValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
     for (int y = 0 ; y < self.oriImage.image.size.height; y++) {
         for (int x = 0 ; x < self.oriImage.image.size.width; x++) {
             tmpColor = [bmprep colorAtX:x y:y];
-            [self setColorForDictionary:mutRedDictionary withGreenDictionary:mutGreenDictionary withBlueDictionary:mutBlueDictionary withColor:tmpColor];
+            [self setColorForDictionary:tmpColor forRedDictionary:mutRedDictionary forGreenDictionary:mutGreenDictionary forBlueDictionary:mutBlueDictionary];
             if ([backColor isEqual:tmpColor]) {
                 [bmprep setColor:[NSColor brownColor] atX:x y:y];
                 iColorCount++;
             }
         }
     }
-    redDictionary = mutRedDictionary;
-    greenDictionary = greenDictionary;
-    blueDictionary = blueDictionary;
+    redDictionary = [mutRedDictionary copy];
+    greenDictionary = [mutGreenDictionary copy];
+    blueDictionary = [mutBlueDictionary copy];
     colorDictionary = [self saveToColorDictionary:mutRedDictionary withGreenDictionary:mutGreenDictionary withBlueDictionary:mutBlueDictionary];
-//    NSLog(@"%@", colorDictionary);
-//    NSLog(@"maxValue: %d", maxColorValue);
     
-    [cpView setDictionaryToDraw:colorDictionary withMaxValue:maxColorValue];
-    
-    //    NSLog(@"backColor1: %@, Color2: %@, count: %i", backColor, tmpColor, iColorCount);
-    NSData *jpegData = [bmprep representationUsingType: NSPNGFileType properties: nil];
-    self.dstImage.image = [[[NSImage alloc]initWithData:jpegData]autorelease];
-    [jpegData writeToFile:@"/Users/Eric/Pictures/PNGTest/999.png" atomically:NO];
+    //[cpView setDictionaryToDraw:colorDictionary withMaxValue:maxColorValue];
+}
+
+- (IBAction)drawHistogram:(id)sender
+{
+    if (maxColorValue == 0) {
+        [self loadColorToDictionary];
+    }
+    [self changeHistogram:nil];
+}
+
+- (IBAction)changeHistogram:(id)sender
+{
+    int modeButtonIndex = (int)[[self.modePopUpButton selectedItem] tag]  ;
+    NSLog(@"========\n Index: %d", modeButtonIndex);
+    switch (modeButtonIndex) {
+        case 1: //Red
+            [cpView setDictionaryToDraw:redDictionary withMaxValue:maxRedValue withHistogramColor:kOTHistogramColor_Red];
+            break;
+            
+        case 2: //Green
+            [cpView setDictionaryToDraw:greenDictionary withMaxValue:maxGreenValue withHistogramColor:kOTHistogramColor_Green];
+            break;
+            
+        case 3: //Blue
+            [cpView setDictionaryToDraw:blueDictionary withMaxValue:maxBlueValue withHistogramColor:kOTHistogramColor_Blue];
+            break;
+            
+        default: //RGB
+            [cpView setDictionaryToDraw:colorDictionary withMaxValue:maxColorValue withHistogramColor:kOTHistogramColor_RGB];
+            break;
+    }
+
 }
 
 #pragma Private Method
-- (void)setColorForDictionary:(NSMutableDictionary *)mtRedDictionary withGreenDictionary:(NSMutableDictionary *)mtGreenDictionary withBlueDictionary:(NSMutableDictionary *)mtBlueDictionary withColor:(NSColor *)color
+- (void)setColorForDictionary:(NSColor *)color forRedDictionary:(NSMutableDictionary *)mtRedDictionary forGreenDictionary:(NSMutableDictionary *)mtGreenDictionary forBlueDictionary:(NSMutableDictionary *)mtBlueDictionary
 {
     double redFloatValue, greenFloatValue, blueFloatValue;
     [color getRed:&redFloatValue green:&greenFloatValue blue:&blueFloatValue alpha:NULL];
@@ -183,6 +215,7 @@
     redIntValue = redFloatValue * 255.99999f;
     greenIntValue = greenFloatValue * 255.99999f;
     blueIntValue = blueFloatValue * 255.99999f;
+//    NSLog(@"R: %d, G: %d, B: %d", redIntValue, greenIntValue, blueIntValue);
     
     NSString *tmpRedStringValue = [mtRedDictionary objectForKey:[NSString stringWithFormat:@"%d", redIntValue]];
     int tmpRedValue = [tmpRedStringValue intValue];
@@ -200,6 +233,7 @@
     }
     [mtGreenDictionary setObject:[NSString stringWithFormat:@"%d", tmpGreenValue] forKey:[NSString stringWithFormat:@"%d", greenIntValue]];
     
+    
     NSString *tmpBlueStringValue = [mtBlueDictionary objectForKey:[NSString stringWithFormat:@"%d", blueIntValue]];
     int tmpBlueValue = [tmpBlueStringValue intValue];
     tmpBlueValue++;
@@ -207,6 +241,7 @@
         maxBlueValue = tmpBlueValue;
     }
     [mtBlueDictionary setObject:[NSString stringWithFormat:@"%d", tmpBlueValue] forKey:[NSString stringWithFormat:@"%d", blueIntValue]];
+  
 }
 
 - (NSMutableDictionary *)saveToColorDictionary:(NSMutableDictionary *)mtRedDictionary withGreenDictionary:(NSMutableDictionary *)mtGreenDictionary withBlueDictionary:(NSMutableDictionary *)mtBlueDictionary

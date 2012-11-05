@@ -608,6 +608,7 @@
 				07619D7E164359CD0059E886 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		07834A7D16071899009EC369 /* Build configuration list for PBXProject "OTPieViewExam" */ = {
 			isa = XCConfigurationList;
