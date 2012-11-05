@@ -90,6 +90,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
+    maxColorValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
     NSImage *nImage = [[NSImage alloc]initByReferencingFile:@"/Users/Eric/Pictures/lion-256height.jpg"];
     [self loadColorToDictionary];
     self.oriImage.image = nImage;
@@ -99,7 +100,6 @@
 - (IBAction)saveImageTo:(id)sender
 {
     self.tmpImage.image.backgroundColor = [NSColor blueColor];
-
 }
 
 - (IBAction)openImageFrom:(id)sender
@@ -169,23 +169,24 @@
     redDictionary = [mutRedDictionary copy];
     greenDictionary = [mutGreenDictionary copy];
     blueDictionary = [mutBlueDictionary copy];
-    colorDictionary = [self saveToColorDictionary:mutRedDictionary withGreenDictionary:mutGreenDictionary withBlueDictionary:mutBlueDictionary];
+    colorDictionary = [[self saveToColorDictionary:mutRedDictionary withGreenDictionary:mutGreenDictionary withBlueDictionary:mutBlueDictionary] copy];
     
     //[cpView setDictionaryToDraw:colorDictionary withMaxValue:maxColorValue];
 }
 
 - (IBAction)drawHistogram:(id)sender
 {
-    if (maxColorValue == 0) {
-        [self loadColorToDictionary];
-    }
+
     [self changeHistogram:nil];
 }
 
 - (IBAction)changeHistogram:(id)sender
 {
-    int modeButtonIndex = (int)[[self.modePopUpButton selectedItem] tag]  ;
-    NSLog(@"========\n Index: %d", modeButtonIndex);
+    if (maxColorValue == 0) {
+        [self loadColorToDictionary];
+    }
+    int modeButtonIndex = (int)[[self.modePopUpButton selectedItem] tag];
+//    NSLog(@"========\n Index: %d", modeButtonIndex);
     switch (modeButtonIndex) {
         case 1: //Red
             [cpView setDictionaryToDraw:redDictionary withMaxValue:maxRedValue withHistogramColor:kOTHistogramColor_Red];
@@ -240,8 +241,7 @@
     if (tmpBlueValue > maxBlueValue) {
         maxBlueValue = tmpBlueValue;
     }
-    [mtBlueDictionary setObject:[NSString stringWithFormat:@"%d", tmpBlueValue] forKey:[NSString stringWithFormat:@"%d", blueIntValue]];
-  
+    [mtBlueDictionary setObject:[NSString stringWithFormat:@"%d", tmpBlueValue] forKey:[NSString stringWithFormat:@"%d", blueIntValue]];  
 }
 
 - (NSMutableDictionary *)saveToColorDictionary:(NSMutableDictionary *)mtRedDictionary withGreenDictionary:(NSMutableDictionary *)mtGreenDictionary withBlueDictionary:(NSMutableDictionary *)mtBlueDictionary
