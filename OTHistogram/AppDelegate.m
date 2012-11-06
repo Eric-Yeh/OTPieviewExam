@@ -95,6 +95,7 @@
     [self loadColorToDictionary];
     self.oriImage.image = nImage;
     [nImage release];
+    [self drawImageToTmpImageview];
 }
 
 - (IBAction)saveImageTo:(id)sender
@@ -117,6 +118,7 @@
         {
             NSString *strPath = [fileURL path];
             self.oriImage.image = [[[NSImage alloc] initWithContentsOfFile:strPath] autorelease];
+            [self drawImageToTmpImageview];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
                 [self loadColorToDictionary];
                 NSBitmapImageRep *bmprep = [[self.oriImage.image representations] objectAtIndex:0];
@@ -160,10 +162,10 @@
         for (int x = 0 ; x < self.oriImage.image.size.width; x++) {
             tmpColor = [bmprep colorAtX:x y:y];
             [self setColorForDictionary:tmpColor forRedDictionary:mutRedDictionary forGreenDictionary:mutGreenDictionary forBlueDictionary:mutBlueDictionary];
-            if ([backColor isEqual:tmpColor]) {
-                [bmprep setColor:[NSColor brownColor] atX:x y:y];
-                iColorCount++;
-            }
+//            if ([backColor isEqual:tmpColor]) {
+//                [bmprep setColor:[NSColor brownColor] atX:x y:y];
+//                iColorCount++;
+//            }
         }
     }
     redDictionary = [mutRedDictionary copy];
@@ -207,7 +209,65 @@
 
 }
 
+- (IBAction)changeSliderValue:(id)sender
+{
+    int modeButtonIndex = (int)[[self.modePopUpButton selectedItem] tag];
+    float sliderFloatValue = [sender floatValue];
+    CIImage *iImage = [CIImage imageWithData:[self.tmpImage.image TIFFRepresentation]];
+    CIFilter *filter1;
+    NSNumber *intensityValue = [NSNumber numberWithFloat:(1 - (float)sliderFloatValue/255)];
+    CIColor *iColor;
+    switch (modeButtonIndex) {
+        case 1: //Red
+            filter1 = [CIFilter filterWithName:@"CIColorMonochrome"];
+            [filter1 setValue:iImage forKey:@"inputImage"];
+            iColor = [CIColor colorWithRed:0.0f green:1.0f blue:1.0f];
+            [filter1 setValue:iColor forKey:@"inputColor"];
+            [filter1 setValue:intensityValue forKey:@"inputIntensity"];
+            break;
+            
+        case 2: //Green
+            filter1 = [CIFilter filterWithName:@"CIColorMonochrome"];
+            [filter1 setValue:iImage forKey:@"inputImage"];
+            iColor = [CIColor colorWithRed:1.0f green:0.0f blue:1.0f];
+            [filter1 setValue:iColor forKey:@"inputColor"];
+            [filter1 setValue:intensityValue forKey:@"inputIntensity"];
+            break;
+            
+        case 3: //Blue
+            filter1 = [CIFilter filterWithName:@"CIColorMonochrome"];
+            [filter1 setValue:iImage forKey:@"inputImage"];
+            iColor = [CIColor colorWithRed:1.0f green:1.0f blue:0.0f];
+            [filter1 setValue:iColor forKey:@"inputColor"];
+            [filter1 setValue:intensityValue forKey:@"inputIntensity"];
+            break;
+            
+        default: //RGB
+            filter1 = [CIFilter filterWithName:@"CIGammaAdjust"];
+            [filter1 setValue:iImage forKey:@"inputImage"];
+            NSNumber *powerValue = [NSNumber numberWithFloat:(4 - ((float)sliderFloatValue/255 * 4) + 0.75)];
+            NSLog(@"number: %@", powerValue);
+            [filter1 setValue:powerValue forKey:@"inputPower"];
+
+            break;
+    }
+    NSBitmapImageRep *bmprep = [[NSBitmapImageRep alloc] initWithCIImage:[filter1 valueForKey:@"outputImage"]];
+    self.dstImage.image = [[[NSImage alloc] initWithData:[bmprep representationUsingType:NSJPEGFileType properties:nil]]autorelease];
+ 
+    [bmprep release];
+}
+
 #pragma Private Method
+- (void)drawImageToTmpImageview
+{
+    NSImage *tempImage = [[NSImage alloc] initWithSize:NSMakeSize(self.tmpImage.frame.size.width, self.tmpImage.frame.size.height)];
+    [tempImage lockFocus];
+    [self.oriImage.image drawInRect:NSMakeRect(0, 0, 320, 240)  fromRect:NSMakeRect(0, 0, self.oriImage.image.size.width, self.oriImage.image.size.height) operation:NSCompositeSourceOver fraction:1.0];
+    [tempImage unlockFocus];
+    self.tmpImage.image = tempImage;
+    [tempImage release];
+}
+
 - (void)setColorForDictionary:(NSColor *)color forRedDictionary:(NSMutableDictionary *)mtRedDictionary forGreenDictionary:(NSMutableDictionary *)mtGreenDictionary forBlueDictionary:(NSMutableDictionary *)mtBlueDictionary
 {
     double redFloatValue, greenFloatValue, blueFloatValue;

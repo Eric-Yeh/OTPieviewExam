@@ -68,28 +68,6 @@
     NSBezierPath *borderFrame = [[[NSBezierPath alloc] init] autorelease];
     [borderFrame appendBezierPathWithRect:NSMakeRect(30 + borderXOffset , 30 + borderYOffset, 260, 100 + borderYRedeem)];
     [[NSColor blackColor] set];
-//    [borderFrame moveToPoint:NSMakePoint(30 + borderXOffset, 30 + borderYOffset)];
-//    [borderFrame lineToPoint:NSMakePoint(290 + borderXOffset + borderXRedeem, 30 + borderYOffset)];
-//    [borderFrame setLineWidth: 0.5];
-//    [[NSColor blackColor] set];
-//    [borderFrame stroke];
-//    
-//    [borderFrame moveToPoint:NSMakePoint(290 + borderXOffset + borderXRedeem, 30 + borderYOffset)];
-//    [borderFrame lineToPoint:NSMakePoint(290 + borderXOffset + borderXRedeem, 130 + borderYOffset + borderYRedeem)];
-//    [borderFrame setLineWidth: 0.5];
-//    [[NSColor blackColor] set];
-//    [borderFrame stroke];
-//    
-//    [borderFrame moveToPoint:NSMakePoint(30 + borderXOffset, 30 + borderYOffset)];
-//    [borderFrame lineToPoint:NSMakePoint(30 + borderXOffset, 130 + borderYOffset + borderYRedeem)];
-//    [borderFrame setLineWidth: 0.5];
-//    [[NSColor blackColor] set];
-//    [borderFrame stroke];
-//    
-//    [borderFrame moveToPoint:NSMakePoint(30 + borderXOffset, 130 + borderYOffset + borderYRedeem)];
-//    [borderFrame lineToPoint:NSMakePoint(290 + borderXOffset + borderXRedeem, 130 + borderYOffset + borderYRedeem)];
-//    [borderFrame setLineWidth: 0.5];
-//    [[NSColor blackColor] set];
     [borderFrame stroke];
     [borderFrame closePath];
 
@@ -137,7 +115,8 @@
     [borderOfLightShadow closePath];
 
     NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:[NSColor blackColor] endingColor:[NSColor whiteColor]] autorelease];
-    [gradient drawInRect:NSMakeRect(31, 11, 258, 18) angle:0];
+//    [gradient drawInRect:NSMakeRect(31, 11, 258, 18) angle:0];
+    [gradient drawInBezierPath:borderOfLightShadow angle:0];
     
 //    NSBezierPath *lineOfLightShadow = [[[NSBezierPath alloc] init] autorelease];
 //    for (int i = 0 ; i < 101; i++)

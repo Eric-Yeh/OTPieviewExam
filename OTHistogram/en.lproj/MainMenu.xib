@@ -1432,7 +1432,7 @@
 								<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
 								<string>NeXT TIFF v4.0 pasteboard type</string>
 							</set>
-							<string key="NSFrame">{{83, 57}, {193, 136}}</string>
+							<string key="NSFrame">{{306, 37}, {320, 240}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
@@ -1625,7 +1625,7 @@
 						<object class="NSSlider" id="372277550">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{307, 271}, {300, 21}}</string>
+							<string key="NSFrame">{{307, 291}, {300, 21}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="1052241458"/>
@@ -1637,9 +1637,9 @@
 								<string key="NSContents"/>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="372277550"/>
-								<double key="NSMaxValue">100</double>
+								<double key="NSMaxValue">255</double>
 								<double key="NSMinValue">0.0</double>
-								<double key="NSValue">50</double>
+								<double key="NSValue">255</double>
 								<double key="NSAltIncValue">0.0</double>
 								<int key="NSNumberOfTickMarks">0</int>
 								<int key="NSTickMarkPosition">1</int>
@@ -2418,6 +2418,14 @@
 					</object>
 					<int key="connectionID">740</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeSliderValue:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="372277550"/>
+					</object>
+					<int key="connectionID">747</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -2950,10 +2958,10 @@
 							<reference ref="1052241458"/>
 							<reference ref="970196767"/>
 							<reference ref="449292242"/>
-							<reference ref="139620349"/>
 							<reference ref="328125009"/>
 							<reference ref="551364262"/>
 							<reference ref="372277550"/>
+							<reference ref="139620349"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -3787,7 +3795,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">746</int>
+			<int key="maxID">747</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3796,6 +3804,7 @@
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="changeHistogram:">id</string>
+						<string key="changeSliderValue:">id</string>
 						<string key="directionSet:">id</string>
 						<string key="drawHistogram:">id</string>
 						<string key="goTick:">id</string>
@@ -3814,6 +3823,10 @@
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="changeHistogram:">
 							<string key="name">changeHistogram:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="changeSliderValue:">
+							<string key="name">changeSliderValue:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="directionSet:">
