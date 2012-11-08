@@ -89,12 +89,24 @@
     [cpView setImageForHistogram:self.oriImage.image withHistogramChannel:kOTHistogramChannel_Gamma];
     [nImage release];
     [self drawImageToTmpImageview];
+
 }
 
 - (IBAction)saveImageTo:(id)sender
 {
-//    self.tmpImage.image.backgroundColor = [NSColor blueColor];
 
+    [self.dstImage.superview setWantsLayer:YES];
+     NSBitmapImageRep *bmprep = [[self.oriImage.image representations] objectAtIndex:0];
+    CALayer *layer1 = [CALayer layer];
+    layer1.frame = CGRectMake(0, 0, 10, 10);
+    layer1.contents = self.oriImage.image;
+    [self.dstImage.layer addSublayer:layer1];
+
+
+    CALayer *layer2 = [CALayer layer];
+    layer2.frame = CGRectMake(10, 10, 40, 40);
+    layer2.contents = (id) bmprep.CGImage;
+    [self.dstImage.layer addSublayer:layer2];
 }
 
 - (IBAction)openImageFrom:(id)sender

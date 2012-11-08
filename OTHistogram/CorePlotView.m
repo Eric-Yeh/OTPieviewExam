@@ -14,6 +14,7 @@
     NSBezierPath *boundingFrame;
     int maxVolume;
     int maxGammaValue, maxRedValue, maxGreenValue, maxBlueValue;
+    BOOL draggingIndicator;
 }
 @property (nonatomic, copy) NSBezierPath *boundingFrame;
 @property (nonatomic, readwrite, copy) NSDictionary *histogrameDictionary;
@@ -22,6 +23,7 @@
 @property (nonatomic, readwrite, copy) NSDictionary *greenDictionary;
 @property (nonatomic, readwrite, copy) NSDictionary *blueDictionary;
 @property (assign) kOTHistogram_Channel otHistogramChannel;
+@property (nonatomic) BOOL draggingIndicator;
 @end
 
 @implementation CorePlotView
@@ -30,6 +32,7 @@
 @synthesize histogrameDictionary;
 @synthesize gammaDictionary, redDictionary, greenDictionary, blueDictionary;
 @synthesize otHistogramChannel;
+@synthesize draggingIndicator;
 
 - (id)initWithFrame:(NSRect)frame
 {
@@ -133,7 +136,7 @@
     [backgroundFrame stroke];
     [backgroundFrame closePath];
     
-    float borderXOffset = 0.0, borderYOffset = 10.0; //座標偏移，移動圖形用
+    float borderXOffset = 0.0, borderYOffset = 20.0; //座標偏移，移動圖形用
     float borderYRedeem = 4.0; //座標補償，主要是變高變長用
     //畫外框
     NSBezierPath *borderFrame = [[[NSBezierPath alloc] init] autorelease];
@@ -177,9 +180,9 @@
     }
     [volumeFrame stroke];
     [volumeFrame closePath];
-    
+   
     NSBezierPath *borderOfLightShadow = [[[NSBezierPath alloc] init] autorelease];
-    [borderOfLightShadow appendBezierPathWithRect:NSMakeRect(30, 10, 260, 20)];
+    [borderOfLightShadow appendBezierPathWithRect:NSMakeRect(30, 10 + borderYOffset - 5 , 260, 20)];
     [[NSColor blackColor] set];
     [borderOfLightShadow stroke];
     [borderOfLightShadow closePath];
@@ -187,9 +190,95 @@
     NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:[NSColor blackColor] endingColor:[NSColor whiteColor]] autorelease];
     [gradient drawInBezierPath:borderOfLightShadow angle:0];
     
-    self.boundingFrame = boundingFrame;
+//    NSBezierPath *trianglePath = [[[NSBezierPath alloc] init] autorelease];
+//    [trianglePath moveToPoint:NSMakePoint(0, 0)];
+//    [trianglePath lineToPoint:NSMakePoint(5, 10)];
+//    [trianglePath lineToPoint:NSMakePoint(10, 0)];
+//    [trianglePath closePath];
+//    NSAffineTransform *dragTransform = [NSAffineTransform transform];
+//    float xRange = 25.0f, yRange = 12.0f ;
+//    [dragTransform translateXBy:xRange yBy:yRange];
+//    [trianglePath transformUsingAffineTransform:dragTransform];
+//    [[NSColor blackColor] set];
+//    [trianglePath setLineWidth:2.0];
+//    [trianglePath stroke];
+//    
+//    [[NSColor lightGrayColor] set];
+//    [trianglePath fill];
+    
+//    NSAffineTransform *transform = [NSAffineTransform transform];
+//
+//    [transform appendTransform:dragTransform];
+//    NSBezierPath *trianglePath2 = [transform transformBezierPath:trianglePath];
+//    trianglePath2 = [transform transformBezierPath:trianglePath];
+//    [[NSColor blueColor] set];
+//    [trianglePath2 setLineWidth:2.0];
+//    [trianglePath2 stroke];
+//    [[NSColor blackColor] set];
+//    [trianglePath2 fill];
+//    NSLog(@"%@", [dragTransform cu])
+    
+//    self.boundingFrame = trianglePath;
+}
+- (BOOL)mouseDownCanMoveWindow {
+    return NO;
 }
 
+/* test for mouse clicks inside of the speedometer area of the view */
+- (NSView *)hitTest:(NSPoint)aPoint {
+	NSPoint local_point = [self convertPoint:aPoint fromView:[self superview]];
+	if ( [self.boundingFrame containsPoint:local_point] ) {
+		return self;
+	}
+	return nil;
+}
+
+/* re-calculate the speed value based on the mouse position for clicks
+ in the speedometer area of the view. */
+- (void)mouseDown:(NSEvent *)theEvent {
+	NSPoint local_point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+	if ( [self.boundingFrame containsPoint:local_point] ) {
+        
+        /* set the dragging flag */
+        
+		[self setDraggingIndicator: YES];
+	}
+}
+
+/* re-calculate the speed value based on the mouse position while the mouse
+ is being dragged inside of the speedometer area of the view. */
+- (void)mouseDragged:(NSEvent *)theEvent {
+    NSPoint local_point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    if ( [self.boundingFrame containsPoint:local_point] ) {
+        NSLog(@"%@", NSStringFromPoint(local_point));
+    }
+//    NSAffineTransform *dragTransform = [NSAffineTransform transform];
+//    float xRange, yRange;
+//    if (local_point.x <= 25 ) {
+//        xRange = 25;
+//    } else if (local_point.x >= 295)
+//    {
+//        xRange = 295;
+//    }
+//    if (local_point.y != 15 ) {
+//        yRange = 15;
+//    }
+//    NSLog(@"%@", NSStringFromPoint(NSMakePoint(xRange, yRange)));
+//    [dragTransform translateXBy:xRange yBy:yRange];
+//    [self.boundingFrame transformUsingAffineTransform:dragTransform];
+//    [[NSColor redColor] set];
+//    [self.boundingFrame setLineWidth:2.0];
+//    [self.boundingFrame stroke];
+//    
+//    [[NSColor lightGrayColor] set];
+//    [self.boundingFrame fill];
+}
+
+/* clear the dragging flag once the mouse is released. */
+- (void)mouseUp:(NSEvent *)theEvent {
+    
+	[self setDraggingIndicator: NO];
+}
 
 #pragma Extra Method
 - (NSData *)adjustHistogramValueOfData:(NSData *)data withHistogramChannel:(kOTHistogram_Channel)histogramChannel withValue:(float)floatValue
@@ -271,7 +360,8 @@
     
 	// Now we can get a pointer to the image data associated with the bitmap
 	// context.
-	unsigned char* data = CGBitmapContextGetData (cgctx);
+//	unsigned char* data = CGBitmapContextGetData (cgctx);
+    unsigned char* data = (NSData*) CGDataProviderCopyData(CGImageGetDataProvider(cgImage));
 	if (data != NULL) {
 		//offset locates the pixel in the data from x,y.
 		//4 for 4 bytes of data per pixel, w is width of one row of data.

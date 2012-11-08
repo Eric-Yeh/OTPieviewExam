@@ -1538,7 +1538,7 @@
 								<int key="NSPeriodicInterval">75</int>
 								<object class="NSMenuItem" key="NSMenuItem" id="889151802">
 									<reference key="NSMenu" ref="602605065"/>
-									<string key="NSTitle">RGB</string>
+									<string key="NSTitle">Gamma</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
