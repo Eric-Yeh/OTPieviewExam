@@ -11,6 +11,7 @@
 		072F362B1648FC6E0002D615 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F362A1648FC6E0002D615 /* QuartzCore.framework */; };
 		072F362C1648FC830002D615 /* Quartz.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 072F36281648FC680002D615 /* Quartz.framework */; };
 		072F362D1648FC870002D615 /* QuartzCore.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 072F362A1648FC6E0002D615 /* QuartzCore.framework */; };
+		075D162516536CCC0023B4C1 /* HistogramLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 075D162416536CCC0023B4C1 /* HistogramLayer.m */; };
 		07619D69164359CD0059E886 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07834A8716071899009EC369 /* Cocoa.framework */; };
 		07619D6F164359CD0059E886 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07619D6D164359CD0059E886 /* InfoPlist.strings */; };
 		07619D71164359CD0059E886 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07619D70164359CD0059E886 /* main.m */; };
@@ -113,6 +114,8 @@
 /* Begin PBXFileReference section */
 		072F36281648FC680002D615 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		072F362A1648FC6E0002D615 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		075D162316536CCC0023B4C1 /* HistogramLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramLayer.h; sourceTree = "<group>"; };
+		075D162416536CCC0023B4C1 /* HistogramLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramLayer.m; sourceTree = "<group>"; };
 		07619D67164359CD0059E886 /* OTHistogram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OTHistogram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07619D6C164359CD0059E886 /* OTHistogram-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OTHistogram-Info.plist"; sourceTree = "<group>"; };
 		07619D6E164359CD0059E886 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -173,6 +176,8 @@
 				07619D77164359CD0059E886 /* AppDelegate.m */,
 				07619D8416439AEC0059E886 /* CorePlotView.h */,
 				07619D8516439AEC0059E886 /* CorePlotView.m */,
+				075D162316536CCC0023B4C1 /* HistogramLayer.h */,
+				075D162416536CCC0023B4C1 /* HistogramLayer.m */,
 				07619D79164359CD0059E886 /* MainMenu.xib */,
 				07619D81164379A60059E886 /* private Framework */,
 				07619D6B164359CD0059E886 /* Supporting Files */,
@@ -433,6 +438,7 @@
 				07619D71164359CD0059E886 /* main.m in Sources */,
 				07619D78164359CD0059E886 /* AppDelegate.m in Sources */,
 				07619D8616439AEC0059E886 /* CorePlotView.m in Sources */,
+				075D162516536CCC0023B4C1 /* HistogramLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

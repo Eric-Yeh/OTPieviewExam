@@ -121,6 +121,101 @@
     [self setNeedsDisplay:YES];
 }
 
+- (void)drawRect2:(NSRect)dirtyRect
+{
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+//    CGColorRef aColor = CGColorCreateFromNSColor([NSColor redColor], colorSpace);
+//    CGColorRef bColor = CGColorCreateFromNSColor([NSColor blackColor], colorSpace);
+    CGColorRef aColor;
+    CGColorRef bColor;
+    CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
+
+    CGContextAddRect(context, CGRectMake(10, 10, 100, 100));
+    CGContextSetFillColorWithColor(context, aColor); //內容色
+    
+    CGContextSetLineWidth(context, 10);
+    CGContextSetStrokeColorWithColor(context, bColor); //線色
+    CGContextDrawPath(context, kCGPathFillStroke);
+
+    
+
+//    CGContextRef borderContext = [[NSGraphicsContext currentContext] graphicsPort];
+//    float borderXOffset = 0.0, borderYOffset = 20.0; //座標偏移，移動圖形用
+//    float borderYRedeem = 4.0; //座標補償，主要是變高變長用
+//    CGContextSetRGBStrokeColor(borderContext, 0.0f, 0.0f, 0.0f, 1.0f);
+//    CGContextAddRect(borderContext, CGRectMake(30 + borderXOffset , 30 + borderYOffset, 260, 100 + borderYRedeem));
+
+
+//    return borderContext;
+}
+
+//CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
+//{
+//    NSColor *deviceColor = [color colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+//    CGFloat components[4];
+//    [deviceColor getRed:&components[0] green:&components[1] blue:&components[2] alpha:&components[3]];
+//    
+//    return CGColorCreate (colorSpace, components);
+//}
+
+- (void)drawRect3:(NSRect)dirtyRect
+{
+    int aSize = 100.0;
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+//    CGColorRef aColor = CGColorCreateFromNSColor([NSColor redColor], colorSpace);
+//    CGColorRef bColor = CGColorCreateFromNSColor([NSColor blackColor], colorSpace);
+    CGColorRef aColor;
+    CGColorRef bColor;
+    CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
+    CGContextSetLineWidth(context, aSize);
+    CGFloat xCenter = 100.0;
+    CGFloat yCenter = 100.0;
+    
+    float  w = 100.0;
+    double r = w / 2.0;
+    float flip = -1.0;
+    
+    for (NSUInteger i=0; i<3; i++)
+    {
+        CGContextSetFillColorWithColor(context, aColor);
+        CGContextSetStrokeColorWithColor(context, bColor);
+        
+        double theta = 2.0 * M_PI * (2.0 / 5.0); // 144 degrees
+        
+        CGContextMoveToPoint(context, xCenter, r*flip+yCenter);
+        
+        for (NSUInteger k=1; k<5; k++)
+        {
+            float x = r * sin(k * theta);
+            float y = r * cos(k * theta);
+            CGContextAddLineToPoint(context, x+xCenter, y*flip+yCenter);
+        }
+        xCenter += 150.0;
+    }
+    CGContextClosePath(context);
+    CGContextFillPath(context);
+    
+}
+
+- (CGContextRef)drawGamma:(NSDictionary *)dictionary withMaxValue:(int)maxValue
+{
+    //用來畫 Gamma, R, G, B 的長條圖 共用 method
+    CGContextRef channelContextRef = [[NSGraphicsContext currentContext] graphicsPort];
+    float volume;
+    float borderXOffset = 0.0, borderYOffset = 20.0; //座標偏移，移動圖形用
+    float xOffset = 2.0, yOffset = 1.5; //長條的位移量    
+    for (int i = 0; i < 256; i++) {
+        NSString *tmpColorStringValue = [dictionary objectForKey:[NSString stringWithFormat:@"%d", i]];
+        int colorValue = [tmpColorStringValue intValue];
+        volume = ((float)colorValue / maxValue) * 100;
+        CGContextMoveToPoint(channelContextRef, 30 + i + xOffset + borderXOffset, 30 + yOffset + borderYOffset);
+        CGContextAddLineToPoint(channelContextRef, 30 + i + xOffset + borderXOffset, 30 + volume + yOffset + borderYOffset);
+        CGContextSetLineWidth(channelContextRef, 0.25);
+        CGContextSetRGBStrokeColor(channelContextRef, 0.0f, 0.0f, 0.0f, 1.0f);
+    }
+    return channelContextRef;
+}
+
 - (void)drawRect:(NSRect)dirtyRect
 {
     // Drawing code here.
@@ -171,7 +266,6 @@
         NSString *tmpColorStringValue = [self.histogrameDictionary objectForKey:[NSString stringWithFormat:@"%d", i]];
         int colorValue = [tmpColorStringValue intValue];
         volume = ((float)colorValue / maxVolume) * 100;
-//        NSLog(@"volume: %f", volume);
         [volumeFrame moveToPoint:NSMakePoint(30 + i + xOffset + borderXOffset, 30 + yOffset + borderYOffset)];
         [volumeFrame lineToPoint:NSMakePoint(30 + i + xOffset + borderXOffset, 30 + volume + yOffset + borderYOffset)];
         [volumeFrame setLineWidth:0.25];
