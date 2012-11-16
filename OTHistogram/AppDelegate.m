@@ -15,6 +15,7 @@
 @interface NSColor(NSColorHexadecimalValue)
 - (NSString *) hexadecimalValueOfAnNSColor;
 + (NSColor *) colorFromHexRGB:(NSString *) inColorString;
+CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace);
 @end
 
 @implementation NSColor(NSColorHexadecimalValue)
@@ -70,9 +71,7 @@
               alpha:1.0];
 	return result;
 }
-@end
 
-@implementation MyLayerDelegate
 CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
 {
     NSColor *deviceColor = [color colorUsingColorSpaceName:NSDeviceRGBColorSpace];
@@ -81,22 +80,11 @@ CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
     
     return CGColorCreate (colorSpace, components);
 }
-
-- (void)drawInContext:(CGContextRef)context
-{
-//    [super drawInContext:context];
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGColorRef aColor = CGColorCreateFromNSColor([NSColor redColor], colorSpace);
-    CGColorRef bColor = CGColorCreateFromNSColor([NSColor blackColor], colorSpace);
-
-    CGContextAddRect(context, CGRectMake(10, 10, 100, 100));
-    CGContextSetFillColorWithColor(context, aColor); //內容色
-
-    CGContextSetLineWidth(context, 10);
-    CGContextSetStrokeColorWithColor(context, bColor); //線色
-    CGContextDrawPath(context, kCGPathFillStroke);
-}
 @end
+
+
+
+
 
 #pragma MainCode
 @implementation AppDelegate
@@ -263,6 +251,7 @@ void drawStrokedAndFilledRects(CGContextRef context)
     CALayer *layer1 = [CALayer layer];
     layer1.frame = CGRectMake(20, 15, 40, 40);
     layer1.contents = self.oriImage.image;
+    [layer1 setPosition:CGPointMake(60, 60)];
     [self.dstImage.layer addSublayer:layer1];
 
 
@@ -373,5 +362,22 @@ void drawStrokedAndFilledRects(CGContextRef context)
     [tempImage release];
 }
 
+
+
+
+- (void)drawInContext:(CGContextRef)context
+{
+    //    [super drawInContext:context];
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGColorRef aColor = CGColorCreateFromNSColor([NSColor redColor], colorSpace);
+    CGColorRef bColor = CGColorCreateFromNSColor([NSColor blackColor], colorSpace);
+    
+    CGContextAddRect(context, CGRectMake(10, 10, 100, 100));
+    CGContextSetFillColorWithColor(context, aColor); //內容色
+    
+    CGContextSetLineWidth(context, 10);
+    CGContextSetStrokeColorWithColor(context, bColor); //線色
+    CGContextDrawPath(context, kCGPathFillStroke);
+}
 @end
 

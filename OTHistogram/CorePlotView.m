@@ -5,7 +5,7 @@
 //  Created by Hank0272 on 12/11/2.
 //  Copyright (c) 2012年 Ortery Technology, Inc. All rights reserved.
 //
-
+//這是直接把 CGImage 轉成 Bitmap 再畫到 Layer上
 #import "CorePlotView.h"
 @interface CorePlotView()
 {
@@ -431,7 +431,7 @@
             break;
     }
     NSBitmapImageRep *bmprep = [[[NSBitmapImageRep alloc] initWithCIImage:[filter1 valueForKey:@"outputImage"]]autorelease];
-    return [bmprep representationUsingType:NSJPEGFileType properties:nil];
+    return [bmprep representationUsingType:NSPNGFileType properties:nil];
 }
 
 - (NSColor*) getPixelColorAtLocation:(CGPoint)point withCGImage:(CGImageRef)cgImage

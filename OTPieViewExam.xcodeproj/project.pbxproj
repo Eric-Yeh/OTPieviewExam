@@ -31,6 +31,8 @@
 		0795EEDF162D5EE800BCE2EC /* OTUIKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0795EED9162D5ED500BCE2EC /* OTUIKit.framework */; };
 		0795EEF5162D612500BCE2EC /* OTUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0795EED9162D5ED500BCE2EC /* OTUIKit.framework */; };
 		0795EEF6162D612800BCE2EC /* OTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0795EED5162D5ED500BCE2EC /* OTFoundation.framework */; };
+		079F4C651654C53A00930D59 /* HistogramData.m in Sources */ = {isa = PBXBuildFile; fileRef = 079F4C641654C53A00930D59 /* HistogramData.m */; };
+		07C26CFD16548493008A7C33 /* HistogramLayerDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C26CFC16548493008A7C33 /* HistogramLayerDrawing.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +144,10 @@
 		07834A9A16071899009EC369 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		07834A9D16071899009EC369 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		0795EEC3162D5ED400BCE2EC /* OTCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OTCocoa.xcodeproj; path = OTCocoa/OTCocoa.xcodeproj; sourceTree = "<group>"; };
+		079F4C631654C53A00930D59 /* HistogramData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramData.h; sourceTree = "<group>"; };
+		079F4C641654C53A00930D59 /* HistogramData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramData.m; sourceTree = "<group>"; };
+		07C26CFB16548493008A7C33 /* HistogramLayerDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramLayerDrawing.h; sourceTree = "<group>"; };
+		07C26CFC16548493008A7C33 /* HistogramLayerDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramLayerDrawing.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +184,10 @@
 				07619D8516439AEC0059E886 /* CorePlotView.m */,
 				075D162316536CCC0023B4C1 /* HistogramLayer.h */,
 				075D162416536CCC0023B4C1 /* HistogramLayer.m */,
+				07C26CFB16548493008A7C33 /* HistogramLayerDrawing.h */,
+				07C26CFC16548493008A7C33 /* HistogramLayerDrawing.m */,
+				079F4C631654C53A00930D59 /* HistogramData.h */,
+				079F4C641654C53A00930D59 /* HistogramData.m */,
 				07619D79164359CD0059E886 /* MainMenu.xib */,
 				07619D81164379A60059E886 /* private Framework */,
 				07619D6B164359CD0059E886 /* Supporting Files */,
@@ -439,6 +449,8 @@
 				07619D78164359CD0059E886 /* AppDelegate.m in Sources */,
 				07619D8616439AEC0059E886 /* CorePlotView.m in Sources */,
 				075D162516536CCC0023B4C1 /* HistogramLayer.m in Sources */,
+				07C26CFD16548493008A7C33 /* HistogramLayerDrawing.m in Sources */,
+				079F4C651654C53A00930D59 /* HistogramData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
