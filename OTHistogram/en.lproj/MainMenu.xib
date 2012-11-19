@@ -1513,7 +1513,7 @@
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="621495472"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
-							<string key="NSClassName">CorePlotView</string>
+							<string key="NSClassName">NSView</string>
 						</object>
 						<object class="NSPopUpButton" id="328125009">
 							<reference key="NSNextResponder" ref="439893737"/>

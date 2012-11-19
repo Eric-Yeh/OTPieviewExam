@@ -105,6 +105,12 @@
     }
 }
 
+- (void)drawHistogramLayer:(kOTHistogram_Layer)histogram_Layer withDictionary:(NSDictionary *)dictionary withMaxValue:(int)value
+{
+    self.layer.frame = CGRectMake(30, 60, 260, 160);
+    [self.layer addSublayer:boraderLayer];
+}
+
 - (void)drawHistogrameChannel:(kOTHistogram_Channel)histogramChannel withDictionary:(NSDictionary *)dictionary withMaxValue:(int)value withContext:(CGContextRef)context
 {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();

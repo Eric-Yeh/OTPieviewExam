@@ -12,6 +12,7 @@
     NSDictionary *gammaDictionary, *redDictionary, *greenDictionary, *blueDictionary;
     int maxGammaValue, maxRedValue, maxGreenValue, maxBlueValue;
 }
+@property (nonatomic, assign) HistogramLayerDrawing *layerDrawing;
 @property (assign) id dataSource;
 @property (nonatomic, readwrite, copy) NSDictionary *gammaDictionary;
 @property (nonatomic, readwrite, copy) NSDictionary *redDictionary;
@@ -20,6 +21,7 @@
 @end
 
 @implementation HistogramData
+@synthesize layerDrawing;
 @synthesize dataSource;
 @synthesize gammaDictionary, redDictionary, greenDictionary, blueDictionary;
 
@@ -32,12 +34,13 @@
         self.greenDictionary = [NSMutableDictionary dictionary];
         self.blueDictionary = [NSMutableDictionary dictionary];
         maxGammaValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
+        self.layerDrawing = [[HistogramLayerDrawing alloc]init];
     }
     return self;
 }
 
 - (void)dealloc {
-
+    [self.layerDrawing release];
     [self.gammaDictionary release];
     [self.redDictionary release];
     [self.greenDictionary release];
@@ -45,9 +48,17 @@
 	[super dealloc];
 }
 
+- (void)drawHistogram:(kOTHistogram_Channel)channel
+{
+    [layerDrawing drawHistogramLayer:kOTHistogramLayer_Border withDictionary:nil withMaxValue:0];
+}
+
 - (void)setImageForHistogram:(NSImage *)image toSize:(NSSize)size
 {
     //大張圖和小張圖的資訊是差不多，但小一點的圖計算比較快
+    if (size.height <= 0 && size.width <= 0) {
+        return;
+    }
     NSSize newSize;
     if (image.size.width > size.width) {
         newSize.width =  size.width;
@@ -161,7 +172,7 @@
     return mutGammaDictionary;
 }
 
-- (NSData *)adjustHistogramValueOfData:(NSData *)data withHistogramChannel:(kOTHistogram_Channel)histogramChannel withValue:(float)floatValue
+- (NSData *)adjustHistogramValueForData:(NSData *)data withHistogramChannel:(kOTHistogram_Channel)histogramChannel withValue:(float)floatValue
 {
     float maxFloatValue = 255;
     float minFloatValue = 0;

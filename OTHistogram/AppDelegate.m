@@ -103,7 +103,7 @@ CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
     // Insert code here to initialize your application
     NSImage *nImage = [[NSImage alloc]initByReferencingFile:@"/Users/Eric/Pictures/lion-256height.jpg"];
     self.oriImage.image = nImage;
-    [cpView setImageForHistogram:self.oriImage.image withHistogramChannel:kOTHistogramChannel_Gamma];
+//    [cpView setImageForHistogram:self.oriImage.image withHistogramChannel:kOTHistogramChannel_Gamma];
     [nImage release];
     [self drawImageToTmpImageview];
     
@@ -246,14 +246,18 @@ void drawStrokedAndFilledRects(CGContextRef context)
 
 - (IBAction)saveImageTo:(id)sender
 {
-
+    HistogramData *data = [[HistogramData alloc] init];
+    [data setImageForHistogram:self.oriImage.image toSize:NSMakeSize(640, 480)];
+    [data drawHistogram:kOTHistogramChannel_Blue];
+    [data release];
+/*
     [self.dstImage.superview setWantsLayer:YES];
     CALayer *layer1 = [CALayer layer];
     layer1.frame = CGRectMake(20, 15, 40, 40);
     layer1.contents = self.oriImage.image;
     [layer1 setPosition:CGPointMake(60, 60)];
     [self.dstImage.layer addSublayer:layer1];
-
+*/
 
     //    CGContextSetRGBStrokeColor(borderContext, 0.0f, 0.0f, 0.0f, 1.0f);
     //    CGContextAddRect(borderContext, CGRectMake(30 + borderXOffset , 30 + borderYOffset, 260, 100 + borderYRedeem));
@@ -306,23 +310,23 @@ void drawStrokedAndFilledRects(CGContextRef context)
 
 - (IBAction)changeHistogram:(id)sender
 {
-    switch ([[self.modePopUpButton selectedItem] tag]) {
-        case 1: //Red
-            [cpView selectHistogramChannel: kOTHistogramChannel_Red];
-            break;
-            
-        case 2: //Green
-            [cpView selectHistogramChannel: kOTHistogramChannel_Green];
-            break;
-            
-        case 3: //Blue
-            [cpView selectHistogramChannel: kOTHistogramChannel_Blue];
-            break;
-            
-        default: //RGB
-            [cpView selectHistogramChannel: kOTHistogramChannel_Gamma];
-            break;
-    }
+//    switch ([[self.modePopUpButton selectedItem] tag]) {
+//        case 1: //Red
+//            [cpView selectHistogramChannel: kOTHistogramChannel_Red];
+//            break;
+//            
+//        case 2: //Green
+//            [cpView selectHistogramChannel: kOTHistogramChannel_Green];
+//            break;
+//            
+//        case 3: //Blue
+//            [cpView selectHistogramChannel: kOTHistogramChannel_Blue];
+//            break;
+//            
+//        default: //RGB
+//            [cpView selectHistogramChannel: kOTHistogramChannel_Gamma];
+//            break;
+//    }
 }
 
 - (IBAction)changeSliderValue:(id)sender
@@ -348,7 +352,7 @@ void drawStrokedAndFilledRects(CGContextRef context)
             
             break;
     }
-    self.dstImage.image = [[[NSImage alloc] initWithData:[cpView adjustHistogramValueOfData:[self.tmpImage.image TIFFRepresentation] withHistogramChannel:histogramChannel withValue:sliderFloatValue]]autorelease];
+//    self.dstImage.image = [[[NSImage alloc] initWithData:[cpView adjustHistogramValueOfData:[self.tmpImage.image TIFFRepresentation] withHistogramChannel:histogramChannel withValue:sliderFloatValue]]autorelease];
 }
 
 #pragma Private Method
