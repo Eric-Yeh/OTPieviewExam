@@ -24,7 +24,7 @@
 @synthesize layerDrawing;
 @synthesize dataSource;
 @synthesize gammaDictionary, redDictionary, greenDictionary, blueDictionary;
-//@synthesize delegate = _delegate;
+@synthesize delegate = _delegate;
 
 - (id)init
 {
@@ -36,7 +36,7 @@
         self.blueDictionary = [NSMutableDictionary dictionary];
         maxGammaValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
         self.layerDrawing = [[HistogramLayerDrawing alloc]init];
-//        self.delegate = self;
+        
     }
     return self;
 }
@@ -72,11 +72,11 @@
             tmpValue = maxGammaValue;
             break;
     }
-/*
+
     if ([self.delegate respondsToSelector:@selector(dataSourceForHistogramChannel:withChannel:withMaxValue:)]) {
         [self.delegate dataSourceForHistogramChannel:tmpDictionary withChannel:channel withMaxValue:tmpValue];
     }
-*/
+
 }
 
 - (void)setImageForHistogram:(NSImage *)image toSize:(NSSize)size

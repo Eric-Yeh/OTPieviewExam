@@ -11,16 +11,12 @@
 		072F362B1648FC6E0002D615 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F362A1648FC6E0002D615 /* QuartzCore.framework */; };
 		072F362C1648FC830002D615 /* Quartz.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 072F36281648FC680002D615 /* Quartz.framework */; };
 		072F362D1648FC870002D615 /* QuartzCore.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 072F362A1648FC6E0002D615 /* QuartzCore.framework */; };
-		075D162516536CCC0023B4C1 /* HistogramLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 075D162416536CCC0023B4C1 /* HistogramLayer.m */; };
+		075642C7165CD921006748A6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07619D77164359CD0059E886 /* AppDelegate.m */; };
 		07619D69164359CD0059E886 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07834A8716071899009EC369 /* Cocoa.framework */; };
 		07619D6F164359CD0059E886 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07619D6D164359CD0059E886 /* InfoPlist.strings */; };
 		07619D71164359CD0059E886 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07619D70164359CD0059E886 /* main.m */; };
 		07619D75164359CD0059E886 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 07619D73164359CD0059E886 /* Credits.rtf */; };
-		07619D78164359CD0059E886 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07619D77164359CD0059E886 /* AppDelegate.m */; };
 		07619D7B164359CD0059E886 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07619D79164359CD0059E886 /* MainMenu.xib */; };
-		07619D80164379950059E886 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07619D7F164379950059E886 /* CorePlot.framework */; };
-		07619D83164379D30059E886 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 07619D7F164379950059E886 /* CorePlot.framework */; };
-		07619D8616439AEC0059E886 /* CorePlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07619D8516439AEC0059E886 /* CorePlotView.m */; };
 		07834A8816071899009EC369 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07834A8716071899009EC369 /* Cocoa.framework */; };
 		07834A9216071899009EC369 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07834A9016071899009EC369 /* InfoPlist.strings */; };
 		07834A9416071899009EC369 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07834A9316071899009EC369 /* main.m */; };
@@ -103,7 +99,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				07619D83164379D30059E886 /* CorePlot.framework in CopyFiles */,
 				072F362C1648FC830002D615 /* Quartz.framework in CopyFiles */,
 				072F362D1648FC870002D615 /* QuartzCore.framework in CopyFiles */,
 			);
@@ -188,7 +183,6 @@
 				072F362B1648FC6E0002D615 /* QuartzCore.framework in Frameworks */,
 				072F36291648FC680002D615 /* Quartz.framework in Frameworks */,
 				07619D69164359CD0059E886 /* Cocoa.framework in Frameworks */,
-				07619D80164379950059E886 /* CorePlot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -543,11 +537,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				07619D71164359CD0059E886 /* main.m in Sources */,
-				07619D78164359CD0059E886 /* AppDelegate.m in Sources */,
-				07619D8616439AEC0059E886 /* CorePlotView.m in Sources */,
-				075D162516536CCC0023B4C1 /* HistogramLayer.m in Sources */,
 				07C26CFD16548493008A7C33 /* HistogramLayerDrawing.m in Sources */,
 				079F4C651654C53A00930D59 /* HistogramData.m in Sources */,
+				075642C7165CD921006748A6 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,7 +653,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OTHistogram/OTHistogram-Prefix.pch";
 				INFOPLIST_FILE = "OTHistogram/OTHistogram-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -679,7 +673,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OTHistogram/OTHistogram-Prefix.pch";
 				INFOPLIST_FILE = "OTHistogram/OTHistogram-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

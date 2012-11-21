@@ -13,13 +13,13 @@
     CALayer *backgroundLayer, *boraderLayer, *gammaLayer, *redLayer, *greenLayer, *blueLayer, *sliderLayer;
     kOTHistogram_Channel otHistogramChannel;
     kOTHistogram_Layer otHistogramLayer;
-//    id <HistogramDataSource> _delegate;
+    id <HistogramDataSource> _delegate;
 }
 @property (nonatomic, readwrite, copy) NSDictionary *histogrameDictionary;
 @property (nonatomic, readwrite, copy) CALayer *backgroundLayer, *boraderLayer, *gammaLayer, *redLayer, *greenLayer, *blueLayer, *sliderLayer;
 @property (assign) kOTHistogram_Channel otHistogramChannel;
 @property (assign) kOTHistogram_Layer otHistogramLayer;
-//@property (assign) id <HistogramDataSource> delegate;
+@property (assign) id <HistogramDataSource> delegate;
 @end
 
 
@@ -28,7 +28,7 @@
 @synthesize backgroundLayer, boraderLayer, gammaLayer, redLayer, greenLayer, blueLayer, sliderLayer;
 @synthesize otHistogramChannel;
 @synthesize otHistogramLayer;
-//@synthesize delegate = _delegate;
+@synthesize delegate = _delegate;
 
 - (void)_layerinit
 {
@@ -122,7 +122,7 @@
 
 - (BOOL)isOpaque
 {
-    return YES;
+    return NO;
 }
 
 - (void)drawAllLayer
@@ -237,8 +237,6 @@
         CGContextAddLineToPoint(context, i, value);
         CGContextStrokePath(context);
     }
-    CGContextClosePath(context);
-	CGContextRestoreGState(context);
 }
 
 - (void)drawBorderLayer:(CGContextRef)context

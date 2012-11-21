@@ -15,12 +15,12 @@
 //NSImageView
 @synthesize oriImage, dstImage, tmpImage;
 @synthesize modePopUpButton;
-//@synthesize histogramLayer;
+@synthesize histogramLayer;
 @synthesize histogramDataInfo;
 
 - (void)dealloc
 {
-//    [histogramDataInfo release];
+    [histogramDataInfo release];
     [super dealloc];
 }
 
@@ -37,7 +37,8 @@
     layer2.needsDisplayOnBoundsChange = YES;
     layer2.frame = CGRectMake(0, 0, 200, 200);
     [self.dstImage.layer addSublayer:layer2];
-//    histogramDataInfo = [[HistogramData alloc]init];
+    histogramDataInfo = [[HistogramData alloc]init];
+    histogramDataInfo.delegate = self;
 
 }
 
@@ -230,7 +231,7 @@ void drawStrokedAndFilledRects(CGContextRef context)
     }
 }
 
-- (IBAction)histogramDataInfo:(id)sender
+- (IBAction)readHistogramData:(id)sender
 {
     [histogramDataInfo setImageForHistogram:self.oriImage.image toSize:NSMakeSize(640, 480)];
     [histogramDataInfo drawHistogram:kOTHistogramChannel_Gamma];
