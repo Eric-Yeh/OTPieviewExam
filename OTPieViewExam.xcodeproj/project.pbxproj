@@ -33,6 +33,15 @@
 		0795EEF6162D612800BCE2EC /* OTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0795EED5162D5ED500BCE2EC /* OTFoundation.framework */; };
 		079F4C651654C53A00930D59 /* HistogramData.m in Sources */ = {isa = PBXBuildFile; fileRef = 079F4C641654C53A00930D59 /* HistogramData.m */; };
 		07C26CFD16548493008A7C33 /* HistogramLayerDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C26CFC16548493008A7C33 /* HistogramLayerDrawing.m */; };
+		07F8BA141659D13700A504D2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07834A8716071899009EC369 /* Cocoa.framework */; };
+		07F8BA1A1659D13700A504D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07F8BA181659D13700A504D2 /* InfoPlist.strings */; };
+		07F8BA1C1659D13800A504D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F8BA1B1659D13800A504D2 /* main.m */; };
+		07F8BA201659D13800A504D2 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 07F8BA1E1659D13800A504D2 /* Credits.rtf */; };
+		07F8BA231659D13800A504D2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F8BA221659D13800A504D2 /* AppDelegate.m */; };
+		07F8BA261659D13800A504D2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07F8BA241659D13800A504D2 /* MainMenu.xib */; };
+		07F8BA2C1659D30C00A504D2 /* OTLayerDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F8BA2B1659D30C00A504D2 /* OTLayerDrawing.m */; };
+		07F8BA2D1659DF6900A504D2 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F36281648FC680002D615 /* Quartz.framework */; };
+		07F8BA2E1659DF7000A504D2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F362A1648FC6E0002D615 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,11 +120,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		07F8BA2F1659DF7300A504D2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		072F36281648FC680002D615 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		072F362A1648FC6E0002D615 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		075642C6165C8332006748A6 /* HistogramType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistogramType.h; sourceTree = "<group>"; };
 		075D162316536CCC0023B4C1 /* HistogramLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramLayer.h; sourceTree = "<group>"; };
 		075D162416536CCC0023B4C1 /* HistogramLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramLayer.m; sourceTree = "<group>"; };
 		07619D67164359CD0059E886 /* OTHistogram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OTHistogram.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +167,17 @@
 		079F4C641654C53A00930D59 /* HistogramData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramData.m; sourceTree = "<group>"; };
 		07C26CFB16548493008A7C33 /* HistogramLayerDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramLayerDrawing.h; sourceTree = "<group>"; };
 		07C26CFC16548493008A7C33 /* HistogramLayerDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramLayerDrawing.m; sourceTree = "<group>"; };
+		07F8BA121659D13700A504D2 /* LayerGraphicsDrawing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LayerGraphicsDrawing.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		07F8BA171659D13700A504D2 /* LayerGraphicsDrawing-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LayerGraphicsDrawing-Info.plist"; sourceTree = "<group>"; };
+		07F8BA191659D13700A504D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		07F8BA1B1659D13800A504D2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		07F8BA1D1659D13800A504D2 /* LayerGraphicsDrawing-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LayerGraphicsDrawing-Prefix.pch"; sourceTree = "<group>"; };
+		07F8BA1F1659D13800A504D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		07F8BA211659D13800A504D2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		07F8BA221659D13800A504D2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		07F8BA251659D13800A504D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		07F8BA2A1659D30C00A504D2 /* OTLayerDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTLayerDrawing.h; sourceTree = "<group>"; };
+		07F8BA2B1659D30C00A504D2 /* OTLayerDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTLayerDrawing.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +202,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		07F8BA0F1659D13700A504D2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07F8BA2E1659DF7000A504D2 /* QuartzCore.framework in Frameworks */,
+				07F8BA2D1659DF6900A504D2 /* Quartz.framework in Frameworks */,
+				07F8BA141659D13700A504D2 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -180,15 +220,16 @@
 			children = (
 				07619D76164359CD0059E886 /* AppDelegate.h */,
 				07619D77164359CD0059E886 /* AppDelegate.m */,
+				07619D79164359CD0059E886 /* MainMenu.xib */,
 				07619D8416439AEC0059E886 /* CorePlotView.h */,
 				07619D8516439AEC0059E886 /* CorePlotView.m */,
+				075642C6165C8332006748A6 /* HistogramType.h */,
 				075D162316536CCC0023B4C1 /* HistogramLayer.h */,
 				075D162416536CCC0023B4C1 /* HistogramLayer.m */,
 				07C26CFB16548493008A7C33 /* HistogramLayerDrawing.h */,
 				07C26CFC16548493008A7C33 /* HistogramLayerDrawing.m */,
 				079F4C631654C53A00930D59 /* HistogramData.h */,
 				079F4C641654C53A00930D59 /* HistogramData.m */,
-				07619D79164359CD0059E886 /* MainMenu.xib */,
 				07619D81164379A60059E886 /* private Framework */,
 				07619D6B164359CD0059E886 /* Supporting Files */,
 			);
@@ -223,6 +264,7 @@
 				0795EEC3162D5ED400BCE2EC /* OTCocoa.xcodeproj */,
 				07834A8D16071899009EC369 /* OTPieViewExam */,
 				07619D6A164359CD0059E886 /* OTHistogram */,
+				07F8BA151659D13700A504D2 /* LayerGraphicsDrawing */,
 				07834A8616071899009EC369 /* Frameworks */,
 				07834A8416071899009EC369 /* Products */,
 			);
@@ -233,6 +275,7 @@
 			children = (
 				07834A8316071899009EC369 /* OTPieViewExam.app */,
 				07619D67164359CD0059E886 /* OTHistogram.app */,
+				07F8BA121659D13700A504D2 /* LayerGraphicsDrawing.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -293,6 +336,31 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		07F8BA151659D13700A504D2 /* LayerGraphicsDrawing */ = {
+			isa = PBXGroup;
+			children = (
+				07F8BA211659D13800A504D2 /* AppDelegate.h */,
+				07F8BA221659D13800A504D2 /* AppDelegate.m */,
+				07F8BA2A1659D30C00A504D2 /* OTLayerDrawing.h */,
+				07F8BA2B1659D30C00A504D2 /* OTLayerDrawing.m */,
+				07F8BA241659D13800A504D2 /* MainMenu.xib */,
+				07F8BA161659D13700A504D2 /* Supporting Files */,
+			);
+			path = LayerGraphicsDrawing;
+			sourceTree = "<group>";
+		};
+		07F8BA161659D13700A504D2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				07F8BA171659D13700A504D2 /* LayerGraphicsDrawing-Info.plist */,
+				07F8BA181659D13700A504D2 /* InfoPlist.strings */,
+				07F8BA1B1659D13800A504D2 /* main.m */,
+				07F8BA1D1659D13800A504D2 /* LayerGraphicsDrawing-Prefix.pch */,
+				07F8BA1E1659D13800A504D2 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -332,6 +400,24 @@
 			productReference = 07834A8316071899009EC369 /* OTPieViewExam.app */;
 			productType = "com.apple.product-type.application";
 		};
+		07F8BA111659D13700A504D2 /* LayerGraphicsDrawing */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07F8BA271659D13800A504D2 /* Build configuration list for PBXNativeTarget "LayerGraphicsDrawing" */;
+			buildPhases = (
+				07F8BA0E1659D13700A504D2 /* Sources */,
+				07F8BA0F1659D13700A504D2 /* Frameworks */,
+				07F8BA101659D13700A504D2 /* Resources */,
+				07F8BA2F1659DF7300A504D2 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LayerGraphicsDrawing;
+			productName = LayerGraphicsDrawing;
+			productReference = 07F8BA121659D13700A504D2 /* LayerGraphicsDrawing.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -361,6 +447,7 @@
 			targets = (
 				07834A8216071899009EC369 /* OTPieViewExam */,
 				07619D66164359CD0059E886 /* OTHistogram */,
+				07F8BA111659D13700A504D2 /* LayerGraphicsDrawing */,
 			);
 		};
 /* End PBXProject section */
@@ -438,6 +525,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		07F8BA101659D13700A504D2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07F8BA1A1659D13700A504D2 /* InfoPlist.strings in Resources */,
+				07F8BA201659D13800A504D2 /* Credits.rtf in Resources */,
+				07F8BA261659D13800A504D2 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -460,6 +557,16 @@
 			files = (
 				07834A9416071899009EC369 /* main.m in Sources */,
 				07834A9B16071899009EC369 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		07F8BA0E1659D13700A504D2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07F8BA1C1659D13800A504D2 /* main.m in Sources */,
+				07F8BA231659D13800A504D2 /* AppDelegate.m in Sources */,
+				07F8BA2C1659D30C00A504D2 /* OTLayerDrawing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +617,30 @@
 			isa = PBXVariantGroup;
 			children = (
 				07834A9D16071899009EC369 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		07F8BA181659D13700A504D2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07F8BA191659D13700A504D2 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		07F8BA1E1659D13800A504D2 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07F8BA1F1659D13800A504D2 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		07F8BA241659D13800A504D2 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07F8BA251659D13800A504D2 /* en */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -628,6 +759,34 @@
 			};
 			name = Release;
 		};
+		07F8BA281659D13800A504D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LayerGraphicsDrawing/LayerGraphicsDrawing-Prefix.pch";
+				INFOPLIST_FILE = "LayerGraphicsDrawing/LayerGraphicsDrawing-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		07F8BA291659D13800A504D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LayerGraphicsDrawing/LayerGraphicsDrawing-Prefix.pch";
+				INFOPLIST_FILE = "LayerGraphicsDrawing/LayerGraphicsDrawing-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -654,6 +813,15 @@
 			buildConfigurations = (
 				07834AA216071899009EC369 /* Debug */,
 				07834AA316071899009EC369 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		07F8BA271659D13800A504D2 /* Build configuration list for PBXNativeTarget "LayerGraphicsDrawing" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07F8BA281659D13800A504D2 /* Debug */,
+				07F8BA291659D13800A504D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

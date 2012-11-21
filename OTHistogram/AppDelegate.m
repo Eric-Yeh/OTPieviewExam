@@ -10,91 +10,17 @@
 #define BEST_BYTE_ALIGNMENT 16
 #define COMPUTE_BEST_BYTES_PER_ROW(bpr)		( ( (bpr) + (BEST_BYTE_ALIGNMENT-1) ) & ~(BEST_BYTE_ALIGNMENT-1) )
 
-#pragma Enhace NSColor
-
-@interface NSColor(NSColorHexadecimalValue)
-- (NSString *) hexadecimalValueOfAnNSColor;
-+ (NSColor *) colorFromHexRGB:(NSString *) inColorString;
-CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace);
-@end
-
-@implementation NSColor(NSColorHexadecimalValue)
-
-- (NSString *) hexadecimalValueOfAnNSColor
-{
-    double redFloatValue, greenFloatValue, blueFloatValue;
-    int redIntValue, greenIntValue, blueIntValue;
-    NSString *redHexValue, *greenHexValue, *blueHexValue;
-    
-    //Convert the NSColor to the RGB color space before we can access its components
-    NSColor *convertedColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-    
-    if(convertedColor)
-    {
-        // Get the red, green, and blue components of the color
-        [convertedColor getRed:&redFloatValue green:&greenFloatValue blue:&blueFloatValue alpha:NULL];
-        
-        // Convert the components to numbers (unsigned decimal integer) between 0 and 255
-        redIntValue = redFloatValue * 255.99999f;
-        greenIntValue = greenFloatValue * 255.99999f;
-        blueIntValue = blueFloatValue * 255.99999f;
-        
-        // Convert the numbers to hex strings
-        redHexValue = [NSString stringWithFormat:@"%02x", redIntValue];
-        greenHexValue = [NSString stringWithFormat:@"%02x", greenIntValue];
-        blueHexValue = [NSString stringWithFormat:@"%02x", blueIntValue];
-        
-        // Concatenate the red, green, and blue components' hex strings together with a "#"
-        return [NSString stringWithFormat:@"#%@%@%@", redHexValue, greenHexValue, blueHexValue];
-    }
-    return nil;
-}
-/// Html Color to NSColor
-+ (NSColor *) colorFromHexRGB:(NSString *) inColorString
-{
-	NSColor *result = nil;
-	unsigned int colorCode = 0;
-	unsigned char redByte, greenByte, blueByte;
-    
-	if (nil != inColorString)
-	{
-		NSScanner *scanner = [NSScanner scannerWithString:inColorString];
-		(void) [scanner scanHexInt:&colorCode];	// ignore error
-	}
-	redByte		= (unsigned char) (colorCode >> 16);
-	greenByte	= (unsigned char) (colorCode >> 8);
-	blueByte	= (unsigned char) (colorCode);	// masks off high bits
-	result = [NSColor
-              colorWithCalibratedRed:	(float)redByte	/ 0xff
-              green:	(float)greenByte/ 0xff
-              blue:	(float)blueByte	/ 0xff
-              alpha:1.0];
-	return result;
-}
-
-CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
-{
-    NSColor *deviceColor = [color colorUsingColorSpaceName:NSDeviceRGBColorSpace];
-    CGFloat components[4];
-    [deviceColor getRed:&components[0] green:&components[1] blue:&components[2] alpha:&components[3]];
-    
-    return CGColorCreate (colorSpace, components);
-}
-@end
-
-
-
-
-
 #pragma MainCode
 @implementation AppDelegate
 //NSImageView
 @synthesize oriImage, dstImage, tmpImage;
-
 @synthesize modePopUpButton;
+//@synthesize histogramLayer;
+@synthesize histogramDataInfo;
 
 - (void)dealloc
 {
+//    [histogramDataInfo release];
     [super dealloc];
 }
 
@@ -111,6 +37,7 @@ CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
     layer2.needsDisplayOnBoundsChange = YES;
     layer2.frame = CGRectMake(0, 0, 200, 200);
     [self.dstImage.layer addSublayer:layer2];
+//    histogramDataInfo = [[HistogramData alloc]init];
 
 }
 
@@ -303,13 +230,39 @@ void drawStrokedAndFilledRects(CGContextRef context)
     }
 }
 
+- (IBAction)histogramDataInfo:(id)sender
+{
+    [histogramDataInfo setImageForHistogram:self.oriImage.image toSize:NSMakeSize(640, 480)];
+    [histogramDataInfo drawHistogram:kOTHistogramChannel_Gamma];
+}
+
 - (IBAction)drawHistogram:(id)sender
 {
-    [self changeHistogram:nil];
+//    [self changeHistogram:nil];
+    [histogramDataInfo drawHistogram:kOTHistogramChannel_Gamma];
 }
 
 - (IBAction)changeHistogram:(id)sender
 {
+    switch ([[self.modePopUpButton selectedItem] tag]) {
+        case 1: //Red
+            [histogramDataInfo drawHistogram:kOTHistogramChannel_Red];
+            break;
+
+        case 2: //Green
+            [histogramDataInfo drawHistogram:kOTHistogramChannel_Green];
+            break;
+
+        case 3: //Blue
+            [histogramDataInfo drawHistogram:kOTHistogramChannel_Blue];
+            break;
+
+        default: //RGB
+            [histogramDataInfo drawHistogram:kOTHistogramChannel_Gamma];
+            break;
+    }
+
+    
 //    switch ([[self.modePopUpButton selectedItem] tag]) {
 //        case 1: //Red
 //            [cpView selectHistogramChannel: kOTHistogramChannel_Red];
@@ -352,6 +305,7 @@ void drawStrokedAndFilledRects(CGContextRef context)
             
             break;
     }
+    [histogramDataInfo adjustHistogramValueForData:[self.tmpImage.image TIFFRepresentation] withHistogramChannel:histogramChannel withValue:sliderFloatValue];
 //    self.dstImage.image = [[[NSImage alloc] initWithData:[cpView adjustHistogramValueOfData:[self.tmpImage.image TIFFRepresentation] withHistogramChannel:histogramChannel withValue:sliderFloatValue]]autorelease];
 }
 

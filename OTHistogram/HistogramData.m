@@ -24,6 +24,7 @@
 @synthesize layerDrawing;
 @synthesize dataSource;
 @synthesize gammaDictionary, redDictionary, greenDictionary, blueDictionary;
+//@synthesize delegate = _delegate;
 
 - (id)init
 {
@@ -35,6 +36,7 @@
         self.blueDictionary = [NSMutableDictionary dictionary];
         maxGammaValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
         self.layerDrawing = [[HistogramLayerDrawing alloc]init];
+//        self.delegate = self;
     }
     return self;
 }
@@ -50,7 +52,31 @@
 
 - (void)drawHistogram:(kOTHistogram_Channel)channel
 {
-    [layerDrawing drawHistogramLayer:kOTHistogramLayer_Border withDictionary:nil withMaxValue:0];
+    NSDictionary *tmpDictionary;
+    int tmpValue;
+    switch (channel) {
+        case kOTHistogramChannel_Red:
+            tmpDictionary = [redDictionary copy];
+            tmpValue = maxRedValue;
+            break;
+        case kOTHistogramChannel_Green:
+            tmpDictionary = [greenDictionary copy];
+            tmpValue = maxGreenValue;
+            break;
+        case kOTHistogramChannel_Blue:
+            tmpDictionary = [blueDictionary copy];
+            tmpValue = maxBlueValue;
+            break;
+        default:
+            tmpDictionary = [gammaDictionary copy];
+            tmpValue = maxGammaValue;
+            break;
+    }
+/*
+    if ([self.delegate respondsToSelector:@selector(dataSourceForHistogramChannel:withChannel:withMaxValue:)]) {
+        [self.delegate dataSourceForHistogramChannel:tmpDictionary withChannel:channel withMaxValue:tmpValue];
+    }
+*/
 }
 
 - (void)setImageForHistogram:(NSImage *)image toSize:(NSSize)size
@@ -106,7 +132,10 @@
     greenDictionary = [mutGreenDictionary copy];
     blueDictionary = [mutBlueDictionary copy];
     gammaDictionary = [[self saveToGammaDictionary:mutRedDictionary withGreenDictionary:mutGreenDictionary withBlueDictionary:mutBlueDictionary] copy];
-    
+    [self drawHistogram:kOTHistogramChannel_Red];
+    [self drawHistogram:kOTHistogramChannel_Green];
+    [self drawHistogram:kOTHistogramChannel_Blue];
+    [self drawHistogram:kOTHistogramChannel_Gamma];
 //    [self selectHistogramChannel:histogramColor];
 }
 

@@ -52,12 +52,12 @@
     
     return self;
 }
-
+/*
 - (void)drawRect:(NSRect)dirtyRect
 {
     // Drawing code here.
 }
-
+*/
 - (NSImage *)drawAllyer
 {
 /*
@@ -134,7 +134,7 @@
 {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef channelColor = NULL;
-/*
+
     switch (histogramChannel) {
         case kOTHistogramChannel_Red:
             channelColor = CGColorCreateFromNSColor([NSColor redColor], colorSpace);
@@ -149,7 +149,7 @@
             channelColor = CGColorCreateFromNSColor([NSColor grayColor], colorSpace);
             break;
     }
-*/ 
+ 
     CGContextSetLineWidth(context, 0.25); //線寬
     
     CGContextSetStrokeColorWithColor(context, channelColor); //線色
@@ -171,8 +171,7 @@
 {
     //底框
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGColorRef borderColor = NULL;
-//    CGColorRef borderColor = CGColorCreateFromNSColor([NSColor blackColor], colorSpace);    
+    CGColorRef borderColor = CGColorCreateFromNSColor([NSColor blackColor], colorSpace);    
     CGContextAddRect(context, CGRectMake(30 + borderXOffset , 30 + borderYOffset, 260, 100 + borderYRedeem));
     CGContextSetLineWidth(context, 1.0);
     CGContextSetStrokeColorWithColor(context, borderColor); //線色
