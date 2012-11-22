@@ -12,7 +12,7 @@
     NSDictionary *gammaDictionary, *redDictionary, *greenDictionary, *blueDictionary;
     int maxGammaValue, maxRedValue, maxGreenValue, maxBlueValue;
 }
-@property (nonatomic, assign) HistogramLayerDrawing *layerDrawing;
+//@property (nonatomic, assign) HistogramLayerDrawing *layerDrawing;
 @property (assign) id dataSource;
 @property (nonatomic, readwrite, copy) NSDictionary *gammaDictionary;
 @property (nonatomic, readwrite, copy) NSDictionary *redDictionary;
@@ -21,7 +21,7 @@
 @end
 
 @implementation HistogramData
-@synthesize layerDrawing;
+//@synthesize layerDrawing;
 @synthesize dataSource;
 @synthesize gammaDictionary, redDictionary, greenDictionary, blueDictionary;
 @synthesize delegate = _delegate;
@@ -35,14 +35,14 @@
         self.greenDictionary = [NSMutableDictionary dictionary];
         self.blueDictionary = [NSMutableDictionary dictionary];
         maxGammaValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
-        self.layerDrawing = [[HistogramLayerDrawing alloc]init];
+//        self.layerDrawing = [[HistogramLayerDrawing alloc]init];
         
     }
     return self;
 }
 
 - (void)dealloc {
-    [self.layerDrawing release];
+//    [layerDrawing release];
     [self.gammaDictionary release];
     [self.redDictionary release];
     [self.greenDictionary release];
@@ -56,27 +56,56 @@
     int tmpValue;
     switch (channel) {
         case kOTHistogramChannel_Red:
-            tmpDictionary = [redDictionary copy];
+            tmpDictionary = [[NSDictionary alloc] initWithDictionary:[redDictionary copy]];
             tmpValue = maxRedValue;
             break;
         case kOTHistogramChannel_Green:
-            tmpDictionary = [greenDictionary copy];
+            tmpDictionary = [[NSDictionary alloc] initWithDictionary:[greenDictionary copy]];
             tmpValue = maxGreenValue;
             break;
         case kOTHistogramChannel_Blue:
-            tmpDictionary = [blueDictionary copy];
+            tmpDictionary = [[NSDictionary alloc] initWithDictionary:[blueDictionary copy]];
             tmpValue = maxBlueValue;
             break;
         default:
-            tmpDictionary = [gammaDictionary copy];
+            tmpDictionary = [[NSDictionary alloc] initWithDictionary:[gammaDictionary copy]];
             tmpValue = maxGammaValue;
             break;
     }
+
+//    [layerDrawing dataSourceForHistogramChannel:tmpDictionary withChannel:channel withMaxValue:tmpValue];
+
 
     if ([self.delegate respondsToSelector:@selector(dataSourceForHistogramChannel:withChannel:withMaxValue:)]) {
         [self.delegate dataSourceForHistogramChannel:tmpDictionary withChannel:channel withMaxValue:tmpValue];
     }
 
+}
+
+- (void)setHistogramDataToLayer:(HistogramLayerDrawing *)layerDraw withChannel:(kOTHistogram_Channel)channel
+{
+    NSDictionary *tmpDictionary;
+    int tmpValue;
+    switch (channel) {
+        case kOTHistogramChannel_Red:
+            tmpDictionary = [[NSDictionary alloc] initWithDictionary:[redDictionary copy]];
+            tmpValue = maxRedValue;
+            NSLog(@"%@", tmpDictionary);
+            break;
+        case kOTHistogramChannel_Green:
+            tmpDictionary = [[NSDictionary alloc] initWithDictionary:[greenDictionary copy]];
+            tmpValue = maxGreenValue;
+            break;
+        case kOTHistogramChannel_Blue:
+            tmpDictionary = [[NSDictionary alloc] initWithDictionary:[blueDictionary copy]];
+            tmpValue = maxBlueValue;
+            break;
+        default:
+            tmpDictionary = [[NSDictionary alloc] initWithDictionary:[gammaDictionary copy]];
+            tmpValue = maxGammaValue;
+            break;
+    }
+    [layerDraw dataSourceForHistogramChannel:tmpDictionary withChannel:channel withMaxValue:tmpValue];
 }
 
 - (void)setImageForHistogram:(NSImage *)image toSize:(NSSize)size
@@ -107,6 +136,46 @@
     [reSizeImage release];
 }
 
+- (void)setHistogramData:(NSBitmapImageRep *)bmprep withLayer:(HistogramLayerDrawing *)drawLayer
+{
+    NSColor *tmpColor;
+    
+    NSMutableDictionary *mutRedDictionary = [NSMutableDictionary dictionary];
+    NSMutableDictionary *mutGreenDictionary = [NSMutableDictionary dictionary];
+    NSMutableDictionary *mutBlueDictionary = [NSMutableDictionary dictionary];
+    
+    for (int i = 0 ; i < 256; i++) {
+        [mutRedDictionary setObject:[NSString stringWithFormat:@"0"] forKey:[NSString stringWithFormat:@"%d", i]];
+        [mutGreenDictionary setObject:[NSString stringWithFormat:@"0"] forKey:[NSString stringWithFormat:@"%d", i]];
+        [mutBlueDictionary setObject:[NSString stringWithFormat:@"0"] forKey:[NSString stringWithFormat:@"%d", i]];
+    }
+    maxGammaValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
+    for (int y = 0 ; y < bmprep.size.height; y++) {
+        for (int x = 0 ; x < bmprep.size.width; x++) {
+            tmpColor = [bmprep colorAtX:x y:y];
+            
+            [self setColorForDictionary:tmpColor forRedDictionary:mutRedDictionary forGreenDictionary:mutGreenDictionary forBlueDictionary:mutBlueDictionary];
+        }
+    }
+    redDictionary = [mutRedDictionary copy];
+    greenDictionary = [mutGreenDictionary copy];
+    blueDictionary = [mutBlueDictionary copy];
+    gammaDictionary = [[self saveToGammaDictionary:mutRedDictionary withGreenDictionary:mutGreenDictionary withBlueDictionary:mutBlueDictionary] copy];
+    
+
+    [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Red];
+    [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Green];
+    [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Blue];
+    [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Gamma];
+    
+    //    [self drawHistogram:kOTHistogramChannel_Red];
+    //    [self drawHistogram:kOTHistogramChannel_Green];
+    //    [self drawHistogram:kOTHistogramChannel_Blue];
+    //    [self drawHistogram:kOTHistogramChannel_Gamma];
+    
+    //    [self selectHistogramChannel:histogramColor];
+}
+
 - (void)setHistogramData:(NSBitmapImageRep *)bmprep
 {
     NSColor *tmpColor;
@@ -132,10 +201,13 @@
     greenDictionary = [mutGreenDictionary copy];
     blueDictionary = [mutBlueDictionary copy];
     gammaDictionary = [[self saveToGammaDictionary:mutRedDictionary withGreenDictionary:mutGreenDictionary withBlueDictionary:mutBlueDictionary] copy];
-    [self drawHistogram:kOTHistogramChannel_Red];
-    [self drawHistogram:kOTHistogramChannel_Green];
-    [self drawHistogram:kOTHistogramChannel_Blue];
-    [self drawHistogram:kOTHistogramChannel_Gamma];
+
+    
+//    [self drawHistogram:kOTHistogramChannel_Red];
+//    [self drawHistogram:kOTHistogramChannel_Green];
+//    [self drawHistogram:kOTHistogramChannel_Blue];
+//    [self drawHistogram:kOTHistogramChannel_Gamma];
+    
 //    [self selectHistogramChannel:histogramColor];
 }
 
@@ -243,7 +315,6 @@
             filter1 = [CIFilter filterWithName:@"CIColorControls"];
             [filter1 setValue:iImage forKey:@"inputImage"];
             NSNumber *powerValue = [NSNumber numberWithFloat:(((float)floatValue/255) - 1)];
-            NSLog(@"value :%@", powerValue);
             [filter1 setValue:powerValue forKey:@"inputBrightness"];
             
             [filter1 setValue:[[[filter1 attributes]

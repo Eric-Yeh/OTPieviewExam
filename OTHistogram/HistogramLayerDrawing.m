@@ -10,13 +10,13 @@
 
 @interface HistogramLayerDrawing ()
 {
-    CALayer *backgroundLayer, *boraderLayer, *gammaLayer, *redLayer, *greenLayer, *blueLayer, *sliderLayer;
+
     kOTHistogram_Channel otHistogramChannel;
     kOTHistogram_Layer otHistogramLayer;
     id <HistogramDataSource> _delegate;
 }
 @property (nonatomic, readwrite, copy) NSDictionary *histogrameDictionary;
-@property (nonatomic, readwrite, copy) CALayer *backgroundLayer, *boraderLayer, *gammaLayer, *redLayer, *greenLayer, *blueLayer, *sliderLayer;
+
 @property (assign) kOTHistogram_Channel otHistogramChannel;
 @property (assign) kOTHistogram_Layer otHistogramLayer;
 @property (assign) id <HistogramDataSource> delegate;
@@ -25,7 +25,7 @@
 
 @implementation HistogramLayerDrawing
 @synthesize histogrameDictionary;
-@synthesize backgroundLayer, boraderLayer, gammaLayer, redLayer, greenLayer, blueLayer, sliderLayer;
+@synthesize boraderLayer, gammaLayer, redLayer, greenLayer, blueLayer, sliderLayer;
 @synthesize otHistogramChannel;
 @synthesize otHistogramLayer;
 @synthesize delegate = _delegate;
@@ -33,45 +33,50 @@
 - (void)_layerinit
 {
     [self setWantsLayer:YES];
-    backgroundLayer = [[CALayer alloc]init];
     boraderLayer = [[CALayer alloc]init];
     gammaLayer = [[CALayer alloc]init];
     redLayer = [[CALayer alloc]init];
     greenLayer = [[CALayer alloc]init];
     blueLayer = [[CALayer alloc]init];
     sliderLayer = [[CALayer alloc]init];
-
+    
+    boraderLayer.name = @"BoraderLayer";
+    gammaLayer.name = @"GammaLayer";
+    redLayer.name = @"RedLayer";
+    greenLayer.name = @"GreenLayer";
+    blueLayer.name = @"BlueLayer";
+    sliderLayer.name = @"SliderLayer";
+    
     [boraderLayer setDelegate:self];
     [gammaLayer setDelegate:self];
     [redLayer setDelegate:self];
     [greenLayer setDelegate:self];
     [blueLayer setDelegate:self];
     [sliderLayer setDelegate:self];
+    [self.layer setBackgroundColor:CGColorCreateFromNSColor([NSColor whiteColor],CGColorSpaceCreateDeviceRGB())];
+//    backgroundLayer.frame = self.frame;
+//    [backgroundLayer setBackgroundColor:CGColorCreateFromNSColor([NSColor whiteColor],
+//                                                        CGColorSpaceCreateDeviceRGB())];
+//    [self.layer addSublayer:backgroundLayer];
     
-    backgroundLayer.frame = self.frame;
-    [backgroundLayer setBackgroundColor:CGColorCreateFromNSColor([NSColor whiteColor],
-                                                        CGColorSpaceCreateDeviceRGB())];
-    [self.layer addSublayer:backgroundLayer];
-    
-    boraderLayer.frame = CGRectMake(30, 60, 260, 160);
+    boraderLayer.frame = CGRectMake(30, 30, 260, 160);
     [self.layer addSublayer:boraderLayer];
     
-    redLayer.frame = CGRectMake(31, 60, 256, 160);
+    redLayer.frame = CGRectMake(31, 60, 260, 130);
     [self.layer addSublayer:redLayer];
     
-    greenLayer.frame = CGRectMake(31, 60, 256, 160);
+    greenLayer.frame = CGRectMake(31, 60, 260, 130);
     [self.layer addSublayer:greenLayer];
 
-    blueLayer.frame = CGRectMake(31, 60, 256, 160);
+    blueLayer.frame = CGRectMake(31, 60, 260, 130);
     [self.layer addSublayer:blueLayer];
 
-    gammaLayer.frame = CGRectMake(31, 60, 256, 160);
+    gammaLayer.frame = CGRectMake(31, 60, 260, 130);
     [self.layer addSublayer:gammaLayer];
 
-    sliderLayer.frame = CGRectMake(0, 0, 11, 11);
+    sliderLayer.frame = CGRectMake(26, 18, 12, 12);
     [self.layer addSublayer:sliderLayer];
     
-    [backgroundLayer setNeedsDisplay];
     [boraderLayer setNeedsDisplay];
     [gammaLayer setNeedsDisplay];
     [redLayer setNeedsDisplay];
@@ -79,7 +84,6 @@
     [blueLayer setNeedsDisplay];
     [sliderLayer setNeedsDisplay];
 
-    [backgroundLayer setHidden:NO];
     [boraderLayer setHidden:NO];
     [gammaLayer setHidden:NO];
     [redLayer setHidden:NO];
@@ -109,7 +113,6 @@
 
 - (void)dealloc
 {
-    [backgroundLayer release]; backgroundLayer = nil;
     [boraderLayer release]; boraderLayer = nil;
     [gammaLayer release]; gammaLayer = nil;
     [redLayer release]; redLayer = nil;
@@ -122,23 +125,7 @@
 
 - (BOOL)isOpaque
 {
-    return NO;
-}
-
-- (void)drawAllLayer
-{
-    self.layer.frame = CGRectMake(30, 60, 260, 160);
-    [self.layer addSublayer:boraderLayer];
-    self.layer.frame = CGRectMake(30, 60, 260, 130);
-    [self.layer addSublayer:redLayer];
-    self.layer.frame = CGRectMake(30, 60, 260, 130);
-    [self.layer addSublayer:greenLayer];
-    self.layer.frame = CGRectMake(30, 60, 260, 130);
-    [self.layer addSublayer:blueLayer];
-    self.layer.frame = CGRectMake(30, 60, 260, 130);
-    [self.layer addSublayer:gammaLayer];
-    self.layer.frame = CGRectMake(30, 25, 12, 12);
-    [self.layer addSublayer:sliderLayer];
+    return YES;
 }
 
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context
@@ -157,29 +144,30 @@
     } else if (layer == sliderLayer) {
         [self drawSliderLayer:context];
     }
+    NSLog(@"%@", layer.name);
 }
 
-- (void)dataSourceForHistogramChannel:(NSDictionary *)dictionary withChannel:(kOTHistogram_Channel)channel withMaxValue:(int)max
-{
-    histogrameDictionary = [dictionary copy];
-    maxValue = max;
-    CALayer *tmpLayer;
-    switch (channel) {
-        case kOTHistogramChannel_Red:
-            tmpLayer = blueLayer;
-            break;
-        case kOTHistogramChannel_Green:
-            tmpLayer = greenLayer;
-            break;
-        case kOTHistogramChannel_Blue:
-            tmpLayer = blueLayer;
-            break;
-        default:
-            tmpLayer = gammaLayer;
-            break;
-    }
-    [tmpLayer setNeedsDisplay];
-}
+//- (void)dataSourceForHistogramChannel:(NSDictionary *)dictionary withChannel:(kOTHistogram_Channel)channel withMaxValue:(int)max
+//{
+//    histogrameDictionary = [dictionary copy];
+//    maxValue = max;
+//    CALayer *tmpLayer;
+//    switch (channel) {
+//        case kOTHistogramChannel_Red:
+//            tmpLayer = redLayer;
+//            break;
+//        case kOTHistogramChannel_Green:
+//            tmpLayer = greenLayer;
+//            break;
+//        case kOTHistogramChannel_Blue:
+//            tmpLayer = blueLayer;
+//            break;
+//        default:
+//            tmpLayer = gammaLayer;
+//            break;
+//    }
+//    [tmpLayer setNeedsDisplay];
+//}
 
 - (void)drawHistogramLayer:(kOTHistogram_Layer)histogram_Layer withDictionary:(NSDictionary *)dictionary withMaxValue:(int)value
 {
@@ -189,7 +177,7 @@
     CALayer *tmpLayer;
     switch (histogram_Layer) {
         case kOTHistogramLayer_Red:
-            tmpLayer = blueLayer;
+            tmpLayer = redLayer;
             break;
         case kOTHistogramLayer_Green:
             tmpLayer = greenLayer;
@@ -224,16 +212,26 @@
              break;
      }
      
-    CGContextSetLineWidth(context, 0.25); //線寬
+//    CGContextSetLineWidth(context, 0.25); //線寬
+    CGContextSetLineWidth(context, 2.0f); //線寬
     
     CGContextSetStrokeColorWithColor(context, channelColor); //線色
     CGContextSetLineCap(context, kCGLineCapRound); //線的接點
+    
+//    CGContextMoveToPoint(context, 0, 0);
+//    CGContextAddLineToPoint(context, 0, 40);
+//    CGContextStrokePath(context);
+//    CGContextMoveToPoint(context, 2, 0);
+//    CGContextAddLineToPoint(context, 2, 60);
+//    CGContextStrokePath(context);
+
     for (int i = 0; i < 256; i++) {
         NSString *tmpColorStringValue = [self.histogrameDictionary objectForKey:[NSString stringWithFormat:@"%d", i]];
         int colorValue = [tmpColorStringValue intValue];
         value = ((float)colorValue / maxValue) * 100;
+        NSLog(@"value: %i", value);
         //都從 (0,0) 開始畫，位置定義交給 CALayer
-        CGContextMoveToPoint(context, i, value);
+        CGContextMoveToPoint(context, i, 0);
         CGContextAddLineToPoint(context, i, value);
         CGContextStrokePath(context);
     }
@@ -244,10 +242,41 @@
     //底框
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef borderColor = CGColorCreateFromNSColor([NSColor blackColor], colorSpace);
-    CGContextAddRect(context, CGRectMake(0 , 0, 260, 100));
+    CGContextAddRect(context, CGRectMake(0 , 30, 260, 100));
     CGContextSetLineWidth(context, 1.0);
     CGContextSetStrokeColorWithColor(context, borderColor); //線色
     CGContextStrokePath(context);
+    
+    
+    CGFloat colors [] = {
+        0.0, 0.0, 0.0, 1.0,
+        1.0, 1.0, 1.0, 1.0
+    };
+    CGColorSpaceRef baseSpace = CGColorSpaceCreateDeviceRGB();
+    CGGradientRef gradient = CGGradientCreateWithColorComponents(baseSpace, colors, NULL, 2);
+    CGColorSpaceRelease(baseSpace), baseSpace = NULL;
+    CGContextSaveGState(context);
+
+    CGRect rect = CGRectMake(1 , 1, 258, 14);
+    CGContextAddRect(context, rect);
+    CGContextClip(context);
+    
+// 由上至下填色
+//    CGPoint startPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect));
+//    CGPoint endPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
+
+// 自左而右填色
+    CGPoint startPoint = CGPointMake(1, 1);
+    CGPoint endPoint = CGPointMake(258, 14);
+    
+    CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
+    CGGradientRelease(gradient), gradient = NULL;
+    
+    CGContextRestoreGState(context);
+    CGContextAddRect(context, CGRectMake(0 , 0, 260, 15));
+    CGContextSetLineWidth(context, 1.0);
+    CGContextDrawPath(context, kCGPathStroke);
+    
 }
 
 - (void)drawSliderLayer:(CGContextRef)context
@@ -268,14 +297,14 @@
     CGContextDrawPath(context, kCGPathFillStroke);
     CGContextStrokePath(context);
 }
-/*
-static CGColorRef CGColorCreateFromNSColor(NSColor *color, CGColorSpaceRef colorSpace)
+
+- (void)changeLayerPosition:(CALayer *)layerA withPosition:(CGPoint)position
 {
-    NSColor *deviceColor = [color colorUsingColorSpaceName:NSDeviceRGBColorSpace];
-    CGFloat components[4];
-    [deviceColor getRed:&components[0] green:&components[1] blue:&components[2] alpha:&components[3]];
+    [layerA setNeedsDisplay];
+//    layerA.position = position;
+//    self.layer.opaque = YES;
+//    [self.layer setBackgroundColor:CGColorCreateFromNSColor([NSColor greenColor],
+//                                                            CGColorSpaceCreateDeviceRGB())];
     
-    return CGColorCreate (colorSpace, components);
 }
-*/
 @end

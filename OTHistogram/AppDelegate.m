@@ -14,7 +14,7 @@
 @implementation AppDelegate
 //NSImageView
 @synthesize oriImage, dstImage, tmpImage;
-@synthesize modePopUpButton;
+@synthesize modePopUpButton, layerButton;
 @synthesize histogramLayer;
 @synthesize histogramDataInfo;
 
@@ -39,7 +39,14 @@
     [self.dstImage.layer addSublayer:layer2];
     histogramDataInfo = [[HistogramData alloc]init];
     histogramDataInfo.delegate = self;
-
+    
+//    [self.layerButton addItemWithTitle:[[histogramLayer.layer sublayers] ];
+    for (int i = 0; i < [[histogramLayer.layer sublayers] count]; i++) {
+        CALayer *tmpLayer =[[histogramLayer.layer sublayers] objectAtIndex:i];
+        NSString *name = [tmpLayer name];
+        [self.layerButton addItemWithTitle: name];
+        [self.layerButton itemAtIndex:i].tag = i;
+    }
 }
 
 
@@ -174,6 +181,7 @@ void drawStrokedAndFilledRects(CGContextRef context)
 
 - (IBAction)saveImageTo:(id)sender
 {
+
     HistogramData *data = [[HistogramData alloc] init];
     [data setImageForHistogram:self.oriImage.image toSize:NSMakeSize(640, 480)];
     [data drawHistogram:kOTHistogramChannel_Blue];
@@ -233,14 +241,22 @@ void drawStrokedAndFilledRects(CGContextRef context)
 
 - (IBAction)readHistogramData:(id)sender
 {
-    [histogramDataInfo setImageForHistogram:self.oriImage.image toSize:NSMakeSize(640, 480)];
-    [histogramDataInfo drawHistogram:kOTHistogramChannel_Gamma];
+    //[histogramDataInfo setImageForHistogram:self.oriImage.image toSize:NSMakeSize(640, 480)];
+        NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[self.oriImage.image TIFFRepresentation]]autorelease];
+//    [histogramDataInfo setHistogramData:bitmapRep];
+//    [histogramDataInfo drawHistogram:kOTHistogramChannel_Gamma];
+    
+//    [histogramDataInfo setHistogramDataToLayer:histogramLayer withChannel:kOTHistogramChannel_Blue];
+    [histogramDataInfo setHistogramData:bitmapRep withLayer:histogramLayer];
 }
 
 - (IBAction)drawHistogram:(id)sender
 {
+
+    CALayer *tmpLayer = [[histogramLayer.layer sublayers] objectAtIndex:[[self.layerButton selectedItem] tag]];
 //    [self changeHistogram:nil];
-    [histogramDataInfo drawHistogram:kOTHistogramChannel_Gamma];
+//    [histogramDataInfo drawHistogram:kOTHistogramChannel_Gamma];
+    [histogramLayer changeLayerPosition:tmpLayer withPosition:CGPointMake(70, 70)];
 }
 
 - (IBAction)changeHistogram:(id)sender
