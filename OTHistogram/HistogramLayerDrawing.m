@@ -13,13 +13,13 @@
 
     kOTHistogram_Channel otHistogramChannel;
     kOTHistogram_Layer otHistogramLayer;
-    id <HistogramDataSource> _delegate;
+//    id <HistogramDataSource> _delegate;
 }
 @property (nonatomic, readwrite, copy) NSDictionary *histogrameDictionary;
 
 @property (assign) kOTHistogram_Channel otHistogramChannel;
 @property (assign) kOTHistogram_Layer otHistogramLayer;
-@property (assign) id <HistogramDataSource> delegate;
+//@property (assign) id <HistogramDataSource> delegate;
 @end
 
 
@@ -28,7 +28,7 @@
 @synthesize boraderLayer, gammaLayer, redLayer, greenLayer, blueLayer, sliderLayer;
 @synthesize otHistogramChannel;
 @synthesize otHistogramLayer;
-@synthesize delegate = _delegate;
+//@synthesize delegate = _delegate;
 
 - (void)_layerinit
 {
@@ -131,20 +131,22 @@
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context
 {
     //要如何接 Dictionary 的資料
-    if (layer == redLayer) {
-        [self drawHistogrameChannel:kOTHistogramChannel_Red withDictionary:histogrameDictionary withMaxValue:maxValue withContext:context];
-    } else if (layer == greenLayer) {
-        [self drawHistogrameChannel:kOTHistogramChannel_Green withDictionary:histogrameDictionary withMaxValue:maxValue withContext:context];
-    } else if (layer == blueLayer) {
-        [self drawHistogrameChannel:kOTHistogramChannel_Blue withDictionary:histogrameDictionary withMaxValue:maxValue withContext:context];
-    } else if (layer == gammaLayer) {
-        [self drawHistogrameChannel:kOTHistogramChannel_Gamma withDictionary:histogrameDictionary withMaxValue:maxValue withContext:context];
-    } else if (layer == boraderLayer) {
-        [self drawBorderLayer:context];
-    } else if (layer == sliderLayer) {
-        [self drawSliderLayer:context];
+    @synchronized (self){
+        if (layer == redLayer) {
+            [self drawHistogrameChannel:kOTHistogramChannel_Red withDictionary:histogrameDictionary withMaxValue:maxValue withContext:context];
+        } else if (layer == greenLayer) {
+            [self drawHistogrameChannel:kOTHistogramChannel_Green withDictionary:histogrameDictionary withMaxValue:maxValue withContext:context];
+        } else if (layer == blueLayer) {
+            [self drawHistogrameChannel:kOTHistogramChannel_Blue withDictionary:histogrameDictionary withMaxValue:maxValue withContext:context];
+        } else if (layer == gammaLayer) {
+            [self drawHistogrameChannel:kOTHistogramChannel_Gamma withDictionary:histogrameDictionary withMaxValue:maxValue withContext:context];
+        } else if (layer == boraderLayer) {
+            [self drawBorderLayer:context];
+        } else if (layer == sliderLayer) {
+            [self drawSliderLayer:context];
+        }
+        NSLog(@"%@", layer.name);
     }
-    NSLog(@"%@", layer.name);
 }
 
 //- (void)dataSourceForHistogramChannel:(NSDictionary *)dictionary withChannel:(kOTHistogram_Channel)channel withMaxValue:(int)max
@@ -169,20 +171,20 @@
 //    [tmpLayer setNeedsDisplay];
 //}
 
-- (void)drawHistogramLayer:(kOTHistogram_Layer)histogram_Layer withDictionary:(NSDictionary *)dictionary withMaxValue:(int)value
+- (void)drawHistogramLayer:(kOTHistogram_Channel)channel withDictionary:(NSDictionary *)dictionary withMaxValue:(int)value
 {
-//    self.layer.frame = CGRectMake(30, 60, 260, 160);
-    histogrameDictionary = [dictionary copy];
+    self.histogrameDictionary = dictionary;
     maxValue = value;
+    
     CALayer *tmpLayer;
-    switch (histogram_Layer) {
-        case kOTHistogramLayer_Red:
+    switch (channel) {
+        case kOTHistogramChannel_Red:
             tmpLayer = redLayer;
             break;
-        case kOTHistogramLayer_Green:
+        case kOTHistogramChannel_Green:
             tmpLayer = greenLayer;
             break;
-        case kOTHistogramLayer_Blue:
+        case kOTHistogramChannel_Blue:
             tmpLayer = blueLayer;
             break;
         default:
@@ -194,47 +196,42 @@
 
 - (void)drawHistogrameChannel:(kOTHistogram_Channel)histogramChannel withDictionary:(NSDictionary *)dictionary withMaxValue:(int)value withContext:(CGContextRef)context
 {
+    
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef channelColor;
-    
      switch (histogramChannel) {
          case kOTHistogramChannel_Red:
-             channelColor = CGColorCreateFromNSColor([NSColor redColor], colorSpace);
+             channelColor = CGColorCreateFromNSColor([NSColor colorWithCalibratedRed:1.0 green:0.0 blue:0.0 alpha:0.5], colorSpace);
              break;
          case kOTHistogramChannel_Green:
-             channelColor = CGColorCreateFromNSColor([NSColor greenColor], colorSpace);
+             channelColor = CGColorCreateFromNSColor([NSColor colorWithCalibratedRed:0.0 green:1.0 blue:0.0 alpha:0.5], colorSpace);
              break;
          case kOTHistogramChannel_Blue:
-             channelColor = CGColorCreateFromNSColor([NSColor blueColor], colorSpace);
+             channelColor = CGColorCreateFromNSColor([NSColor colorWithCalibratedRed:0.0 green:0.0 blue:1.0 alpha:0.5], colorSpace);
              break;
          default:
-             channelColor = CGColorCreateFromNSColor([NSColor grayColor], colorSpace);
+             channelColor = CGColorCreateFromNSColor([NSColor colorWithCalibratedRed:0.5 green:0.5 blue:0.5 alpha:0.5], colorSpace);
              break;
      }
      
-//    CGContextSetLineWidth(context, 0.25); //線寬
-    CGContextSetLineWidth(context, 2.0f); //線寬
+    CGContextSetLineWidth(context, 1.0f); //線寬
     
     CGContextSetStrokeColorWithColor(context, channelColor); //線色
     CGContextSetLineCap(context, kCGLineCapRound); //線的接點
-    
-//    CGContextMoveToPoint(context, 0, 0);
-//    CGContextAddLineToPoint(context, 0, 40);
-//    CGContextStrokePath(context);
-//    CGContextMoveToPoint(context, 2, 0);
-//    CGContextAddLineToPoint(context, 2, 60);
-//    CGContextStrokePath(context);
-
+    NSDictionary *tmpDictionary = [dictionary copy];
+    //為什麼都是畫同一個？dictionary
+//    NSLog(@"%@", tmpDictionary);
+//        self.histogrameDictionary
     for (int i = 0; i < 256; i++) {
-        NSString *tmpColorStringValue = [self.histogrameDictionary objectForKey:[NSString stringWithFormat:@"%d", i]];
+        NSString *tmpColorStringValue = [tmpDictionary objectForKey:[NSString stringWithFormat:@"%d", i]];
         int colorValue = [tmpColorStringValue intValue];
         value = ((float)colorValue / maxValue) * 100;
-        NSLog(@"value: %i", value);
         //都從 (0,0) 開始畫，位置定義交給 CALayer
         CGContextMoveToPoint(context, i, 0);
         CGContextAddLineToPoint(context, i, value);
         CGContextStrokePath(context);
     }
+    [dictionary release];
 }
 
 - (void)drawBorderLayer:(CGContextRef)context
@@ -301,10 +298,26 @@
 - (void)changeLayerPosition:(CALayer *)layerA withPosition:(CGPoint)position
 {
     [layerA setNeedsDisplay];
-//    layerA.position = position;
-//    self.layer.opaque = YES;
-//    [self.layer setBackgroundColor:CGColorCreateFromNSColor([NSColor greenColor],
-//                                                            CGColorSpaceCreateDeviceRGB())];
-    
 }
+
+- (void)changeChannel:(kOTHistogram_Channel)histogramChannel isHidden:(BOOL)hidden
+{
+    CALayer * layerA;
+    switch (histogramChannel) {
+        case kOTHistogramChannel_Red:
+            layerA = redLayer;
+            break;
+        case kOTHistogramChannel_Green:
+            layerA = greenLayer;
+            break;
+        case kOTHistogramChannel_Blue:
+            layerA = blueLayer;
+            break;
+        default:
+            layerA = gammaLayer;
+            break;
+    }
+    [layerA setHidden:hidden];
+}
+
 @end

@@ -17,6 +17,7 @@
 @synthesize modePopUpButton, layerButton;
 @synthesize histogramLayer;
 @synthesize histogramDataInfo;
+@synthesize layerMatrix;
 
 - (void)dealloc
 {
@@ -38,7 +39,7 @@
     layer2.frame = CGRectMake(0, 0, 200, 200);
     [self.dstImage.layer addSublayer:layer2];
     histogramDataInfo = [[HistogramData alloc]init];
-    histogramDataInfo.delegate = self;
+//    histogramDataInfo.delegate = self;
     
 //    [self.layerButton addItemWithTitle:[[histogramLayer.layer sublayers] ];
     for (int i = 0; i < [[histogramLayer.layer sublayers] count]; i++) {
@@ -324,6 +325,89 @@ void drawStrokedAndFilledRects(CGContextRef context)
     }
     [histogramDataInfo adjustHistogramValueForData:[self.tmpImage.image TIFFRepresentation] withHistogramChannel:histogramChannel withValue:sliderFloatValue];
 //    self.dstImage.image = [[[NSImage alloc] initWithData:[cpView adjustHistogramValueOfData:[self.tmpImage.image TIFFRepresentation] withHistogramChannel:histogramChannel withValue:sliderFloatValue]]autorelease];
+}
+
+- (IBAction)ChangeLayerHidden:(id)sender
+{
+//     NSLog(@"%li", [self.layerMatrix selectedTag]);
+//    NSLog(@"%li",[[self.layerMatrix selectedCell]tag]);
+//    [[self.layerMatrix cell] isSelected];
+    kOTHistogram_Channel channel;
+    for (int i = 0 ; i < [[self.layerMatrix cells]count] ; i++) {
+            switch (i) {
+                case 1:
+                    channel = kOTHistogramChannel_Red;
+                    break;
+                case 2:
+                    channel = kOTHistogramChannel_Green;
+                    break;
+                case 3:
+                    channel = kOTHistogramChannel_Blue;
+                    break;
+                default:
+                    channel = kOTHistogramChannel_Gamma;
+                    break;
+            }
+        [histogramLayer changeChannel:channel isHidden:YES];
+    }
+    switch ([[self.layerMatrix selectedCell]tag]) {
+        case 1:
+            channel = kOTHistogramChannel_Red;
+            [histogramLayer changeChannel:channel isHidden:NO];
+            break;
+        case 2:
+            channel = kOTHistogramChannel_Green;
+            [histogramLayer changeChannel:channel isHidden:NO];
+            break;
+        case 3:
+            channel = kOTHistogramChannel_Blue;
+            [histogramLayer changeChannel:channel isHidden:NO];
+            break;
+        default:
+            channel = kOTHistogramChannel_Gamma;
+            [histogramLayer changeChannel:channel isHidden:NO];
+            break;
+    }
+    [histogramDataInfo setHistogramDataToLayer:histogramLayer withChannel:channel];    
+    
+//    for (int i = 0 ; i < [[self.layerMatrix cells]count] ; i++) {
+////        [[self.layerMatrix cells] indexOfObject:i];
+//        BOOL isHidden = YES;
+//        kOTHistogram_Channel channel;
+//        NSCell *stateCell = [sender cell];
+//        if ([stateCell state] == NSOnState) {
+//            NSLog(@"%li", [sender indexOfObject:sender]);
+//        }
+//        
+//        if ( [[self.layerMatrix.cells objectAtIndex:i] state] == NSOnState )
+//        {
+//            isHidden = NO;
+//            switch (i) {
+//                case 1:
+//                    channel = kOTHistogramChannel_Red;
+//                    [histogramDataInfo setHistogramDataToLayer:histogramLayer withChannel:kOTHistogramChannel_Red];
+//                    break;
+//                case 2:
+//                    channel = kOTHistogramChannel_Green;
+//                    [histogramDataInfo setHistogramDataToLayer:histogramLayer withChannel:kOTHistogramChannel_Green];
+//                    break;
+//                case 3:
+//                    channel = kOTHistogramChannel_Blue;
+//                    [histogramDataInfo setHistogramDataToLayer:histogramLayer withChannel:kOTHistogramChannel_Blue];
+//                    break;
+//                default:
+//                    channel = kOTHistogramChannel_Gamma;
+//                    [histogramDataInfo setHistogramDataToLayer:histogramLayer withChannel:kOTHistogramChannel_Gamma];
+//                    break;
+//            }
+//        }
+//        [histogramLayer changeChannel:channel isHidden:isHidden];
+//    }
+
+    
+//    NSSet *layerSet = [[NSSet alloc] initWithSet:];
+    
+//    NSLog(@"%@", [[sender selectedCells] objectsAtIndexes:[sender selectedColumnIndexes]]);
 }
 
 #pragma Private Method
