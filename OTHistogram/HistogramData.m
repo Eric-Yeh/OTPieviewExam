@@ -12,7 +12,6 @@
     NSDictionary *gammaDictionary, *redDictionary, *greenDictionary, *blueDictionary;
     int maxGammaValue, maxRedValue, maxGreenValue, maxBlueValue;
 }
-//@property (nonatomic, assign) HistogramLayerDrawing *layerDrawing;
 @property (assign) id dataSource;
 @property (nonatomic, readwrite, copy) NSDictionary *gammaDictionary;
 @property (nonatomic, readwrite, copy) NSDictionary *redDictionary;
@@ -21,7 +20,6 @@
 @end
 
 @implementation HistogramData
-//@synthesize layerDrawing;
 @synthesize dataSource;
 @synthesize gammaDictionary, redDictionary, greenDictionary, blueDictionary;
 //@synthesize delegate = _delegate;
@@ -35,51 +33,17 @@
         self.greenDictionary = [NSMutableDictionary dictionary];
         self.blueDictionary = [NSMutableDictionary dictionary];
         maxGammaValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
-//        self.layerDrawing = [[HistogramLayerDrawing alloc]init];
         
     }
     return self;
 }
 
 - (void)dealloc {
-//    [layerDrawing release];
     [self.gammaDictionary release];
     [self.redDictionary release];
     [self.greenDictionary release];
     [self.blueDictionary release];
 	[super dealloc];
-}
-
-- (void)drawHistogram:(kOTHistogram_Channel)channel
-{
-    NSDictionary *tmpDictionary;
-    int tmpValue;
-    switch (channel) {
-        case kOTHistogramChannel_Red:
-            tmpDictionary = [redDictionary copy];
-            tmpValue = maxRedValue;
-            break;
-        case kOTHistogramChannel_Green:
-            tmpDictionary = [greenDictionary copy];
-            tmpValue = maxGreenValue;
-            break;
-        case kOTHistogramChannel_Blue:
-            tmpDictionary = [blueDictionary copy];
-            tmpValue = maxBlueValue;
-            break;
-        default:
-            tmpDictionary = [gammaDictionary copy];
-            tmpValue = maxGammaValue;
-            break;
-    }
-
-//    [layerDrawing dataSourceForHistogramChannel:tmpDictionary withChannel:channel withMaxValue:tmpValue];
-
-
-//    if ([self.delegate respondsToSelector:@selector(dataSourceForHistogramChannel:withChannel:withMaxValue:)]) {
-//        [self.delegate dataSourceForHistogramChannel:tmpDictionary withChannel:channel withMaxValue:tmpValue];
-//    }
-
 }
 
 - (void)setHistogramDataToLayer:(HistogramLayerDrawing *)layerDraw withChannel:(kOTHistogram_Channel)channel
@@ -115,7 +79,7 @@
     if (size.height <= 0 && size.width <= 0) {
         return;
     }
-    NSSize newSize;
+    NSSize newSize = NSMakeSize( image.size.width, image.size.height);
     if (image.size.width > size.width) {
         newSize.width =  size.width;
         newSize.height = image.size.height * size.width / image.size.width;
@@ -125,7 +89,8 @@
         newSize.width = image.size.width * size.height / image.size.height;
     }
     
-    NSImage *reSizeImage = [[NSImage alloc] initWithSize:NSMakeSize(newSize.width, newSize.height)];
+    NSImage *reSizeImage = [[[NSImage alloc] initWithSize:NSMakeSize(newSize.width, newSize.height)] autorelease];
+    NSLog(@"%f, %f", reSizeImage.size.width, reSizeImage.size.height);
     [reSizeImage lockFocus];
     [image drawInRect:NSMakeRect(0, 0, newSize.width, newSize.height) fromRect:NSMakeRect(0, 0, image.size.width, image.size.height) operation:NSCompositeSourceOver fraction:1.0f];
     [reSizeImage unlockFocus];
@@ -133,8 +98,6 @@
     
     //把 reSizeImage 給資料端做運算
     [self setHistogramData:bitmapRep];
-    
-    [reSizeImage release];
 }
 
 - (void)setHistogramData:(NSBitmapImageRep *)bmprep withLayer:(HistogramLayerDrawing *)drawLayer
@@ -162,6 +125,7 @@
     greenDictionary = [mutGreenDictionary copy];
     blueDictionary = [mutBlueDictionary copy];
     gammaDictionary = [[self saveToGammaDictionary:mutRedDictionary withGreenDictionary:mutGreenDictionary withBlueDictionary:mutBlueDictionary] copy];
+    //換的太快會讓值沒有被畫上去，要用delegate的方式來慢慢的寫入下一個嗎？
     [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Red];
     [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Green];
     [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Blue];
@@ -193,14 +157,6 @@
     greenDictionary = [mutGreenDictionary copy];
     blueDictionary = [mutBlueDictionary copy];
     gammaDictionary = [[self saveToGammaDictionary:mutRedDictionary withGreenDictionary:mutGreenDictionary withBlueDictionary:mutBlueDictionary] copy];
-
-    
-//    [self drawHistogram:kOTHistogramChannel_Red];
-//    [self drawHistogram:kOTHistogramChannel_Green];
-//    [self drawHistogram:kOTHistogramChannel_Blue];
-//    [self drawHistogram:kOTHistogramChannel_Gamma];
-    
-//    [self selectHistogramChannel:histogramColor];
 }
 
 
@@ -276,7 +232,7 @@
     }
     CIImage *iImage = [CIImage imageWithData:data];
     CIFilter *filter1;
-    NSNumber *intensityValue = [NSNumber numberWithFloat:(1 - (float)floatValue / 255)];
+    NSNumber *intensityValue = [NSNumber numberWithFloat:(1 - (float)floatValue / maxFloatValue)];
     CIColor *iColor;
     switch (histogramChannel) {
         case  kOTHistogramChannel_Red: //Red
@@ -306,7 +262,7 @@
         default: //RGB
             filter1 = [CIFilter filterWithName:@"CIColorControls"];
             [filter1 setValue:iImage forKey:@"inputImage"];
-            NSNumber *powerValue = [NSNumber numberWithFloat:(((float)floatValue/255) - 1)];
+            NSNumber *powerValue = [NSNumber numberWithFloat:(((float)floatValue/maxFloatValue) - 1)];
             [filter1 setValue:powerValue forKey:@"inputBrightness"];
             
             [filter1 setValue:[[[filter1 attributes]

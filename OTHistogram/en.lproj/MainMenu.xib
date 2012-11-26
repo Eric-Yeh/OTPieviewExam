@@ -1353,7 +1353,7 @@
 								<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
 								<string>NeXT TIFF v4.0 pasteboard type</string>
 							</set>
-							<string key="NSFrame">{{41, 240}, {106, 74}}</string>
+							<string key="NSFrame">{{44, 152}, {241, 158}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="372277550"/>
@@ -1699,7 +1699,7 @@
 						<object class="NSPopUpButton" id="540238625">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{222, 54}, {133, 26}}</string>
+							<string key="NSFrame">{{222, 23}, {133, 26}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="800783547"/>
@@ -1734,7 +1734,7 @@
 						<object class="NSMatrix" id="554400882">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{241, 131}, {111, 78}}</string>
+							<string key="NSFrame">{{260, 52}, {92, 78}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="1052241458"/>
@@ -1806,7 +1806,7 @@
 									<int key="NSPeriodicInterval">75</int>
 								</object>
 							</array>
-							<string key="NSCellSize">{70, 18}</string>
+							<string key="NSCellSize">{92, 18}</string>
 							<string key="NSIntercellSpacing">{4, 2}</string>
 							<int key="NSMatrixFlags">1151868928</int>
 							<string key="NSCellClass">NSActionCell</string>
@@ -3221,7 +3221,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<reference ref="621495472"/>
 							<reference ref="546017200"/>
 							<reference ref="313913273"/>
-							<reference ref="534878017"/>
 							<reference ref="139620349"/>
 							<reference ref="970196767"/>
 							<reference ref="1052241458"/>
@@ -3230,6 +3229,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<reference ref="511320593"/>
 							<reference ref="540238625"/>
 							<reference ref="554400882"/>
+							<reference ref="534878017"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>

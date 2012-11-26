@@ -185,7 +185,7 @@ void drawStrokedAndFilledRects(CGContextRef context)
 
     HistogramData *data = [[HistogramData alloc] init];
     [data setImageForHistogram:self.oriImage.image toSize:NSMakeSize(640, 480)];
-    [data drawHistogram:kOTHistogramChannel_Blue];
+//    [data drawHistogram:kOTHistogramChannel_Blue];
     [data release];
 /*
     [self.dstImage.superview setWantsLayer:YES];
@@ -264,21 +264,38 @@ void drawStrokedAndFilledRects(CGContextRef context)
 {
     switch ([[self.modePopUpButton selectedItem] tag]) {
         case 1: //Red
-            [histogramDataInfo drawHistogram:kOTHistogramChannel_Red];
+            [histogramLayer makesChannelVisible:kOTHistogramChannel_Red];
             break;
 
         case 2: //Green
-            [histogramDataInfo drawHistogram:kOTHistogramChannel_Green];
+            [histogramLayer makesChannelVisible:kOTHistogramChannel_Green];
             break;
 
         case 3: //Blue
-            [histogramDataInfo drawHistogram:kOTHistogramChannel_Blue];
+            [histogramLayer makesChannelVisible:kOTHistogramChannel_Blue];
             break;
 
         default: //RGB
-            [histogramDataInfo drawHistogram:kOTHistogramChannel_Gamma];
+            [histogramLayer makesChannelVisible:kOTHistogramChannel_Gamma];
             break;
     }
+//    switch ([[self.modePopUpButton selectedItem] tag]) {
+//        case 1: //Red
+//            [histogramDataInfo drawHistogram:kOTHistogramChannel_Red];
+//            break;
+//
+//        case 2: //Green
+//            [histogramDataInfo drawHistogram:kOTHistogramChannel_Green];
+//            break;
+//
+//        case 3: //Blue
+//            [histogramDataInfo drawHistogram:kOTHistogramChannel_Blue];
+//            break;
+//
+//        default: //RGB
+//            [histogramDataInfo drawHistogram:kOTHistogramChannel_Gamma];
+//            break;
+//    }
 
     
 //    switch ([[self.modePopUpButton selectedItem] tag]) {
@@ -333,41 +350,41 @@ void drawStrokedAndFilledRects(CGContextRef context)
 //    NSLog(@"%li",[[self.layerMatrix selectedCell]tag]);
 //    [[self.layerMatrix cell] isSelected];
     kOTHistogram_Channel channel;
-    for (int i = 0 ; i < [[self.layerMatrix cells]count] ; i++) {
-            switch (i) {
-                case 1:
-                    channel = kOTHistogramChannel_Red;
-                    break;
-                case 2:
-                    channel = kOTHistogramChannel_Green;
-                    break;
-                case 3:
-                    channel = kOTHistogramChannel_Blue;
-                    break;
-                default:
-                    channel = kOTHistogramChannel_Gamma;
-                    break;
-            }
-        [histogramLayer changeChannel:channel isHidden:YES];
-    }
+//    for (int i = 0 ; i < [[self.layerMatrix cells]count] ; i++) {
+//            switch (i) {
+//                case 1:
+//                    channel = kOTHistogramChannel_Red; 
+//                    break;
+//                case 2:
+//                    channel = kOTHistogramChannel_Green;
+//                    break;
+//                case 3:
+//                    channel = kOTHistogramChannel_Blue;
+//                    break;
+//                default:
+//                    channel = kOTHistogramChannel_Gamma;
+//                    break;
+//            }
+//        [histogramLayer changeChannel:channel isHidden:YES];
+//    }
     switch ([[self.layerMatrix selectedCell]tag]) {
         case 1:
             channel = kOTHistogramChannel_Red;
-            [histogramLayer changeChannel:channel isHidden:NO];
             break;
         case 2:
             channel = kOTHistogramChannel_Green;
-            [histogramLayer changeChannel:channel isHidden:NO];
+
             break;
         case 3:
             channel = kOTHistogramChannel_Blue;
-            [histogramLayer changeChannel:channel isHidden:NO];
+
             break;
         default:
             channel = kOTHistogramChannel_Gamma;
-            [histogramLayer changeChannel:channel isHidden:NO];
+
             break;
     }
+    [histogramLayer makesChannelVisible:channel];
     [histogramDataInfo setHistogramDataToLayer:histogramLayer withChannel:channel];    
     
 //    for (int i = 0 ; i < [[self.layerMatrix cells]count] ; i++) {
