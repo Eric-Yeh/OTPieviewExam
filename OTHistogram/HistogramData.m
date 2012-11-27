@@ -11,6 +11,7 @@
 {
     NSDictionary *gammaDictionary, *redDictionary, *greenDictionary, *blueDictionary;
     int maxGammaValue, maxRedValue, maxGreenValue, maxBlueValue;
+    int histogramLayerIndex;
 }
 @property (assign) id dataSource;
 @property (nonatomic, readwrite, copy) NSDictionary *gammaDictionary;
@@ -22,7 +23,8 @@
 @implementation HistogramData
 @synthesize dataSource;
 @synthesize gammaDictionary, redDictionary, greenDictionary, blueDictionary;
-//@synthesize delegate = _delegate;
+@synthesize delegate;
+
 
 - (id)init
 {
@@ -33,7 +35,7 @@
         self.greenDictionary = [NSMutableDictionary dictionary];
         self.blueDictionary = [NSMutableDictionary dictionary];
         maxGammaValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
-        
+        self.delegate = self;
     }
     return self;
 }
@@ -68,13 +70,37 @@
             tmpValue = maxGammaValue;
             break;
     }
-
     [layerDraw drawHistogramLayer:channel withDictionary:tmpDictionary withMaxValue:tmpValue];
     [tmpDictionary release];
 }
 
-- (void)setImageForHistogram:(NSImage *)image toSize:(NSSize)size
+- (void)_dataInfoToDrawLayer:(HistogramLayerDrawing *)drawLayer
 {
+    //用 Delegate 方式，讓每一層能被畫到
+    histogramLayerIndex = 0 ;
+    [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Red];
+}
+
+- (void)histogramDrawingLayerFinish:(HistogramLayerDrawing *)drawLayer
+{
+    histogramLayerIndex++;
+    switch (histogramLayerIndex) {
+        case 1:
+            [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Green];
+            break;
+        case 2:
+            [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Blue];
+            break;
+        default:
+            [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Gamma];
+            [drawLayer makesChannelVisible:kOTHistogramChannel_Gamma];
+            break;
+    }
+}
+
+- (void)setImageForHistogram:(NSImage *)image toSize:(NSSize)size withLayer:(HistogramLayerDrawing *)drawLayer
+{
+    drawLayer.delegate = self.delegate;
     //大張圖和小張圖的資訊是差不多，但小一點的圖計算比較快
     if (size.height <= 0 && size.width <= 0) {
         return;
@@ -90,7 +116,7 @@
     }
     
     NSImage *reSizeImage = [[[NSImage alloc] initWithSize:NSMakeSize(newSize.width, newSize.height)] autorelease];
-    NSLog(@"%f, %f", reSizeImage.size.width, reSizeImage.size.height);
+//    NSLog(@"%f, %f", reSizeImage.size.width, reSizeImage.size.height);
     [reSizeImage lockFocus];
     [image drawInRect:NSMakeRect(0, 0, newSize.width, newSize.height) fromRect:NSMakeRect(0, 0, image.size.width, image.size.height) operation:NSCompositeSourceOver fraction:1.0f];
     [reSizeImage unlockFocus];
@@ -98,38 +124,14 @@
     
     //把 reSizeImage 給資料端做運算
     [self setHistogramData:bitmapRep];
+    [self _dataInfoToDrawLayer:drawLayer];
 }
 
 - (void)setHistogramData:(NSBitmapImageRep *)bmprep withLayer:(HistogramLayerDrawing *)drawLayer
 {
-    NSColor *tmpColor;
-    
-    NSMutableDictionary *mutRedDictionary = [NSMutableDictionary dictionary];
-    NSMutableDictionary *mutGreenDictionary = [NSMutableDictionary dictionary];
-    NSMutableDictionary *mutBlueDictionary = [NSMutableDictionary dictionary];
-    
-    for (int i = 0 ; i < 256; i++) {
-        [mutRedDictionary setObject:[NSString stringWithFormat:@"0"] forKey:[NSString stringWithFormat:@"%d", i]];
-        [mutGreenDictionary setObject:[NSString stringWithFormat:@"0"] forKey:[NSString stringWithFormat:@"%d", i]];
-        [mutBlueDictionary setObject:[NSString stringWithFormat:@"0"] forKey:[NSString stringWithFormat:@"%d", i]];
-    }
-    maxGammaValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
-    for (int y = 0 ; y < bmprep.size.height; y++) {
-        for (int x = 0 ; x < bmprep.size.width; x++) {
-            tmpColor = [bmprep colorAtX:x y:y];
-
-            [self setColorForDictionary:tmpColor forRedDictionary:mutRedDictionary forGreenDictionary:mutGreenDictionary forBlueDictionary:mutBlueDictionary];
-        }
-    }
-    redDictionary = [mutRedDictionary copy];
-    greenDictionary = [mutGreenDictionary copy];
-    blueDictionary = [mutBlueDictionary copy];
-    gammaDictionary = [[self saveToGammaDictionary:mutRedDictionary withGreenDictionary:mutGreenDictionary withBlueDictionary:mutBlueDictionary] copy];
-    //換的太快會讓值沒有被畫上去，要用delegate的方式來慢慢的寫入下一個嗎？
-    [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Red];
-    [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Green];
-    [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Blue];
-    [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Gamma];
+    drawLayer.delegate = self.delegate;
+    [self setHistogramData:bmprep];
+    [self _dataInfoToDrawLayer:drawLayer];
 }
 
 - (void)setHistogramData:(NSBitmapImageRep *)bmprep
@@ -159,6 +161,48 @@
     gammaDictionary = [[self saveToGammaDictionary:mutRedDictionary withGreenDictionary:mutGreenDictionary withBlueDictionary:mutBlueDictionary] copy];
 }
 
+
+- (void)resizedImage:(NSBitmapImageRep *)bmprep toSize:(CGRect)thumbRect withLayer:(HistogramLayerDrawing *)drawLayer
+{
+    drawLayer.delegate = self.delegate;
+    //等比例縮放
+    NSSize newSize = NSMakeSize( bmprep.size.width, bmprep.size.height);
+    if (thumbRect.size.width > thumbRect.size.width) {
+        newSize.width =  thumbRect.size.width;
+        newSize.height = bmprep.size.height * thumbRect.size.width / bmprep.size.width;
+    }
+    if (bmprep.size.height > thumbRect.size.height) {
+        newSize.height = thumbRect.size.height;
+        newSize.width = bmprep.size.width * thumbRect.size.height / bmprep.size.height;
+    }
+    
+    CGImageRef imageRef = bmprep.CGImage;
+    CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef);
+    
+    if (alphaInfo == kCGImageAlphaNone)
+        alphaInfo = kCGImageAlphaPremultipliedLast;// kCGImageAlphaNoneSkipLast
+    
+    CGContextRef bitmap = CGBitmapContextCreate(
+                                                NULL,
+                                                thumbRect.size.width,
+                                                thumbRect.size.height,
+                                                CGImageGetBitsPerComponent(imageRef),
+                                                4 * thumbRect.size.width, 
+                                                CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB),//CGImageGetColorSpace(imageRef)
+                                                alphaInfo
+                                                );
+    
+    CGContextDrawImage(bitmap, CGRectMake(thumbRect.origin.x, thumbRect.origin.y, thumbRect.size.width, thumbRect.size.height), imageRef);
+    CGImageRef ref = CGBitmapContextCreateImage(bitmap);
+    NSImage *reSizeImage = [[[NSImage alloc] initWithCGImage:ref size:NSMakeSize(newSize.width, newSize.height)]autorelease];
+    
+    CGContextRelease(bitmap);
+    CGImageRelease(ref);
+    NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[reSizeImage TIFFRepresentation]]autorelease];
+//    NSLog(@"%f %f", bitmapRep.size.width, bitmapRep.size.height);
+    [self setHistogramData:bitmapRep];
+    [self _dataInfoToDrawLayer:drawLayer];
+}
 
 #pragma Private Method
 - (void)setColorForDictionary:(NSColor *)color forRedDictionary:(NSMutableDictionary *)mtRedDictionary forGreenDictionary:(NSMutableDictionary *)mtGreenDictionary forBlueDictionary:(NSMutableDictionary *)mtBlueDictionary

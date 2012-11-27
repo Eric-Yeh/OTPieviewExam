@@ -24,6 +24,7 @@
     kOTHistogram_Channel otHistogramChannel;
     CALayer *boraderLayer, *gradientRectLayer, *gammaLayer, *redLayer, *greenLayer, *blueLayer, *sliderLayer;    
     BOOL isSliderClick;
+    CGRect channelRect;
 //    kOTHistogram_Layer otHistogramLayer;
 //    id <HistogramDataSource> _delegate;
 }
@@ -39,6 +40,7 @@
 @synthesize histogrameDictionary;
 @synthesize boraderLayer, gradientRectLayer, gammaLayer, redLayer, greenLayer, blueLayer, sliderLayer;
 @synthesize otHistogramChannel;
+@synthesize delegate = _delegate;
 //@synthesize otHistogramLayer;
 //@synthesize delegate = _delegate;
 
@@ -122,7 +124,7 @@
 
 - (void)_moveCropMarkerLayerToPoint:(NSPoint)point
 {
-    CGPoint insetPoint = OTHistogramSliderRange(NSPointToCGPoint(point), self.sliderLayer.frame, CGRectMake(self.gradientRectLayer.frame.origin.x, self.gradientRectLayer.frame.origin.y - self.sliderLayer.frame.size.height / 2 + 2, self.gradientRectLayer.frame.size.width - self.sliderLayer.frame.size.width / 2 + 4, 0));
+    CGPoint insetPoint = OTHistogramSliderRange(NSPointToCGPoint(point), self.sliderLayer.frame, CGRectMake(self.gradientRectLayer.frame.origin.x + 1, self.gradientRectLayer.frame.origin.y - self.sliderLayer.frame.size.height / 2 + 1, self.gradientRectLayer.frame.size.width - self.sliderLayer.frame.size.width / 2 + 4, 0));
 	[CATransaction begin];
 	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
 	self.sliderLayer.position = insetPoint;
@@ -173,26 +175,28 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
     [blueLayer setDelegate:self];
     [sliderLayer setDelegate:self];
     [self.layer setBackgroundColor:CGColorCreateFromNSColor([NSColor whiteColor],CGColorSpaceCreateDeviceRGB())];
+    channelRect = CGRectMake(31, 42, 256, 256);
     
-    boraderLayer.frame = CGRectMake(30, 30, 260, 160);
+    
+    boraderLayer.frame = CGRectMake(channelRect.origin.x, channelRect.origin.y, channelRect.size.width + 2, channelRect.size.height + 2);
     [self.layer addSublayer:boraderLayer];
     
-    gradientRectLayer.frame = CGRectMake(30, 30, 260, 15);
+    gradientRectLayer.frame = CGRectMake(30, 24, channelRect.size.width + 4, 15);
     [self.layer addSublayer:gradientRectLayer];
     
-    redLayer.frame = CGRectMake(31, 60, 256, 130);
+    redLayer.frame = channelRect;
     [self.layer addSublayer:redLayer];
     
-    greenLayer.frame = CGRectMake(31, 60, 256, 130);
+    greenLayer.frame = channelRect;
     [self.layer addSublayer:greenLayer];
 
-    blueLayer.frame = CGRectMake(31, 60, 256, 130);
+    blueLayer.frame = channelRect;
     [self.layer addSublayer:blueLayer];
 
-    gammaLayer.frame = CGRectMake(31, 60, 256, 130);
+    gammaLayer.frame = channelRect;
     [self.layer addSublayer:gammaLayer];
 
-    sliderLayer.frame = CGRectMake(23, 17, 15, 15);
+    sliderLayer.frame = CGRectMake(23, 10, 15, 15);
     [self.layer addSublayer:sliderLayer];
     
     [boraderLayer setNeedsDisplay];
@@ -233,6 +237,7 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
 
 - (void)dealloc
 {
+    _delegate = nil;
     [boraderLayer release]; boraderLayer = nil;
     [gradientRectLayer release]; gradientRectLayer = nil;
     [gammaLayer release]; gammaLayer = nil;
@@ -269,7 +274,7 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
         else if (layer == sliderLayer) {
             [self drawSliderLayer:context];
         }
-//        NSLog(@"%@", layer.name);
+        NSLog(@"%@", layer.name);
     }
 }
 
@@ -314,7 +319,8 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
              channelColor = CGColorCreateFromNSColor([NSColor colorWithCalibratedRed:0.5 green:0.5 blue:0.5 alpha:0.5], colorSpace);
              break;
      }
-    CGContextSetLineWidth(context, 1.0f); //線寬
+    float lineWidth = 1.0f;
+    CGContextSetLineWidth(context, lineWidth); //線寬
     
     CGContextSetStrokeColorWithColor(context, channelColor); //線色
     CGContextSetLineCap(context, kCGLineCapRound); //線的接點
@@ -322,24 +328,43 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
     for (int i = 0; i < 256; i++) {
         NSString *tmpColorStringValue = [tmpDictionary objectForKey:[NSString stringWithFormat:@"%d", i]];
         int colorValue = [tmpColorStringValue intValue];
-        value = ((float)colorValue / maxValue) * 100;
+        value = ((float)colorValue / maxValue) * redLayer.bounds.size.height ;//100
         //都從 (0,0) 開始畫，位置定義交給 CALayer
-        CGContextMoveToPoint(context, i, 0);
-        CGContextAddLineToPoint(context, i, value);
+        float gap = (float)i * lineWidth;
+        CGContextMoveToPoint(context, gap, 0);
+        CGContextAddLineToPoint(context, gap, value);
         CGContextStrokePath(context);
     }
     [dictionary release];
+    if ([self.delegate respondsToSelector:@selector(histogramDrawingLayerFinish:)]) {
+        [self.delegate histogramDrawingLayerFinish:self];
+    }
 }
 
 - (void)drawBorderLayer:(CGContextRef)context
 {
-    //底框
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    //格線
+    CGColorRef gridColor = CGColorCreateFromNSColor([NSColor lightGrayColor], colorSpace);
+    CGContextSetLineWidth(context, 1.0f);
+    CGContextSetStrokeColorWithColor(context, gridColor); //線色
+    for (int x = 0 ; x < 4 ; x++) {
+        CGContextMoveToPoint(context, boraderLayer.bounds.size.width * x / 4, 0 );
+        CGContextAddLineToPoint(context, boraderLayer.bounds.size.width * x / 4, boraderLayer.bounds.size.height);
+        CGContextStrokePath(context);
+    }
+    for (int y = 0 ; y < 4; y++) {
+        CGContextMoveToPoint(context, 0, boraderLayer.bounds.size.height * y / 4 );
+        CGContextAddLineToPoint(context, boraderLayer.bounds.size.width, boraderLayer.bounds.size.height * y / 4);
+        CGContextStrokePath(context);
+    }
+    //底框
     CGColorRef borderColor = CGColorCreateFromNSColor([NSColor blackColor], colorSpace);
-    CGContextAddRect(context, CGRectMake(0 , 30, 256, 100));
+    CGContextAddRect(context, CGRectMake(1 , 1, boraderLayer.bounds.size.width - 2, boraderLayer.bounds.size.height - 2 ));
     CGContextSetLineWidth(context, 1.0);
     CGContextSetStrokeColorWithColor(context, borderColor); //線色
     CGContextStrokePath(context);
+
 }
 
 - (void)drawGradientRectLayer:(CGContextRef)context
@@ -353,7 +378,7 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
     CGColorSpaceRelease(baseSpace), baseSpace = NULL;
     CGContextSaveGState(context);
     
-    CGRect rect = CGRectMake(1 , 0, 256, 14);
+    CGRect rect = CGRectMake(1 , 0, gradientRectLayer.bounds.size.width - 2, gradientRectLayer.bounds.size.height - 2 );
     CGContextAddRect(context, rect);
     CGContextClip(context);
     
@@ -363,14 +388,14 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
     
     // 自左而右填色
     CGPoint startPoint = CGPointMake(0, 0);
-    CGPoint endPoint = CGPointMake(256, 14);
+    CGPoint endPoint = CGPointMake(gradientRectLayer.bounds.size.width - 8, gradientRectLayer.bounds.size.height - 2);
     
     CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
     CGGradientRelease(gradient), gradient = NULL;
     
     CGContextRestoreGState(context);
-    CGContextAddRect(context, CGRectMake(1 , 0, 256, 15));
-    CGContextSetLineWidth(context, 1.0);
+    CGContextAddRect(context, CGRectMake(0 , 0, gradientRectLayer.bounds.size.width-1, gradientRectLayer.bounds.size.height - 1));
+    CGContextSetLineWidth(context, 1.0f);
     CGContextDrawPath(context, kCGPathStroke);
 }
 

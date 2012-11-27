@@ -1304,7 +1304,7 @@
 			<object class="NSWindowTemplate" id="972006081">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{335, 390}, {713, 581}}</string>
+				<string key="NSWindowRect">{{335, 390}, {720, 641}}</string>
 				<int key="NSWTFlags">1954021376</int>
 				<string key="NSWindowTitle">OTHistogram</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -1325,7 +1325,7 @@
 								<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
 								<string>NeXT TIFF v4.0 pasteboard type</string>
 							</set>
-							<string key="NSFrame">{{41, 348}, {279, 186}}</string>
+							<string key="NSFrame">{{41, 408}, {279, 186}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="551364262"/>
@@ -1353,7 +1353,7 @@
 								<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
 								<string>NeXT TIFF v4.0 pasteboard type</string>
 							</set>
-							<string key="NSFrame">{{44, 152}, {241, 158}}</string>
+							<string key="NSFrame">{{44, 212}, {241, 158}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="372277550"/>
@@ -1373,7 +1373,7 @@
 						<object class="NSButton" id="970196767">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{28, 51}, {74, 32}}</string>
+							<string key="NSFrame">{{28, 111}, {74, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="449292242"/>
@@ -1401,7 +1401,7 @@
 						<object class="NSButton" id="1052241458">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{28, 83}, {74, 32}}</string>
+							<string key="NSFrame">{{28, 143}, {74, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="511320593"/>
@@ -1433,10 +1433,10 @@
 								<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
 								<string>NeXT TIFF v4.0 pasteboard type</string>
 							</set>
-							<string key="NSFrame">{{363, 49}, {320, 240}}</string>
+							<string key="NSFrame">{{364, 31}, {320, 240}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
+							<reference key="NSNextKeyView" ref="540238625"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSImageCell" key="NSCell" id="293659383">
@@ -1453,7 +1453,7 @@
 						<object class="NSTextField" id="313913273">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{41, 534}, {40, 17}}</string>
+							<string key="NSFrame">{{41, 594}, {40, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="546017200"/>
@@ -1489,10 +1489,10 @@
 						<object class="NSTextField" id="621495472">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{41, 319}, {40, 17}}</string>
+							<string key="NSFrame">{{41, 379}, {40, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="328125009"/>
+							<reference key="NSNextKeyView" ref="534878017"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="899859936">
@@ -1509,7 +1509,7 @@
 						<object class="NSCustomView" id="551364262">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{336, 351}, {342, 200}}</string>
+							<string key="NSFrame">{{331, 279}, {342, 342}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="621495472"/>
@@ -1519,10 +1519,10 @@
 						<object class="NSPopUpButton" id="328125009">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{372, 319}, {100, 26}}</string>
+							<string key="NSFrame">{{255, 206}, {100, 26}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="534878017"/>
+							<reference key="NSNextKeyView" ref="1052241458"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSPopUpButtonCell" key="NSCell" id="248197907">
@@ -1602,10 +1602,10 @@
 						<object class="NSButton" id="449292242">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{108, 51}, {106, 32}}</string>
+							<string key="NSFrame">{{108, 111}, {106, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="540238625"/>
+							<reference key="NSNextKeyView" ref="554400882"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="67893947">
@@ -1626,10 +1626,10 @@
 						<object class="NSSlider" id="372277550">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{373, 291}, {300, 21}}</string>
+							<string key="NSFrame">{{49, 25}, {300, 21}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="554400882"/>
+							<reference key="NSNextKeyView" ref="328125009"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSliderCell" key="NSCell" id="44653767">
@@ -1651,7 +1651,7 @@
 						<object class="NSButton" id="800783547">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{28, 19}, {126, 32}}</string>
+							<string key="NSFrame">{{28, 79}, {126, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="139620349"/>
@@ -1675,7 +1675,7 @@
 						<object class="NSButton" id="511320593">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{108, 83}, {139, 32}}</string>
+							<string key="NSFrame">{{108, 143}, {139, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="970196767"/>
@@ -1699,10 +1699,10 @@
 						<object class="NSPopUpButton" id="540238625">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{222, 23}, {133, 26}}</string>
+							<string key="NSFrame">{{222, 80}, {133, 26}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="800783547"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSPopUpButtonCell" key="NSCell" id="968579773">
@@ -1734,10 +1734,10 @@
 						<object class="NSMatrix" id="554400882">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{260, 52}, {92, 78}}</string>
+							<string key="NSFrame">{{260, 112}, {92, 78}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="1052241458"/>
+							<reference key="NSNextKeyView" ref="800783547"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<int key="NSNumRows">4</int>
@@ -1872,7 +1872,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<reference key="NSFont" ref="71680708"/>
 						</object>
 					</array>
-					<string key="NSFrameSize">{713, 581}</string>
+					<string key="NSFrameSize">{720, 641}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="313913273"/>
@@ -2660,14 +2660,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">histogramLayer</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="551364262"/>
-					</object>
-					<int key="connectionID">763</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">layerButton</string>
 						<reference key="source" ref="976324537"/>
 						<reference key="destination" ref="540238625"/>
@@ -2689,6 +2681,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="destination" ref="554400882"/>
 					</object>
 					<int key="connectionID">779</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">histogramDrawLayer</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="551364262"/>
+					</object>
+					<int key="connectionID">784</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3215,21 +3215,21 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<int key="objectID">372</int>
 						<reference key="object" ref="439893737"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="551364262"/>
-							<reference ref="328125009"/>
-							<reference ref="372277550"/>
 							<reference ref="621495472"/>
 							<reference ref="546017200"/>
 							<reference ref="313913273"/>
-							<reference ref="139620349"/>
 							<reference ref="970196767"/>
 							<reference ref="1052241458"/>
 							<reference ref="449292242"/>
 							<reference ref="800783547"/>
 							<reference ref="511320593"/>
-							<reference ref="540238625"/>
 							<reference ref="554400882"/>
 							<reference ref="534878017"/>
+							<reference ref="328125009"/>
+							<reference ref="372277550"/>
+							<reference ref="551364262"/>
+							<reference ref="139620349"/>
+							<reference ref="540238625"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -4161,7 +4161,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">783</int>
+			<int key="maxID">784</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4281,7 +4281,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="directionMatrix">NSMatrix</string>
 						<string key="dstImage">NSImageView</string>
 						<string key="graphicMatrix">NSMatrix</string>
-						<string key="histogramLayer">HistogramLayerDrawing</string>
+						<string key="histogramDrawLayer">HistogramLayerDrawing</string>
 						<string key="layerButton">NSPopUpButton</string>
 						<string key="layerMatrix">NSMatrix</string>
 						<string key="modePopUpButton">NSPopUpButton</string>
@@ -4314,8 +4314,8 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string key="name">graphicMatrix</string>
 							<string key="candidateClassName">NSMatrix</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="histogramLayer">
-							<string key="name">histogramLayer</string>
+						<object class="IBToOneOutletInfo" key="histogramDrawLayer">
+							<string key="name">histogramDrawLayer</string>
 							<string key="candidateClassName">HistogramLayerDrawing</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="layerButton">

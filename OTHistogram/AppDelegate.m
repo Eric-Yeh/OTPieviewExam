@@ -15,7 +15,7 @@
 //NSImageView
 @synthesize oriImage, dstImage, tmpImage;
 @synthesize modePopUpButton, layerButton;
-@synthesize histogramLayer;
+@synthesize histogramDrawLayer;
 @synthesize histogramDataInfo;
 @synthesize layerMatrix;
 
@@ -42,8 +42,8 @@
 //    histogramDataInfo.delegate = self;
     
 //    [self.layerButton addItemWithTitle:[[histogramLayer.layer sublayers] ];
-    for (int i = 0; i < [[histogramLayer.layer sublayers] count]; i++) {
-        CALayer *tmpLayer =[[histogramLayer.layer sublayers] objectAtIndex:i];
+    for (int i = 0; i < [[histogramDrawLayer.layer sublayers] count]; i++) {
+        CALayer *tmpLayer =[[histogramDrawLayer.layer sublayers] objectAtIndex:i];
         NSString *name = [tmpLayer name];
         [self.layerButton addItemWithTitle: name];
         [self.layerButton itemAtIndex:i].tag = i;
@@ -180,40 +180,6 @@ void drawStrokedAndFilledRects(CGContextRef context)
     [self.dstImage.layer addSublayer:layer2];
 }
 
-- (IBAction)saveImageTo:(id)sender
-{
-
-    HistogramData *data = [[HistogramData alloc] init];
-    [data setImageForHistogram:self.oriImage.image toSize:NSMakeSize(640, 480)];
-//    [data drawHistogram:kOTHistogramChannel_Blue];
-    [data release];
-/*
-    [self.dstImage.superview setWantsLayer:YES];
-    CALayer *layer1 = [CALayer layer];
-    layer1.frame = CGRectMake(20, 15, 40, 40);
-    layer1.contents = self.oriImage.image;
-    [layer1 setPosition:CGPointMake(60, 60)];
-    [self.dstImage.layer addSublayer:layer1];
-*/
-
-    //    CGContextSetRGBStrokeColor(borderContext, 0.0f, 0.0f, 0.0f, 1.0f);
-    //    CGContextAddRect(borderContext, CGRectMake(30 + borderXOffset , 30 + borderYOffset, 260, 100 + borderYRedeem));
-//    [self drawStars:borderContext];
-
-    
-//     NSBitmapImageRep *bmprep = [[self.oriImage.image representations] objectAtIndex:0];
-//    CALayer *layer1 = [CALayer layer];
-//    layer1.frame = CGRectMake(0, 0, 10, 10);
-//    layer1.contents = self.oriImage.image;
-//    [self.dstImage.layer addSublayer:layer1];
-//
-//
-//    CALayer *layer2 = [CALayer layer];
-//    layer2.frame = CGRectMake(10, 10, 40, 40);
-//    layer2.contents = (id) bmprep.CGImage;
-//    [self.dstImage.layer addSublayer:layer2];
-}
-
 - (IBAction)openImageFrom:(id)sender
 {
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
@@ -233,7 +199,7 @@ void drawStrokedAndFilledRects(CGContextRef context)
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
                 NSBitmapImageRep *bmprep = [[self.oriImage.image representations] objectAtIndex:0];
                 NSData *jpegData = [bmprep representationUsingType: NSPNGFileType properties: nil];
-                self.dstImage.image = [[[NSImage alloc]initWithData:jpegData]autorelease];
+//                self.dstImage.image = [[[NSImage alloc]initWithData:jpegData]autorelease];
                 [jpegData writeToFile:@"/Users/Eric/Pictures/PNGTest/999.png" atomically:NO];
             });
         }
@@ -242,41 +208,38 @@ void drawStrokedAndFilledRects(CGContextRef context)
 
 - (IBAction)readHistogramData:(id)sender
 {
-    //[histogramDataInfo setImageForHistogram:self.oriImage.image toSize:NSMakeSize(640, 480)];
-        NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[self.oriImage.image TIFFRepresentation]]autorelease];
-//    [histogramDataInfo setHistogramData:bitmapRep];
-//    [histogramDataInfo drawHistogram:kOTHistogramChannel_Gamma];
-    
-//    [histogramDataInfo setHistogramDataToLayer:histogramLayer withChannel:kOTHistogramChannel_Blue];
-    [histogramDataInfo setHistogramData:bitmapRep withLayer:histogramLayer];
+    NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[self.oriImage.image TIFFRepresentation]]autorelease];
+    [histogramDataInfo setHistogramData:bitmapRep withLayer:histogramDrawLayer];
 }
 
 - (IBAction)drawHistogram:(id)sender
 {
+    [histogramDataInfo setImageForHistogram:self.oriImage.image toSize:NSMakeSize(640, 480) withLayer:histogramDrawLayer];
+}
 
-    CALayer *tmpLayer = [[histogramLayer.layer sublayers] objectAtIndex:[[self.layerButton selectedItem] tag]];
-//    [self changeHistogram:nil];
-//    [histogramDataInfo drawHistogram:kOTHistogramChannel_Gamma];
-    [histogramLayer changeLayerPosition:tmpLayer withPosition:CGPointMake(70, 70)];
+- (IBAction)saveImageTo:(id)sender
+{
+    NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[self.oriImage.image TIFFRepresentation]]autorelease];
+    [histogramDataInfo resizedImage:bitmapRep toSize:CGRectMake(0, 0, 640, 480) withLayer:histogramDrawLayer];
 }
 
 - (IBAction)changeHistogram:(id)sender
 {
     switch ([[self.modePopUpButton selectedItem] tag]) {
         case 1: //Red
-            [histogramLayer makesChannelVisible:kOTHistogramChannel_Red];
+            [histogramDrawLayer makesChannelVisible:kOTHistogramChannel_Red];
             break;
 
         case 2: //Green
-            [histogramLayer makesChannelVisible:kOTHistogramChannel_Green];
+            [histogramDrawLayer makesChannelVisible:kOTHistogramChannel_Green];
             break;
 
         case 3: //Blue
-            [histogramLayer makesChannelVisible:kOTHistogramChannel_Blue];
+            [histogramDrawLayer makesChannelVisible:kOTHistogramChannel_Blue];
             break;
 
         default: //RGB
-            [histogramLayer makesChannelVisible:kOTHistogramChannel_Gamma];
+            [histogramDrawLayer makesChannelVisible:kOTHistogramChannel_Gamma];
             break;
     }
 //    switch ([[self.modePopUpButton selectedItem] tag]) {
@@ -384,8 +347,8 @@ void drawStrokedAndFilledRects(CGContextRef context)
 
             break;
     }
-    [histogramLayer makesChannelVisible:channel];
-    [histogramDataInfo setHistogramDataToLayer:histogramLayer withChannel:channel];    
+    [histogramDrawLayer makesChannelVisible:channel];
+//    [histogramDataInfo setHistogramDataToLayer:histogramDrawLayer withChannel:channel];    
     
 //    for (int i = 0 ; i < [[self.layerMatrix cells]count] ; i++) {
 ////        [[self.layerMatrix cells] indexOfObject:i];
