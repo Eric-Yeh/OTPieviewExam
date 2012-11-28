@@ -41,11 +41,35 @@
 }
 
 - (void)dealloc {
-    [self.gammaDictionary release];
-    [self.redDictionary release];
-    [self.greenDictionary release];
-    [self.blueDictionary release];
+    [gammaDictionary release]; gammaDictionary = nil;
+    [redDictionary release]; redDictionary = nil;
+    [greenDictionary release]; greenDictionary = nil;
+    [blueDictionary release]; blueDictionary = nil;
 	[super dealloc];
+}
+#pragma mark work with Delegate
+- (void)_dataInfoToDrawLayer:(HistogramLayerDrawing *)drawLayer
+{
+    //用 Delegate 方式，讓每一層能被畫到
+    histogramLayerIndex = 0 ;
+    [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Red];
+}
+
+- (void)histogramDrawingLayerFinish:(HistogramLayerDrawing *)drawLayer
+{
+    histogramLayerIndex++;
+    switch (histogramLayerIndex) {
+        case 1:
+            [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Green];
+            break;
+        case 2:
+            [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Blue];
+            break;
+        default:
+            [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Gamma];
+            [drawLayer makesChannelVisible:kOTHistogramChannel_Gamma];
+            break;
+    }
 }
 
 - (void)setHistogramDataToLayer:(HistogramLayerDrawing *)layerDraw withChannel:(kOTHistogram_Channel)channel
@@ -74,66 +98,7 @@
     [tmpDictionary release];
 }
 
-- (void)_dataInfoToDrawLayer:(HistogramLayerDrawing *)drawLayer
-{
-    //用 Delegate 方式，讓每一層能被畫到
-    histogramLayerIndex = 0 ;
-    [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Red];
-}
-
-- (void)histogramDrawingLayerFinish:(HistogramLayerDrawing *)drawLayer
-{
-    histogramLayerIndex++;
-    switch (histogramLayerIndex) {
-        case 1:
-            [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Green];
-            break;
-        case 2:
-            [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Blue];
-            break;
-        default:
-            [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Gamma];
-            [drawLayer makesChannelVisible:kOTHistogramChannel_Gamma];
-            break;
-    }
-}
-
-- (void)setImageForHistogram:(NSImage *)image toSize:(NSSize)size withLayer:(HistogramLayerDrawing *)drawLayer
-{
-    drawLayer.delegate = self.delegate;
-    //大張圖和小張圖的資訊是差不多，但小一點的圖計算比較快
-    if (size.height <= 0 && size.width <= 0) {
-        return;
-    }
-    NSSize newSize = NSMakeSize( image.size.width, image.size.height);
-    if (image.size.width > size.width) {
-        newSize.width =  size.width;
-        newSize.height = image.size.height * size.width / image.size.width;
-    }
-    if (image.size.height > size.height) {
-        newSize.height = size.height;
-        newSize.width = image.size.width * size.height / image.size.height;
-    }
-    
-    NSImage *reSizeImage = [[[NSImage alloc] initWithSize:NSMakeSize(newSize.width, newSize.height)] autorelease];
-//    NSLog(@"%f, %f", reSizeImage.size.width, reSizeImage.size.height);
-    [reSizeImage lockFocus];
-    [image drawInRect:NSMakeRect(0, 0, newSize.width, newSize.height) fromRect:NSMakeRect(0, 0, image.size.width, image.size.height) operation:NSCompositeSourceOver fraction:1.0f];
-    [reSizeImage unlockFocus];
-    NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[reSizeImage TIFFRepresentation]]autorelease];
-    
-    //把 reSizeImage 給資料端做運算
-    [self setHistogramData:bitmapRep];
-    [self _dataInfoToDrawLayer:drawLayer];
-}
-
-- (void)setHistogramData:(NSBitmapImageRep *)bmprep withLayer:(HistogramLayerDrawing *)drawLayer
-{
-    drawLayer.delegate = self.delegate;
-    [self setHistogramData:bmprep];
-    [self _dataInfoToDrawLayer:drawLayer];
-}
-
+#pragma mark get image color info
 - (void)setHistogramData:(NSBitmapImageRep *)bmprep
 {
     NSColor *tmpColor;
@@ -162,6 +127,42 @@
 }
 
 
+- (void)setHistogramData:(NSBitmapImageRep *)bmprep withLayer:(HistogramLayerDrawing *)drawLayer
+{
+    drawLayer.delegate = self.delegate;
+    [self setHistogramData:bmprep];
+    [self _dataInfoToDrawLayer:drawLayer];
+}
+
+- (void)setImageForHistogram:(NSImage *)image toSize:(NSSize)size withLayer:(HistogramLayerDrawing *)drawLayer
+{
+    drawLayer.delegate = self.delegate;
+    //大張圖和小張圖的資訊是差不多，但小一點的圖計算比較快
+    if (size.height <= 0 && size.width <= 0) {
+        return;
+    }
+    NSSize newSize = NSMakeSize( image.size.width, image.size.height);
+    if (image.size.width > size.width) {
+        newSize.width =  size.width;
+        newSize.height = image.size.height * size.width / image.size.width;
+    }
+    if (image.size.height > size.height) {
+        newSize.height = size.height;
+        newSize.width = image.size.width * size.height / image.size.height;
+    }
+    
+    NSImage *reSizeImage = [[[NSImage alloc] initWithSize:NSMakeSize(newSize.width, newSize.height)] autorelease];
+    //    NSLog(@"%f, %f", reSizeImage.size.width, reSizeImage.size.height);
+    [reSizeImage lockFocus];
+    [image drawInRect:NSMakeRect(0, 0, newSize.width, newSize.height) fromRect:NSMakeRect(0, 0, image.size.width, image.size.height) operation:NSCompositeSourceOver fraction:1.0f];
+    [reSizeImage unlockFocus];
+    NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[reSizeImage TIFFRepresentation]]autorelease];
+    
+    //把 reSizeImage 給資料端做運算
+    [self setHistogramData:bitmapRep];
+    [self _dataInfoToDrawLayer:drawLayer];
+}
+
 - (void)resizedImage:(NSBitmapImageRep *)bmprep toSize:(CGRect)thumbRect withLayer:(HistogramLayerDrawing *)drawLayer
 {
     drawLayer.delegate = self.delegate;
@@ -188,7 +189,7 @@
                                                 thumbRect.size.height,
                                                 CGImageGetBitsPerComponent(imageRef),
                                                 4 * thumbRect.size.width, 
-                                                CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB),//CGImageGetColorSpace(imageRef)
+                                                CGImageGetColorSpace(imageRef),
                                                 alphaInfo
                                                 );
     
@@ -204,7 +205,70 @@
     [self _dataInfoToDrawLayer:drawLayer];
 }
 
-#pragma Private Method
+- (NSBitmapImageRep *)adjustHistogramValueForImage:(NSBitmapImageRep *)bmprep withHistogramChannel:(kOTHistogram_Channel)histogramChannel withValue:(float)floatValue
+{
+    float maxFloatValue = 255;
+    float minFloatValue = 0;
+    if (floatValue > maxFloatValue) {
+        floatValue = maxFloatValue;
+    } else if (floatValue < minFloatValue) {
+        floatValue = minFloatValue;
+    }
+    CIImage *iImage = [CIImage imageWithCGImage:bmprep.CGImage];
+    CIFilter *filter1;
+    NSNumber *intensityValue = [NSNumber numberWithFloat:(1 - (float)floatValue / maxFloatValue)];
+    CIColor *iColor;
+    switch (histogramChannel) {
+        case  kOTHistogramChannel_Red: //Red
+            filter1 = [CIFilter filterWithName:@"CIColorMonochrome"];
+            [filter1 setValue:iImage forKey:@"inputImage"];
+            iColor = [CIColor colorWithRed:0.0f green:1.0f blue:1.0f];
+            [filter1 setValue:iColor forKey:@"inputColor"];
+            [filter1 setValue:intensityValue forKey:@"inputIntensity"];
+            break;
+            
+        case  kOTHistogramChannel_Green: //Green
+            filter1 = [CIFilter filterWithName:@"CIColorMonochrome"];
+            [filter1 setValue:iImage forKey:@"inputImage"];
+            iColor = [CIColor colorWithRed:1.0f green:0.0f blue:1.0f];
+            [filter1 setValue:iColor forKey:@"inputColor"];
+            [filter1 setValue:intensityValue forKey:@"inputIntensity"];
+            break;
+            
+        case  kOTHistogramChannel_Blue: //Blue
+            filter1 = [CIFilter filterWithName:@"CIColorMonochrome"];
+            [filter1 setValue:iImage forKey:@"inputImage"];
+            iColor = [CIColor colorWithRed:1.0f green:1.0f blue:0.0f];
+            [filter1 setValue:iColor forKey:@"inputColor"];
+            [filter1 setValue:intensityValue forKey:@"inputIntensity"];
+            break;
+            
+        default: //RGB
+            filter1 = [CIFilter filterWithName:@"CIColorControls"];
+            [filter1 setValue:iImage forKey:@"inputImage"];
+            NSNumber *powerValue = [NSNumber numberWithFloat:(((float)floatValue/maxFloatValue) - 1)];
+            [filter1 setValue:powerValue forKey:@"inputBrightness"];
+            
+            [filter1 setValue:[[[filter1 attributes]
+                                objectForKey: @"inputContrast"]
+                               objectForKey: @"CIAttributeIdentity"]
+                       forKey: @"inputContrast"];
+            [filter1 setValue:[[[filter1 attributes]
+                                objectForKey: @"inputSaturation"]
+                               objectForKey: @"CIAttributeIdentity"]
+                       forKey: @"inputSaturation"];
+            break;
+    }
+    NSBitmapImageRep *bmpOutImage = [[[NSBitmapImageRep alloc] initWithCIImage:[filter1 valueForKey:@"outputImage"]]autorelease];
+    return bmpOutImage;
+}
+
+//- (void)sliderLayerValueChange:(float)value
+//{
+//    NSLog(@"%f", value);
+//}
+
+#pragma mark Private Method
 - (void)setColorForDictionary:(NSColor *)color forRedDictionary:(NSMutableDictionary *)mtRedDictionary forGreenDictionary:(NSMutableDictionary *)mtGreenDictionary forBlueDictionary:(NSMutableDictionary *)mtBlueDictionary
 {
     double redFloatValue, greenFloatValue, blueFloatValue;
@@ -265,62 +329,5 @@
     return mutGammaDictionary;
 }
 
-- (NSData *)adjustHistogramValueForData:(NSData *)data withHistogramChannel:(kOTHistogram_Channel)histogramChannel withValue:(float)floatValue
-{
-    float maxFloatValue = 255;
-    float minFloatValue = 0;
-    if (floatValue > maxFloatValue) {
-        floatValue = maxFloatValue;
-    } else if (floatValue < minFloatValue) {
-        floatValue = minFloatValue;
-    }
-    CIImage *iImage = [CIImage imageWithData:data];
-    CIFilter *filter1;
-    NSNumber *intensityValue = [NSNumber numberWithFloat:(1 - (float)floatValue / maxFloatValue)];
-    CIColor *iColor;
-    switch (histogramChannel) {
-        case  kOTHistogramChannel_Red: //Red
-            filter1 = [CIFilter filterWithName:@"CIColorMonochrome"];
-            [filter1 setValue:iImage forKey:@"inputImage"];
-            iColor = [CIColor colorWithRed:0.0f green:1.0f blue:1.0f];
-            [filter1 setValue:iColor forKey:@"inputColor"];
-            [filter1 setValue:intensityValue forKey:@"inputIntensity"];
-            break;
-            
-        case  kOTHistogramChannel_Green: //Green
-            filter1 = [CIFilter filterWithName:@"CIColorMonochrome"];
-            [filter1 setValue:iImage forKey:@"inputImage"];
-            iColor = [CIColor colorWithRed:1.0f green:0.0f blue:1.0f];
-            [filter1 setValue:iColor forKey:@"inputColor"];
-            [filter1 setValue:intensityValue forKey:@"inputIntensity"];
-            break;
-            
-        case  kOTHistogramChannel_Blue: //Blue
-            filter1 = [CIFilter filterWithName:@"CIColorMonochrome"];
-            [filter1 setValue:iImage forKey:@"inputImage"];
-            iColor = [CIColor colorWithRed:1.0f green:1.0f blue:0.0f];
-            [filter1 setValue:iColor forKey:@"inputColor"];
-            [filter1 setValue:intensityValue forKey:@"inputIntensity"];
-            break;
-            
-        default: //RGB
-            filter1 = [CIFilter filterWithName:@"CIColorControls"];
-            [filter1 setValue:iImage forKey:@"inputImage"];
-            NSNumber *powerValue = [NSNumber numberWithFloat:(((float)floatValue/maxFloatValue) - 1)];
-            [filter1 setValue:powerValue forKey:@"inputBrightness"];
-            
-            [filter1 setValue:[[[filter1 attributes]
-                                objectForKey: @"inputContrast"]
-                               objectForKey: @"CIAttributeIdentity"]
-                       forKey: @"inputContrast"];
-            [filter1 setValue:[[[filter1 attributes]
-                                objectForKey: @"inputSaturation"]
-                               objectForKey: @"CIAttributeIdentity"]
-                       forKey: @"inputSaturation"];
-            break;
-    }
-    NSBitmapImageRep *bmprep = [[[NSBitmapImageRep alloc] initWithCIImage:[filter1 valueForKey:@"outputImage"]]autorelease];
-    return [bmprep representationUsingType:NSPNGFileType properties:nil];
-}
 
 @end

@@ -48,8 +48,30 @@
         [self.layerButton addItemWithTitle: name];
         [self.layerButton itemAtIndex:i].tag = i;
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sliderValueNotification) name:@"sliderChange" object:nil];
 }
 
+- (void)sliderValueNotification
+{
+
+    kOTHistogram_Channel channel;
+    switch ([[self.layerMatrix selectedCell]tag]) {
+        case 1:
+            channel = kOTHistogramChannel_Red;
+            break;
+        case 2:
+            channel = kOTHistogramChannel_Green;
+            break;
+        case 3:
+            channel = kOTHistogramChannel_Blue;
+            break;
+        default:
+            channel = kOTHistogramChannel_Gamma;
+            break;
+    }
+    NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[self.oriImage.image TIFFRepresentation]]autorelease];
+    self.dstImage.image = [[[NSImage alloc] initWithData:[[histogramDataInfo adjustHistogramValueForImage:bitmapRep withHistogramChannel:channel withValue:histogramDrawLayer.sliderValue] TIFFRepresentation]]autorelease];
+}
 
 //- (void)drawInContext:(CGContextRef)context
 //{
@@ -95,7 +117,7 @@ void drawStrokedAndFilledRects(CGContextRef context)
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef aColor = CGColorCreateFromNSColor([NSColor redColor], colorSpace);
     CGColorRef bColor = CGColorCreateFromNSColor([NSColor blackColor], colorSpace);
-    
+    CGColorSpaceRelease(colorSpace);
 	// Set the fill color to an opaque blue.
 	CGContextSetFillColorWithColor(context, bColor);
 	// Fill the rect.
@@ -171,12 +193,13 @@ void drawStrokedAndFilledRects(CGContextRef context)
     
     // Release the bitmap context object and free the associated raster memory.
     CGContextRelease(bitmapContext);
+    CGColorSpaceRelease(colorSpace);
     free(data);
 
     [self.dstImage.superview setWantsLayer:YES];    
     CALayer *layer2 = [CALayer layer];
     layer2.frame = CGRectMake(0, 0, 200, 200);
-    layer2.contents = (id)image;
+    layer2.contents = [(id)image autorelease];
     [self.dstImage.layer addSublayer:layer2];
 }
 
@@ -284,26 +307,42 @@ void drawStrokedAndFilledRects(CGContextRef context)
 {
     int modeButtonIndex = (int)[[self.modePopUpButton selectedItem] tag];
     float sliderFloatValue = [sender floatValue];
-    kOTHistogram_Channel histogramChannel;
-    switch (modeButtonIndex) {
-        case 1: //Red
-            histogramChannel =  kOTHistogramChannel_Red;
+    kOTHistogram_Channel channel;
+//    switch (modeButtonIndex) {
+//        case 1: //Red
+//            histogramChannel =  kOTHistogramChannel_Red;
+//            break;
+//            
+//        case 2: //Green
+//            histogramChannel =  kOTHistogramChannel_Green;
+//            break;
+//            
+//        case 3: //Blue
+//            histogramChannel =  kOTHistogramChannel_Blue;
+//            break;
+//            
+//        default: //RGB
+//            histogramChannel =  kOTHistogramChannel_Gamma;
+//            
+//            break;
+//    }
+    switch ([[self.layerMatrix selectedCell]tag]) {
+        case 1:
+            channel = kOTHistogramChannel_Red;
             break;
-            
-        case 2: //Green
-            histogramChannel =  kOTHistogramChannel_Green;
+        case 2:
+            channel = kOTHistogramChannel_Green;
             break;
-            
-        case 3: //Blue
-            histogramChannel =  kOTHistogramChannel_Blue;
+        case 3:
+            channel = kOTHistogramChannel_Blue;
             break;
-            
-        default: //RGB
-            histogramChannel =  kOTHistogramChannel_Gamma;
-            
+        default:
+            channel = kOTHistogramChannel_Gamma;
             break;
     }
-    [histogramDataInfo adjustHistogramValueForData:[self.tmpImage.image TIFFRepresentation] withHistogramChannel:histogramChannel withValue:sliderFloatValue];
+    NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[self.oriImage.image TIFFRepresentation]]autorelease];
+    self.dstImage.image = [[[NSImage alloc] initWithData:[[histogramDataInfo adjustHistogramValueForImage:bitmapRep withHistogramChannel:channel withValue:sliderFloatValue] TIFFRepresentation]]autorelease];
+
 //    self.dstImage.image = [[[NSImage alloc] initWithData:[cpView adjustHistogramValueOfData:[self.tmpImage.image TIFFRepresentation] withHistogramChannel:histogramChannel withValue:sliderFloatValue]]autorelease];
 }
 
@@ -390,6 +429,8 @@ void drawStrokedAndFilledRects(CGContextRef context)
 //    NSLog(@"%@", [[sender selectedCells] objectsAtIndexes:[sender selectedColumnIndexes]]);
 }
 
+
+
 #pragma Private Method
 - (void)drawImageToTmpImageview
 {
@@ -410,7 +451,7 @@ void drawStrokedAndFilledRects(CGContextRef context)
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef aColor = CGColorCreateFromNSColor([NSColor redColor], colorSpace);
     CGColorRef bColor = CGColorCreateFromNSColor([NSColor blackColor], colorSpace);
-    
+    CGColorSpaceRelease(colorSpace);
     CGContextAddRect(context, CGRectMake(10, 10, 100, 100));
     CGContextSetFillColorWithColor(context, aColor); //內容色
     
