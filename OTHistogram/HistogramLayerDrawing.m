@@ -96,7 +96,7 @@
     
     BOOL result = [self otck_mouse:lastLocation inCGRect:self.sliderLayer.frame];
     if (result) {
-        [self _moveCropMarkerLayerToPoint:lastLocation];
+        [self _dragSlider:lastLocation];
         isSliderClick = YES;
     }
 }
@@ -108,7 +108,7 @@
     
     BOOL result = [self otck_mouse:lastLocation inCGRect:self.sliderLayer.frame];
     if (result)
-        [self _moveCropMarkerLayerToPoint:lastLocation];
+        [self _dragSlider:lastLocation];
     isSliderClick = NO;
 }
 
@@ -119,13 +119,25 @@
 
     if (isSliderClick)
     {
-        [self _moveCropMarkerLayerToPoint:lastLocation];
+        [self _dragSlider:lastLocation];
         sliderValue = self.sliderLayer.frame.origin.x - self.gradientRectLayer.frame.origin.x + 6.5;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"sliderChange" object:self];
     }
 }
 
-- (void)_moveCropMarkerLayerToPoint:(NSPoint)point
+- (void)_initialSlider
+{
+    float dstPoint = self.gradientRectLayer.frame.origin.x + 1 + (self.gradientRectLayer.frame.size.width - self.sliderLayer.frame.size.width / 2 + 4);
+    CGPoint moveToPoint = CGPointMake(dstPoint, self.gradientRectLayer.frame.origin.y - self.sliderLayer.frame.size.height / 2 + 1);
+	[CATransaction begin];
+	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+	self.sliderLayer.position = moveToPoint;
+	[CATransaction commit];
+    
+    [self.sliderLayer setNeedsDisplay];
+}
+
+- (void)_dragSlider:(NSPoint)point
 {
     CGPoint insetPoint = OTHistogramSliderRange(NSPointToCGPoint(point), self.sliderLayer.frame, CGRectMake(self.gradientRectLayer.frame.origin.x + 1, self.gradientRectLayer.frame.origin.y - self.sliderLayer.frame.size.height / 2 + 1, self.gradientRectLayer.frame.size.width - self.sliderLayer.frame.size.width / 2 + 4, 0));
 	[CATransaction begin];
@@ -200,7 +212,7 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
     gammaLayer.frame = channelRect;
     [self.layer addSublayer:gammaLayer];
 
-    sliderLayer.frame = CGRectMake(23, 10, 15, 15);
+    sliderLayer.frame = CGRectMake(gradientRectLayer.frame.origin.x + gradientRectLayer.bounds.size.width - 10, 10, 15, 15);//23
     [self.layer addSublayer:sliderLayer];
     
     [boraderLayer setNeedsDisplay];
@@ -219,6 +231,7 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
     [blueLayer setHidden:NO];
     [sliderLayer setHidden:NO];
     self.histogrameDictionary = [NSMutableDictionary dictionary];
+    
 }
 
 - (id)initWithFrame:(NSRect)frame
@@ -250,6 +263,7 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
     [blueLayer release]; blueLayer = nil;
     [sliderLayer release]; sliderLayer = nil;
     [histogrameDictionary release]; histogrameDictionary = nil;
+
     [super dealloc];
 }
 

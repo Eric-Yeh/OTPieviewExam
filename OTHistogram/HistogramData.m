@@ -207,8 +207,8 @@
 
 - (NSBitmapImageRep *)adjustHistogramValueForImage:(NSBitmapImageRep *)bmprep withHistogramChannel:(kOTHistogram_Channel)histogramChannel withValue:(float)floatValue
 {
-    float maxFloatValue = 255;
-    float minFloatValue = 0;
+    float maxFloatValue = kOT_SliderValue_MAX;
+    float minFloatValue = kOT_SliderValue_MIN;
     if (floatValue > maxFloatValue) {
         floatValue = maxFloatValue;
     } else if (floatValue < minFloatValue) {
