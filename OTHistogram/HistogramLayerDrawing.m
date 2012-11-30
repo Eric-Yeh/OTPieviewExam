@@ -19,21 +19,6 @@
 }
 @end
 
-@interface HistogramLayerDrawing ()
-{
-    kOTHistogram_Channel otHistogramChannel;
-    CALayer *boraderLayer, *gradientRectLayer, *gammaLayer, *redLayer, *greenLayer, *blueLayer, *sliderLayer;    
-    BOOL isSliderClick;
-    CGRect channelRect;
-//    kOTHistogram_Layer otHistogramLayer;
-//    id <HistogramDataSource> _delegate;
-}
-@property (nonatomic, readwrite, copy) NSDictionary *histogrameDictionary;
-@property (nonatomic, readwrite, copy) CALayer *boraderLayer, *gradientRectLayer, *gammaLayer, *redLayer, *greenLayer, *blueLayer, *sliderLayer;
-@property (assign) kOTHistogram_Channel otHistogramChannel;
-//@property (assign) kOTHistogram_Layer otHistogramLayer;
-//@property (assign) id <HistogramDataSource> delegate;
-@end
 
 
 @implementation HistogramLayerDrawing

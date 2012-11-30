@@ -7,24 +7,11 @@
 //
 
 #import "HistogramData.h"
-@interface HistogramData ()
-{
-    NSDictionary *gammaDictionary, *redDictionary, *greenDictionary, *blueDictionary;
-    int maxGammaValue, maxRedValue, maxGreenValue, maxBlueValue;
-    int histogramLayerIndex;
-}
-@property (assign) id dataSource;
-@property (nonatomic, readwrite, copy) NSDictionary *gammaDictionary;
-@property (nonatomic, readwrite, copy) NSDictionary *redDictionary;
-@property (nonatomic, readwrite, copy) NSDictionary *greenDictionary;
-@property (nonatomic, readwrite, copy) NSDictionary *blueDictionary;
-@end
 
 @implementation HistogramData
-@synthesize dataSource;
 @synthesize gammaDictionary, redDictionary, greenDictionary, blueDictionary;
 @synthesize delegate;
-
+@synthesize gammaArray, redArray, greenArray, blueArray;
 
 - (id)init
 {
@@ -152,11 +139,12 @@
     }
     
     NSImage *reSizeImage = [[[NSImage alloc] initWithSize:NSMakeSize(newSize.width, newSize.height)] autorelease];
-    //    NSLog(@"%f, %f", reSizeImage.size.width, reSizeImage.size.height);
     [reSizeImage lockFocus];
     [image drawInRect:NSMakeRect(0, 0, newSize.width, newSize.height) fromRect:NSMakeRect(0, 0, image.size.width, image.size.height) operation:NSCompositeSourceOver fraction:1.0f];
     [reSizeImage unlockFocus];
     NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[reSizeImage TIFFRepresentation]]autorelease];
+    
+    NSLog(@"%f %f", bitmapRep.size.width, bitmapRep.size.height);
     
     //把 reSizeImage 給資料端做運算
     [self setHistogramData:bitmapRep];
@@ -166,9 +154,12 @@
 - (void)resizedImage:(NSBitmapImageRep *)bmprep toSize:(CGRect)thumbRect withLayer:(HistogramLayerDrawing *)drawLayer
 {
     drawLayer.delegate = self.delegate;
+    if (thumbRect.size.height <= 0 && thumbRect.size.width <= 0) {
+        return;
+    }
     //等比例縮放
     NSSize newSize = NSMakeSize( bmprep.size.width, bmprep.size.height);
-    if (thumbRect.size.width > thumbRect.size.width) {
+    if (bmprep.size.width > thumbRect.size.width) {
         newSize.width =  thumbRect.size.width;
         newSize.height = bmprep.size.height * thumbRect.size.width / bmprep.size.width;
     }
@@ -181,7 +172,7 @@
     CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef);
     
     if (alphaInfo == kCGImageAlphaNone)
-        alphaInfo = kCGImageAlphaPremultipliedLast;// kCGImageAlphaNoneSkipLast
+        alphaInfo = kCGImageAlphaNoneSkipLast;//kCGImageAlphaPremultipliedLast kCGImageAlphaNoneSkipLast
     
     CGContextRef bitmap = CGBitmapContextCreate(
                                                 NULL,
@@ -192,15 +183,16 @@
                                                 CGImageGetColorSpace(imageRef),
                                                 alphaInfo
                                                 );
-    
+    CGContextSetInterpolationQuality(bitmap, kCGInterpolationNone);//這麼威，不要弄就好了
     CGContextDrawImage(bitmap, CGRectMake(thumbRect.origin.x, thumbRect.origin.y, thumbRect.size.width, thumbRect.size.height), imageRef);
-    CGImageRef ref = CGBitmapContextCreateImage(bitmap);
-    NSImage *reSizeImage = [[[NSImage alloc] initWithCGImage:ref size:NSMakeSize(newSize.width, newSize.height)]autorelease];
     
+    CGImageRef ref = CGBitmapContextCreateImage(bitmap);
+    NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithCGImage:ref]autorelease];
     CGContextRelease(bitmap);
     CGImageRelease(ref);
-    NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[reSizeImage TIFFRepresentation]]autorelease];
-//    NSLog(@"%f %f", bitmapRep.size.width, bitmapRep.size.height);
+
+
+    NSLog(@"%f %f", bitmapRep.size.width, bitmapRep.size.height);
     [self setHistogramData:bitmapRep];
     [self _dataInfoToDrawLayer:drawLayer];
 }
@@ -329,5 +321,137 @@
     return mutGammaDictionary;
 }
 
+-(void)imageDump:(NSBitmapImageRep *)bmpImage
+{
+    
+    NSData *pixelData = (NSData *) CGDataProviderCopyData(CGImageGetDataProvider(bmpImage.CGImage));
+    [pixelData autorelease];
+    unsigned char* pixelBytes = (unsigned char *)[pixelData bytes];
+    
+    NSMutableArray *tmpArray = [NSMutableArray array];
+    for (int i = 0; i < 256; i++) {
+        [tmpArray addObject:@"0"];
+    }
+    NSMutableArray *gammaMutableArray = tmpArray;
+    NSMutableArray *redMutableArray = tmpArray;
+    NSMutableArray *greenMutableArray = tmpArray;
+    NSMutableArray *blueMutableArray = tmpArray;
 
+    // Take away the red pixel, assuming 32-bit RGBA
+    char gammaChar, redChar, greenChar, blueChar;
+    long gammaValue, redValue, greenValue, blueValue;
+    
+//    for(int i = 0; i < [pixelData length]; i += 4) {
+//        //先換算數值，再來統計
+//        
+//        redChar = pixelBytes[i]; // red
+//        greenChar = pixelBytes[i+1]; // green
+//        blueChar= pixelBytes[i+2]; // blue
+//        gammaChar = pixelBytes[i+3]; // alpha
+//        gammaValue = strtol( &gammaChar, NULL, 16);
+//        redValue = strtol( &redChar, NULL, 16);
+//        greenValue = strtol( &greenChar, NULL, 16);
+//        blueValue = strtol( &blueChar, NULL, 16);
+//        
+//        printf("(%ld %ld %ld),", redValue, greenValue, blueValue);
+//        
+//
+//        
+//    }
+    
+    size_t bpr = CGImageGetBytesPerRow(bmpImage.CGImage);
+    size_t bpp = CGImageGetBitsPerPixel(bmpImage.CGImage);
+    size_t bpc = CGImageGetBitsPerComponent(bmpImage.CGImage);
+    size_t bytes_per_pixel = bpp / bpc;
+
+    NSMutableDictionary *mutRedDictionary = [NSMutableDictionary dictionary];
+    NSMutableDictionary *mutGreenDictionary = [NSMutableDictionary dictionary];
+    NSMutableDictionary *mutBlueDictionary = [NSMutableDictionary dictionary];
+    
+    for (int i = 0 ; i < 256; i++) {
+        [mutRedDictionary setObject:[NSString stringWithFormat:@"0"] forKey:[NSString stringWithFormat:@"%d", i]];
+        [mutGreenDictionary setObject:[NSString stringWithFormat:@"0"] forKey:[NSString stringWithFormat:@"%d", i]];
+        [mutBlueDictionary setObject:[NSString stringWithFormat:@"0"] forKey:[NSString stringWithFormat:@"%d", i]];
+    }
+    maxGammaValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
+    
+    const uint8_t* bytes = [pixelData bytes];
+    
+    for(size_t row = 0; row < bmpImage.size.height; row++)
+    {
+        for(size_t col = 0; col < bmpImage.size.width; col++)
+        {
+            const uint8_t* pixel =
+            &bytes[row * bpr + col * bytes_per_pixel];
+            
+//            printf("(");
+
+            printf("%zd ", col);
+            for(size_t x = 0; x < bytes_per_pixel; x++)
+            {
+                switch (x) {
+                    case 1:
+                        greenChar = pixel[x+2]; //
+                        break;
+                    case 2:
+                        blueChar = pixel[x+3]; //
+                        break;
+                    default:
+                        redChar = pixel[x+1]; //
+                        break;
+                }
+//                gammaChar = pixelBytes[i]; // 
+                gammaValue = strtol( &gammaChar, NULL, 16);
+                redValue = strtol( &redChar, NULL, 16);
+                greenValue = strtol( &greenChar, NULL, 16);
+                blueValue = strtol( &blueChar, NULL, 16);
+                [self _setRedToArray:redValue withGreen:greenValue withBlue:blueValue withRedArray:redMutableArray withGreenArray:greenMutableArray withBlueArray:blueMutableArray];
+//                printf("%.2X", pixel[x]);
+                
+                
+//                if( x < bytes_per_pixel - 1 )
+//                    printf(",");
+            }
+            
+//            printf(")");
+//            if( col < bmpImage.size.width - 1 )
+//                printf(", ");
+        }
+        
+//        printf("\n");
+    }
+    gammaArray = [gammaMutableArray copy];
+    redArray = [redMutableArray copy];
+    greenArray = [greenMutableArray copy];
+    blueArray = [blueMutableArray copy];
+    NSLog(@"%@ \n %@", redArray, blueArray);
+    
+}
+
+- (void)_setRedToArray:(long)redValue withGreen:(long)greenValue withBlue:(long)blueValue withRedArray:(NSMutableArray *)redMutableArray withGreenArray:(NSMutableArray *)greenMutableArray withBlueArray:(NSMutableArray *)blueMutableArray
+{
+// withGammaArray:(NSMutableArray *)gammaMutableArray    
+//    long gammaValue;
+//    
+//    NSString *gammaString = [gammaMutableArray objectAtIndex:gammaValue];
+//    int gammaCount = [gammaString intValue];
+//    gammaCount++;
+//    [gammaMutableArray replaceObjectAtIndex:gammaValue withObject:[NSString stringWithFormat:@"%d", gammaCount]];
+    //用Dicitionary 來存再把值寫到 Array 裡好了
+    NSString *redString = [redMutableArray objectAtIndex:redValue];
+    int redCount = [redString intValue];
+    redCount++;
+    [redMutableArray replaceObjectAtIndex:redValue withObject:[NSString stringWithFormat:@"%d", redCount]];
+
+    NSString *greenString = [greenMutableArray objectAtIndex:greenValue];
+    int greenCount = [greenString intValue];
+    greenCount++;
+    [greenMutableArray replaceObjectAtIndex:greenValue withObject:[NSString stringWithFormat:@"%d", greenCount]];
+
+    NSString *blueString = [blueMutableArray objectAtIndex:blueValue];
+    int blueCount = [blueString intValue];
+    blueCount++;
+    [blueMutableArray replaceObjectAtIndex:blueValue withObject:[NSString stringWithFormat:@"%d", blueCount]];
+
+}
 @end

@@ -10,9 +10,12 @@
 #define BEST_BYTE_ALIGNMENT 16
 #define COMPUTE_BEST_BYTES_PER_ROW(bpr)		( ( (bpr) + (BEST_BYTE_ALIGNMENT-1) ) & ~(BEST_BYTE_ALIGNMENT-1) )
 
+
+
 #pragma MainCode
 @implementation AppDelegate
 //NSImageView
+@synthesize window;
 @synthesize histogramPanel;
 @synthesize oriImage, dstImage;
 @synthesize modePopUpButton;
@@ -97,23 +100,33 @@
 
 - (IBAction)readHistogramData:(id)sender
 {
-//    [self.histogramPanel setIsVisible:YES];
+//    NSLog(@"needReload: %i", needReloadDataInfo);
+    if (needReloadDataInfo) {
+        [self _refreshHistogramData];
+        needReloadDataInfo = NO;
+    }
+//    NSLog(@"needReload: %i", needReloadDataInfo);
     [self _initialSliderValue];
 }
 
 - (IBAction)resizeNSImage:(id)sender
 {
-    [histogramDataInfo setImageForHistogram:self.dstImage.image toSize:NSMakeSize(640, 480) withLayer:histogramDrawLayer];
-//    [self.histogramPanel setIsVisible:YES];
+    needReloadDataInfo = YES;
+    [histogramDataInfo setImageForHistogram:self.dstImage.image toSize:NSMakeSize(320, 240) withLayer:histogramDrawLayer];
     [self _initialSliderValue];
 }
 
 - (IBAction)resizeCGImage:(id)sender
 {
+/*
+    needReloadDataInfo = YES;
     NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[self.dstImage.image TIFFRepresentation]]autorelease];
-    [histogramDataInfo resizedImage:bitmapRep toSize:CGRectMake(0, 0, 640, 480) withLayer:histogramDrawLayer];
-//    [self.histogramPanel setIsVisible:YES];
+    [histogramDataInfo resizedImage:bitmapRep toSize:CGRectMake(0, 0, 320, 240) withLayer:histogramDrawLayer];
     [self _initialSliderValue];
+*/
+    NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[self.dstImage.image TIFFRepresentation]]autorelease];
+    [histogramDataInfo imageDump:bitmapRep];
+    
 }
 
 - (IBAction)changeHistogram:(id)sender
@@ -164,6 +177,7 @@
 {
     dispatch_async( dispatch_get_current_queue(), ^(void){
         NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[self.oriImage.image TIFFRepresentation]]autorelease];
+        
         [histogramDataInfo setHistogramData:bitmapRep withLayer:histogramDrawLayer];
     });
 }
