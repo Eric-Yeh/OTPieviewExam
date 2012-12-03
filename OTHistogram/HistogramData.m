@@ -9,80 +9,33 @@
 #import "HistogramData.h"
 
 @implementation HistogramData
-@synthesize gammaDictionary, redDictionary, greenDictionary, blueDictionary;
-@synthesize delegate;
-@synthesize gammaArray, redArray, greenArray, blueArray;
 
-- (id)init
+@synthesize histogramDrawLayer;
+
+- (id)initWithHistogramLayerDrawing:(HistogramLayerDrawing *)drawLayer
 {
     if (self = [super init]) {
-        // Initialization code here.
-        self.gammaDictionary = [NSMutableDictionary dictionary];
-        self.redDictionary = [NSMutableDictionary dictionary];
-        self.greenDictionary = [NSMutableDictionary dictionary];
-        self.blueDictionary = [NSMutableDictionary dictionary];
-        maxGammaValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
-        self.delegate = self;
+        histogramDrawLayer = drawLayer;
     }
     return self;
 }
 
 - (void)dealloc {
-    [gammaDictionary release]; gammaDictionary = nil;
-    [redDictionary release]; redDictionary = nil;
-    [greenDictionary release]; greenDictionary = nil;
-    [blueDictionary release]; blueDictionary = nil;
 	[super dealloc];
 }
 #pragma mark work with Delegate
-- (void)_dataInfoToDrawLayer:(HistogramLayerDrawing *)drawLayer
+- (void)_dataInfoToDrawLayer
 {
-    //用 Delegate 方式，讓每一層能被畫到
-    histogramLayerIndex = 0 ;
-    [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Red];
+    [self setHistogramDataToChannel:kOTHistogramChannel_Red];
+    [self setHistogramDataToChannel:kOTHistogramChannel_Green];
+    [self setHistogramDataToChannel:kOTHistogramChannel_Blue];
+    [self setHistogramDataToChannel:kOTHistogramChannel_Gamma];
+    [histogramDrawLayer makesChannelVisible:kOTHistogramChannel_All];
 }
 
-- (void)histogramDrawingLayerFinish:(HistogramLayerDrawing *)drawLayer
+- (void)setHistogramDataToChannel:(kOTHistogram_Channel)channel;
 {
-    histogramLayerIndex++;
-    switch (histogramLayerIndex) {
-        case 1:
-            [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Green];
-            break;
-        case 2:
-            [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Blue];
-            break;
-        default:
-            [self setHistogramDataToLayer:drawLayer withChannel:kOTHistogramChannel_Gamma];
-            [drawLayer makesChannelVisible:kOTHistogramChannel_Gamma];
-            break;
-    }
-}
-
-- (void)setHistogramDataToLayer:(HistogramLayerDrawing *)layerDraw withChannel:(kOTHistogram_Channel)channel
-{
-    NSDictionary *tmpDictionary;
-    int tmpValue;
-    switch (channel) {
-        case kOTHistogramChannel_Red:
-            tmpDictionary = [redDictionary copy];
-            tmpValue = maxRedValue;
-            break;
-        case kOTHistogramChannel_Green:
-            tmpDictionary = [greenDictionary copy];
-            tmpValue = maxGreenValue;
-            break;
-        case kOTHistogramChannel_Blue:
-            tmpDictionary = [blueDictionary copy];
-            tmpValue = maxBlueValue;
-            break;
-        default:
-            tmpDictionary = [gammaDictionary copy];
-            tmpValue = maxGammaValue;
-            break;
-    }
-    [layerDraw drawHistogramLayer:channel withDictionary:tmpDictionary withMaxValue:tmpValue];
-    [tmpDictionary release];
+    [histogramDrawLayer drawHistogramLayer:channel];
 }
 
 #pragma mark get image color info
@@ -103,27 +56,22 @@
     for (int y = 0 ; y < bmprep.size.height; y++) {
         for (int x = 0 ; x < bmprep.size.width; x++) {
             tmpColor = [bmprep colorAtX:x y:y];
-            
+
             [self setColorForDictionary:tmpColor forRedDictionary:mutRedDictionary forGreenDictionary:mutGreenDictionary forBlueDictionary:mutBlueDictionary];
         }
     }
-    redDictionary = [mutRedDictionary copy];
-    greenDictionary = [mutGreenDictionary copy];
-    blueDictionary = [mutBlueDictionary copy];
-    gammaDictionary = [[self saveToGammaDictionary:mutRedDictionary withGreenDictionary:mutGreenDictionary withBlueDictionary:mutBlueDictionary] copy];
+    histogramDrawLayer.redDictionary = [mutRedDictionary copy];
+    histogramDrawLayer.greenDictionary = [mutGreenDictionary copy];
+    histogramDrawLayer.blueDictionary = [mutBlueDictionary copy];
+    histogramDrawLayer.gammaDictionary = [[self saveToGammaDictionary:mutRedDictionary withGreenDictionary:mutGreenDictionary withBlueDictionary:mutBlueDictionary] copy];
+    histogramDrawLayer.maxRedValue = maxRedValue;
+    histogramDrawLayer.maxGreenValue = maxGreenValue;
+    histogramDrawLayer.maxBlueValue = maxBlueValue;
+    histogramDrawLayer.maxGammaValue = maxGammaValue;
 }
 
-
-- (void)setHistogramData:(NSBitmapImageRep *)bmprep withLayer:(HistogramLayerDrawing *)drawLayer
+- (void)resizedNSImage:(NSImage *)image toSize:(NSSize)size
 {
-    drawLayer.delegate = self.delegate;
-    [self setHistogramData:bmprep];
-    [self _dataInfoToDrawLayer:drawLayer];
-}
-
-- (void)setImageForHistogram:(NSImage *)image toSize:(NSSize)size withLayer:(HistogramLayerDrawing *)drawLayer
-{
-    drawLayer.delegate = self.delegate;
     //大張圖和小張圖的資訊是差不多，但小一點的圖計算比較快
     if (size.height <= 0 && size.width <= 0) {
         return;
@@ -144,16 +92,14 @@
     [reSizeImage unlockFocus];
     NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[reSizeImage TIFFRepresentation]]autorelease];
     
-    NSLog(@"%f %f", bitmapRep.size.width, bitmapRep.size.height);
-    
+//    NSLog(@"%f %f", bitmapRep.size.width, bitmapRep.size.height);
     //把 reSizeImage 給資料端做運算
     [self setHistogramData:bitmapRep];
-    [self _dataInfoToDrawLayer:drawLayer];
+    [self _dataInfoToDrawLayer];
 }
 
-- (void)resizedImage:(NSBitmapImageRep *)bmprep toSize:(CGRect)thumbRect withLayer:(HistogramLayerDrawing *)drawLayer
+- (void)resizedCGImage:(NSBitmapImageRep *)bmprep toSize:(CGRect)thumbRect
 {
-    drawLayer.delegate = self.delegate;
     if (thumbRect.size.height <= 0 && thumbRect.size.width <= 0) {
         return;
     }
@@ -191,24 +137,22 @@
     CGContextRelease(bitmap);
     CGImageRelease(ref);
 
-
-    NSLog(@"%f %f", bitmapRep.size.width, bitmapRep.size.height);
+//    NSLog(@"%f %f", bitmapRep.size.width, bitmapRep.size.height);
     [self setHistogramData:bitmapRep];
-    [self _dataInfoToDrawLayer:drawLayer];
+    [self _dataInfoToDrawLayer];
 }
 
 - (NSBitmapImageRep *)adjustHistogramValueForImage:(NSBitmapImageRep *)bmprep withHistogramChannel:(kOTHistogram_Channel)histogramChannel withValue:(float)floatValue
 {
-    float maxFloatValue = kOT_SliderValue_MAX;
-    float minFloatValue = kOT_SliderValue_MIN;
-    if (floatValue > maxFloatValue) {
-        floatValue = maxFloatValue;
-    } else if (floatValue < minFloatValue) {
-        floatValue = minFloatValue;
+
+    if (floatValue > kOT_SliderValue_MAX) {
+        floatValue = kOT_SliderValue_MAX;
+    } else if (floatValue < kOT_SliderValue_MIN) {
+        floatValue = kOT_SliderValue_MIN;
     }
     CIImage *iImage = [CIImage imageWithCGImage:bmprep.CGImage];
     CIFilter *filter1;
-    NSNumber *intensityValue = [NSNumber numberWithFloat:(1 - (float)floatValue / maxFloatValue)];
+    NSNumber *intensityValue = [NSNumber numberWithFloat:(1 - (float)floatValue / kOT_SliderValue_MAX)];
     CIColor *iColor;
     switch (histogramChannel) {
         case  kOTHistogramChannel_Red: //Red
@@ -238,7 +182,7 @@
         default: //RGB
             filter1 = [CIFilter filterWithName:@"CIColorControls"];
             [filter1 setValue:iImage forKey:@"inputImage"];
-            NSNumber *powerValue = [NSNumber numberWithFloat:(((float)floatValue/maxFloatValue) - 1)];
+            NSNumber *powerValue = [NSNumber numberWithFloat:(((float)floatValue/kOT_SliderValue_MAX) - 1)];
             [filter1 setValue:powerValue forKey:@"inputBrightness"];
             
             [filter1 setValue:[[[filter1 attributes]
@@ -255,15 +199,11 @@
     return bmpOutImage;
 }
 
-//- (void)sliderLayerValueChange:(float)value
-//{
-//    NSLog(@"%f", value);
-//}
 
 #pragma mark Private Method
 - (void)setColorForDictionary:(NSColor *)color forRedDictionary:(NSMutableDictionary *)mtRedDictionary forGreenDictionary:(NSMutableDictionary *)mtGreenDictionary forBlueDictionary:(NSMutableDictionary *)mtBlueDictionary
 {
-    double redFloatValue, greenFloatValue, blueFloatValue;
+    float redFloatValue, greenFloatValue, blueFloatValue;
     [color getRed:&redFloatValue green:&greenFloatValue blue:&blueFloatValue alpha:NULL];
     int redIntValue, greenIntValue, blueIntValue;
     redIntValue = redFloatValue * 255.99999f;
@@ -321,137 +261,4 @@
     return mutGammaDictionary;
 }
 
--(void)imageDump:(NSBitmapImageRep *)bmpImage
-{
-    
-    NSData *pixelData = (NSData *) CGDataProviderCopyData(CGImageGetDataProvider(bmpImage.CGImage));
-    [pixelData autorelease];
-    unsigned char* pixelBytes = (unsigned char *)[pixelData bytes];
-    
-    NSMutableArray *tmpArray = [NSMutableArray array];
-    for (int i = 0; i < 256; i++) {
-        [tmpArray addObject:@"0"];
-    }
-    NSMutableArray *gammaMutableArray = tmpArray;
-    NSMutableArray *redMutableArray = tmpArray;
-    NSMutableArray *greenMutableArray = tmpArray;
-    NSMutableArray *blueMutableArray = tmpArray;
-
-    // Take away the red pixel, assuming 32-bit RGBA
-    char gammaChar, redChar, greenChar, blueChar;
-    long gammaValue, redValue, greenValue, blueValue;
-    
-//    for(int i = 0; i < [pixelData length]; i += 4) {
-//        //先換算數值，再來統計
-//        
-//        redChar = pixelBytes[i]; // red
-//        greenChar = pixelBytes[i+1]; // green
-//        blueChar= pixelBytes[i+2]; // blue
-//        gammaChar = pixelBytes[i+3]; // alpha
-//        gammaValue = strtol( &gammaChar, NULL, 16);
-//        redValue = strtol( &redChar, NULL, 16);
-//        greenValue = strtol( &greenChar, NULL, 16);
-//        blueValue = strtol( &blueChar, NULL, 16);
-//        
-//        printf("(%ld %ld %ld),", redValue, greenValue, blueValue);
-//        
-//
-//        
-//    }
-    
-    size_t bpr = CGImageGetBytesPerRow(bmpImage.CGImage);
-    size_t bpp = CGImageGetBitsPerPixel(bmpImage.CGImage);
-    size_t bpc = CGImageGetBitsPerComponent(bmpImage.CGImage);
-    size_t bytes_per_pixel = bpp / bpc;
-
-    NSMutableDictionary *mutRedDictionary = [NSMutableDictionary dictionary];
-    NSMutableDictionary *mutGreenDictionary = [NSMutableDictionary dictionary];
-    NSMutableDictionary *mutBlueDictionary = [NSMutableDictionary dictionary];
-    
-    for (int i = 0 ; i < 256; i++) {
-        [mutRedDictionary setObject:[NSString stringWithFormat:@"0"] forKey:[NSString stringWithFormat:@"%d", i]];
-        [mutGreenDictionary setObject:[NSString stringWithFormat:@"0"] forKey:[NSString stringWithFormat:@"%d", i]];
-        [mutBlueDictionary setObject:[NSString stringWithFormat:@"0"] forKey:[NSString stringWithFormat:@"%d", i]];
-    }
-    maxGammaValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
-    
-    const uint8_t* bytes = [pixelData bytes];
-    
-    for(size_t row = 0; row < bmpImage.size.height; row++)
-    {
-        for(size_t col = 0; col < bmpImage.size.width; col++)
-        {
-            const uint8_t* pixel =
-            &bytes[row * bpr + col * bytes_per_pixel];
-            
-//            printf("(");
-
-            printf("%zd ", col);
-            for(size_t x = 0; x < bytes_per_pixel; x++)
-            {
-                switch (x) {
-                    case 1:
-                        greenChar = pixel[x+2]; //
-                        break;
-                    case 2:
-                        blueChar = pixel[x+3]; //
-                        break;
-                    default:
-                        redChar = pixel[x+1]; //
-                        break;
-                }
-//                gammaChar = pixelBytes[i]; // 
-                gammaValue = strtol( &gammaChar, NULL, 16);
-                redValue = strtol( &redChar, NULL, 16);
-                greenValue = strtol( &greenChar, NULL, 16);
-                blueValue = strtol( &blueChar, NULL, 16);
-                [self _setRedToArray:redValue withGreen:greenValue withBlue:blueValue withRedArray:redMutableArray withGreenArray:greenMutableArray withBlueArray:blueMutableArray];
-//                printf("%.2X", pixel[x]);
-                
-                
-//                if( x < bytes_per_pixel - 1 )
-//                    printf(",");
-            }
-            
-//            printf(")");
-//            if( col < bmpImage.size.width - 1 )
-//                printf(", ");
-        }
-        
-//        printf("\n");
-    }
-    gammaArray = [gammaMutableArray copy];
-    redArray = [redMutableArray copy];
-    greenArray = [greenMutableArray copy];
-    blueArray = [blueMutableArray copy];
-    NSLog(@"%@ \n %@", redArray, blueArray);
-    
-}
-
-- (void)_setRedToArray:(long)redValue withGreen:(long)greenValue withBlue:(long)blueValue withRedArray:(NSMutableArray *)redMutableArray withGreenArray:(NSMutableArray *)greenMutableArray withBlueArray:(NSMutableArray *)blueMutableArray
-{
-// withGammaArray:(NSMutableArray *)gammaMutableArray    
-//    long gammaValue;
-//    
-//    NSString *gammaString = [gammaMutableArray objectAtIndex:gammaValue];
-//    int gammaCount = [gammaString intValue];
-//    gammaCount++;
-//    [gammaMutableArray replaceObjectAtIndex:gammaValue withObject:[NSString stringWithFormat:@"%d", gammaCount]];
-    //用Dicitionary 來存再把值寫到 Array 裡好了
-    NSString *redString = [redMutableArray objectAtIndex:redValue];
-    int redCount = [redString intValue];
-    redCount++;
-    [redMutableArray replaceObjectAtIndex:redValue withObject:[NSString stringWithFormat:@"%d", redCount]];
-
-    NSString *greenString = [greenMutableArray objectAtIndex:greenValue];
-    int greenCount = [greenString intValue];
-    greenCount++;
-    [greenMutableArray replaceObjectAtIndex:greenValue withObject:[NSString stringWithFormat:@"%d", greenCount]];
-
-    NSString *blueString = [blueMutableArray objectAtIndex:blueValue];
-    int blueCount = [blueString intValue];
-    blueCount++;
-    [blueMutableArray replaceObjectAtIndex:blueValue withObject:[NSString stringWithFormat:@"%d", blueCount]];
-
-}
 @end

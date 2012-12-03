@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07243209166C4AB000A4E39A /* HistogramWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243208166C4AB000A4E39A /* HistogramWindowController.m */; };
+		0724320B166C4AE800A4E39A /* HistogramWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0724320A166C4AE800A4E39A /* HistogramWindow.xib */; };
 		072F36291648FC680002D615 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F36281648FC680002D615 /* Quartz.framework */; };
 		072F362B1648FC6E0002D615 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F362A1648FC6E0002D615 /* QuartzCore.framework */; };
 		072F362C1648FC830002D615 /* Quartz.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 072F36281648FC680002D615 /* Quartz.framework */; };
@@ -127,6 +129,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		07243207166C4AB000A4E39A /* HistogramWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramWindowController.h; sourceTree = "<group>"; };
+		07243208166C4AB000A4E39A /* HistogramWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramWindowController.m; sourceTree = "<group>"; };
+		0724320A166C4AE800A4E39A /* HistogramWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistogramWindow.xib; sourceTree = "<group>"; };
 		072F36281648FC680002D615 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		072F362A1648FC6E0002D615 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		075642C6165C8332006748A6 /* HistogramType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistogramType.h; sourceTree = "<group>"; };
@@ -215,6 +220,9 @@
 				07619D76164359CD0059E886 /* AppDelegate.h */,
 				07619D77164359CD0059E886 /* AppDelegate.m */,
 				07619D79164359CD0059E886 /* MainMenu.xib */,
+				07243207166C4AB000A4E39A /* HistogramWindowController.h */,
+				07243208166C4AB000A4E39A /* HistogramWindowController.m */,
+				0724320A166C4AE800A4E39A /* HistogramWindow.xib */,
 				07619D8416439AEC0059E886 /* CorePlotView.h */,
 				07619D8516439AEC0059E886 /* CorePlotView.m */,
 				075642C6165C8332006748A6 /* HistogramType.h */,
@@ -506,6 +514,7 @@
 				07619D6F164359CD0059E886 /* InfoPlist.strings in Resources */,
 				07619D75164359CD0059E886 /* Credits.rtf in Resources */,
 				07619D7B164359CD0059E886 /* MainMenu.xib in Resources */,
+				0724320B166C4AE800A4E39A /* HistogramWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,6 +549,7 @@
 				07C26CFD16548493008A7C33 /* HistogramLayerDrawing.m in Sources */,
 				079F4C651654C53A00930D59 /* HistogramData.m in Sources */,
 				075642C7165CD921006748A6 /* AppDelegate.m in Sources */,
+				07243209166C4AB000A4E39A /* HistogramWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

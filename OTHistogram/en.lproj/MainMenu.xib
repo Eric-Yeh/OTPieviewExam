@@ -1324,7 +1324,6 @@
 							</set>
 							<string key="NSFrame">{{29, 351}, {279, 186}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="621495472"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1352,8 +1351,7 @@
 							</set>
 							<string key="NSFrame">{{32, 119}, {276, 189}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="800783547"/>
+							<reference key="NSNextKeyView" ref="1052241458"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSImageCell" key="NSCell" id="88258803">
@@ -1372,7 +1370,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{108, 17}, {139, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1400,7 +1397,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{28, 81}, {74, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="511320593"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1424,7 +1420,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{29, 537}, {40, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="546017200"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1460,8 +1455,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{29, 318}, {40, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="534878017"/>
+							<reference key="NSNextKeyView" ref="800783547"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="899859936">
@@ -1480,7 +1474,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{108, 49}, {139, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="970196767"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1504,8 +1497,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{86, 308}, {133, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="1052241458"/>
+							<reference key="NSNextKeyView" ref="534878017"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="976008535">
@@ -1528,7 +1520,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{108, 81}, {139, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="449292242"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1550,7 +1541,6 @@
 					</array>
 					<string key="NSFrameSize">{337, 579}</string>
 					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="313913273"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
@@ -1575,7 +1565,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{20, 53}, {320, 320}}</string>
 							<reference key="NSSuperview" ref="34989721"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="730012195"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">HistogramLayerDrawing</string>
@@ -1585,7 +1574,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{166, 12}, {80, 32}}</string>
 							<reference key="NSSuperview" ref="34989721"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="17945836"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1609,7 +1597,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{174, 382}, {109, 26}}</string>
 							<reference key="NSSuperview" ref="34989721"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="551364262"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1625,23 +1612,22 @@
 								<string key="NSKeyEquivalent"/>
 								<int key="NSPeriodicDelay">400</int>
 								<int key="NSPeriodicInterval">75</int>
-								<object class="NSMenuItem" key="NSMenuItem" id="889151802">
-									<reference key="NSMenu" ref="602605065"/>
-									<string key="NSTitle">Gamma</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<int key="NSState">1</int>
-									<reference key="NSOnImage" ref="35465992"/>
-									<reference key="NSMixedImage" ref="502551668"/>
-									<string key="NSAction">_popUpItemAction:</string>
-									<reference key="NSTarget" ref="248197907"/>
-								</object>
+								<nil key="NSMenuItem"/>
 								<bool key="NSMenuItemRespectAlignment">YES</bool>
 								<object class="NSMenu" key="NSMenu" id="602605065">
 									<string key="NSTitle">OtherViews</string>
 									<array class="NSMutableArray" key="NSMenuItems">
-										<reference ref="889151802"/>
+										<object class="NSMenuItem" id="889151802">
+											<reference key="NSMenu" ref="602605065"/>
+											<string key="NSTitle">Gamma</string>
+											<string key="NSKeyEquiv"/>
+											<int key="NSKeyEquivModMask">1048576</int>
+											<int key="NSMnemonicLoc">2147483647</int>
+											<reference key="NSOnImage" ref="35465992"/>
+											<reference key="NSMixedImage" ref="502551668"/>
+											<string key="NSAction">_popUpItemAction:</string>
+											<reference key="NSTarget" ref="248197907"/>
+										</object>
 										<object class="NSMenuItem" id="64202445">
 											<reference key="NSMenu" ref="602605065"/>
 											<string key="NSTitle">Red</string>
@@ -1678,9 +1664,22 @@
 											<int key="NSTag">3</int>
 											<reference key="NSTarget" ref="248197907"/>
 										</object>
+										<object class="NSMenuItem" id="191367347">
+											<reference key="NSMenu" ref="602605065"/>
+											<string key="NSTitle">All</string>
+											<string key="NSKeyEquiv"/>
+											<int key="NSKeyEquivModMask">1048576</int>
+											<int key="NSMnemonicLoc">2147483647</int>
+											<reference key="NSOnImage" ref="35465992"/>
+											<reference key="NSMixedImage" ref="502551668"/>
+											<string key="NSAction">_popUpItemAction:</string>
+											<int key="NSTag">4</int>
+											<reference key="NSTarget" ref="248197907"/>
+										</object>
 									</array>
 									<reference key="NSMenuFont" ref="71680708"/>
 								</object>
+								<int key="NSSelectedIndex">-1</int>
 								<int key="NSPreferredEdge">1</int>
 								<bool key="NSUsesItemFromMenu">YES</bool>
 								<bool key="NSAltersState">YES</bool>
@@ -1692,7 +1691,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{266, 12}, {80, 32}}</string>
 							<reference key="NSSuperview" ref="34989721"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1716,7 +1714,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{25, 388}, {130, 17}}</string>
 							<reference key="NSSuperview" ref="34989721"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="328125009"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1734,7 +1731,6 @@
 					</array>
 					<string key="NSFrameSize">{360, 426}</string>
 					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="484041006"/>
 					<string key="NSReuseIdentifierKey">_NS:21</string>
 				</object>
@@ -3724,6 +3720,7 @@
 							<reference ref="156301396"/>
 							<reference ref="64202445"/>
 							<reference ref="889151802"/>
+							<reference ref="191367347"/>
 						</array>
 						<reference key="parent" ref="248197907"/>
 					</object>
@@ -3771,6 +3768,11 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">698</int>
 						<reference key="object" ref="64202445"/>
+						<reference key="parent" ref="602605065"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">800</int>
+						<reference key="object" ref="191367347"/>
 						<reference key="parent" ref="602605065"/>
 					</object>
 				</array>
@@ -3961,6 +3963,7 @@
 				<string key="790.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="791.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="792.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="800.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="82.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="83.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3970,267 +3973,9 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">799</int>
+			<int key="maxID">800</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">AppDelegate</string>
-					<string key="superclassName">NSObject</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="applyPanel:">id</string>
-						<string key="changeHistogram:">id</string>
-						<string key="closePanel:">id</string>
-						<string key="directionSet:">id</string>
-						<string key="goTick:">id</string>
-						<string key="graphSet:">id</string>
-						<string key="initializeDstImage:">id</string>
-						<string key="layerActor:">id</string>
-						<string key="openImageFrom:">id</string>
-						<string key="opendlgImage:">id</string>
-						<string key="originSet:">id</string>
-						<string key="presetOne:">id</string>
-						<string key="presetThree:">id</string>
-						<string key="presetTwo:">id</string>
-						<string key="readHistogramData:">id</string>
-						<string key="resizeCGImage:">id</string>
-						<string key="resizeNSImage:">id</string>
-						<string key="rulerSet:">id</string>
-						<string key="speedSet:">id</string>
-						<string key="timerTickGo:">id</string>
-						<string key="valueSet:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="applyPanel:">
-							<string key="name">applyPanel:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeHistogram:">
-							<string key="name">changeHistogram:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="closePanel:">
-							<string key="name">closePanel:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="directionSet:">
-							<string key="name">directionSet:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="goTick:">
-							<string key="name">goTick:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="graphSet:">
-							<string key="name">graphSet:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="initializeDstImage:">
-							<string key="name">initializeDstImage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="layerActor:">
-							<string key="name">layerActor:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="openImageFrom:">
-							<string key="name">openImageFrom:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="opendlgImage:">
-							<string key="name">opendlgImage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="originSet:">
-							<string key="name">originSet:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="presetOne:">
-							<string key="name">presetOne:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="presetThree:">
-							<string key="name">presetThree:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="presetTwo:">
-							<string key="name">presetTwo:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="readHistogramData:">
-							<string key="name">readHistogramData:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="resizeCGImage:">
-							<string key="name">resizeCGImage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="resizeNSImage:">
-							<string key="name">resizeNSImage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="rulerSet:">
-							<string key="name">rulerSet:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="speedSet:">
-							<string key="name">speedSet:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="timerTickGo:">
-							<string key="name">timerTickGo:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="valueSet:">
-							<string key="name">valueSet:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="directionMatrix">NSMatrix</string>
-						<string key="dstImage">NSImageView</string>
-						<string key="graphicMatrix">NSMatrix</string>
-						<string key="histogramDrawLayer">HistogramLayerDrawing</string>
-						<string key="histogramPanel">NSPanel</string>
-						<string key="modePopUpButton">NSPopUpButton</string>
-						<string key="movePopUpButton">NSPopUpButton</string>
-						<string key="oriImage">NSImageView</string>
-						<string key="originImage">NSImageView</string>
-						<string key="originMatrix">NSMatrix</string>
-						<string key="pieView">OTPieView</string>
-						<string key="popUpButton">NSPopUpButton</string>
-						<string key="presetButtonOne">NSButton</string>
-						<string key="presetButtonThree">NSButton</string>
-						<string key="presetButtonTwo">NSButton</string>
-						<string key="rulerTextField">NSTextField</string>
-						<string key="speedSlider">NSSlider</string>
-						<string key="targetImage">NSImageView</string>
-						<string key="tokenField">NSTokenField</string>
-						<string key="window">NSWindow</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="directionMatrix">
-							<string key="name">directionMatrix</string>
-							<string key="candidateClassName">NSMatrix</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="dstImage">
-							<string key="name">dstImage</string>
-							<string key="candidateClassName">NSImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="graphicMatrix">
-							<string key="name">graphicMatrix</string>
-							<string key="candidateClassName">NSMatrix</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="histogramDrawLayer">
-							<string key="name">histogramDrawLayer</string>
-							<string key="candidateClassName">HistogramLayerDrawing</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="histogramPanel">
-							<string key="name">histogramPanel</string>
-							<string key="candidateClassName">NSPanel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="modePopUpButton">
-							<string key="name">modePopUpButton</string>
-							<string key="candidateClassName">NSPopUpButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="movePopUpButton">
-							<string key="name">movePopUpButton</string>
-							<string key="candidateClassName">NSPopUpButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="oriImage">
-							<string key="name">oriImage</string>
-							<string key="candidateClassName">NSImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="originImage">
-							<string key="name">originImage</string>
-							<string key="candidateClassName">NSImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="originMatrix">
-							<string key="name">originMatrix</string>
-							<string key="candidateClassName">NSMatrix</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="pieView">
-							<string key="name">pieView</string>
-							<string key="candidateClassName">OTPieView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="popUpButton">
-							<string key="name">popUpButton</string>
-							<string key="candidateClassName">NSPopUpButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="presetButtonOne">
-							<string key="name">presetButtonOne</string>
-							<string key="candidateClassName">NSButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="presetButtonThree">
-							<string key="name">presetButtonThree</string>
-							<string key="candidateClassName">NSButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="presetButtonTwo">
-							<string key="name">presetButtonTwo</string>
-							<string key="candidateClassName">NSButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="rulerTextField">
-							<string key="name">rulerTextField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="speedSlider">
-							<string key="name">speedSlider</string>
-							<string key="candidateClassName">NSSlider</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="targetImage">
-							<string key="name">targetImage</string>
-							<string key="candidateClassName">NSImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="tokenField">
-							<string key="name">tokenField</string>
-							<string key="candidateClassName">NSTokenField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="window">
-							<string key="name">window</string>
-							<string key="candidateClassName">NSWindow</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/AppDelegate.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">HistogramLayerDrawing</string>
-					<string key="superclassName">NSView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/HistogramLayerDrawing.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSView</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">viewController</string>
-						<string key="NS.object.0">NSViewController</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">viewController</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">viewController</string>
-							<string key="candidateClassName">NSViewController</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/NSView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">OTPieView</string>
-					<string key="superclassName">NSView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/OTPieView.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

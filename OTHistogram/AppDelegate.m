@@ -37,9 +37,13 @@
     [self.histogramPanel close];
     [self.histogramPanel setHidesOnDeactivate:NO];
     [self.histogramPanel setTitle:@"Ortery Histogram Panel"];
-    histogramDataInfo = [[HistogramData alloc]init];
+    
+    //初始化改寫成這個
+    histogramDataInfo = [[HistogramData alloc]initWithHistogramLayerDrawing:histogramDrawLayer];
+    
     [self _initLoadImage:@"/Users/Eric/Pictures/lion-256height.jpg"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sliderValueNotification) name:@"sliderChange" object:nil];
+
 }
 
 - (void)sliderValueNotification
@@ -86,47 +90,38 @@
         {
             NSString *strPath = [fileURL path];
             [self _initLoadImage:strPath];
-//            [self drawImageToTmpImageview];
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-//                NSBitmapImageRep *bmprep = [[self.oriImage.image representations] objectAtIndex:0];
-//                NSData *jpegData = [bmprep representationUsingType: NSPNGFileType properties: nil];
-////                self.dstImage.image = [[[NSImage alloc]initWithData:jpegData]autorelease];
-//                [jpegData writeToFile:@"/Users/Eric/Pictures/PNGTest/999.png" atomically:NO];
-//
-//            });
         }
     }
 }
 
 - (IBAction)readHistogramData:(id)sender
 {
-//    NSLog(@"needReload: %i", needReloadDataInfo);
     if (needReloadDataInfo) {
         [self _refreshHistogramData];
         needReloadDataInfo = NO;
     }
-//    NSLog(@"needReload: %i", needReloadDataInfo);
     [self _initialSliderValue];
 }
 
 - (IBAction)resizeNSImage:(id)sender
 {
     needReloadDataInfo = YES;
-    [histogramDataInfo setImageForHistogram:self.dstImage.image toSize:NSMakeSize(320, 240) withLayer:histogramDrawLayer];
+    [histogramDataInfo resizedNSImage:self.dstImage.image toSize:NSMakeSize(320, 240)];
     [self _initialSliderValue];
 }
 
 - (IBAction)resizeCGImage:(id)sender
 {
-/*
+
     needReloadDataInfo = YES;
     NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[self.dstImage.image TIFFRepresentation]]autorelease];
-    [histogramDataInfo resizedImage:bitmapRep toSize:CGRectMake(0, 0, 320, 240) withLayer:histogramDrawLayer];
+    [histogramDataInfo resizedCGImage:bitmapRep toSize:CGRectMake(0, 0, 320, 240)];
     [self _initialSliderValue];
-*/
-    NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[self.dstImage.image TIFFRepresentation]]autorelease];
-    [histogramDataInfo imageDump:bitmapRep];
-    
+
+//    HistogramWindowController *histogramController = [[[HistogramWindowController alloc]init]autorelease];
+//    [histogramController reLoadImage:self.oriImage.image];
+////    [histogramController.hWindow setIsVisible:YES];
+////    [histogramController.hWindow makeKeyAndOrderFront:self];
 }
 
 - (IBAction)changeHistogram:(id)sender
@@ -140,11 +135,15 @@
         case 2: //Green
             [histogramDrawLayer makesChannelVisible:kOTHistogramChannel_Green];
             break;
-
+            
         case 3: //Blue
             [histogramDrawLayer makesChannelVisible:kOTHistogramChannel_Blue];
             break;
-
+            
+        case 4://All
+            [histogramDrawLayer makesChannelVisible:kOTHistogramChannel_All];
+            break;
+            
         default: //RGB
             [histogramDrawLayer makesChannelVisible:kOTHistogramChannel_Gamma];
             break;
@@ -175,16 +174,18 @@
 
 - (void)_refreshHistogramData
 {
-    dispatch_async( dispatch_get_current_queue(), ^(void){
-        NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[self.oriImage.image TIFFRepresentation]]autorelease];
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+//        NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[self.oriImage.image TIFFRepresentation]]autorelease];
         
-        [histogramDataInfo setHistogramData:bitmapRep withLayer:histogramDrawLayer];
+        [histogramDataInfo setHistogramData:[[[NSBitmapImageRep alloc] initWithData:[self.oriImage.image TIFFRepresentation]]autorelease]];
     });
 }
 
 - (void)_initialSliderValue
 {
     [histogramDrawLayer _initialSlider];
+    [self.modePopUpButton selectItemAtIndex:0];
+    [self changeHistogram:nil];
     [self.histogramPanel setIsVisible:YES];
 }
 @end

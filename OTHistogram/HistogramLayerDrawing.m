@@ -20,16 +20,15 @@
 @end
 
 
-
 @implementation HistogramLayerDrawing
-@synthesize histogrameDictionary;
+@synthesize gammaDictionary, redDictionary, greenDictionary, blueDictionary;
 @synthesize boraderLayer, gradientRectLayer, gammaLayer, redLayer, greenLayer, blueLayer, sliderLayer;
-@synthesize otHistogramChannel;
+//@synthesize otHistogramChannel;
 @synthesize delegate = _delegate;
 @synthesize sliderValue;
+@synthesize maxGammaValue, maxRedValue, maxGreenValue, maxBlueValue;
 //@synthesize otHistogramLayer;
 //@synthesize delegate = _delegate;
-
 
 #pragma mark Retina Display Support
 - (void)scaleDidChange:(NSNotification *)n
@@ -119,7 +118,8 @@
 	self.sliderLayer.position = moveToPoint;
 	[CATransaction commit];
     
-    [self.sliderLayer setNeedsDisplay];
+    if (isNeedSlider)
+        [self.sliderLayer setNeedsDisplay];
 }
 
 - (void)_dragSlider:(NSPoint)point
@@ -130,7 +130,8 @@
 	self.sliderLayer.position = insetPoint;
 	[CATransaction commit];
     
-    [self.sliderLayer setNeedsDisplay];
+    if (isNeedSlider) 
+        [self.sliderLayer setNeedsDisplay];
 }
 
 static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRect, CGRect parentRect)
@@ -151,6 +152,7 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
 - (void)_layerinit
 {
     [self setWantsLayer:YES];
+    isNeedSlider = NO;
     boraderLayer = [[CALayer alloc]init];
     gradientRectLayer = [[CALayer alloc]init];
     gammaLayer = [[CALayer alloc]init];
@@ -177,13 +179,17 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     [self.layer setBackgroundColor:CGColorCreateFromNSColor([NSColor whiteColor], colorSpace)];
     CGColorSpaceRelease(colorSpace);
-    channelRect = CGRectMake(31, 42, 256, 256);
+    
+    gradientRectLayer.frame = CGRectMake(30, 16, 260, 15);
+    [self.layer addSublayer:gradientRectLayer];
+    
+    sliderLayer.frame = CGRectMake(gradientRectLayer.frame.origin.x + gradientRectLayer.bounds.size.width - 10, gradientRectLayer.frame.origin.y - gradientRectLayer.frame.size.height - 2, 15, 15);//23
+    [self.layer addSublayer:sliderLayer];
+    
+    channelRect = CGRectMake(31, gradientRectLayer.frame.origin.y + gradientRectLayer.frame.size.height + 5, gradientRectLayer.frame.size.width - 4, 256);
     
     boraderLayer.frame = CGRectMake(channelRect.origin.x, channelRect.origin.y, channelRect.size.width + 2, channelRect.size.height + 2);
     [self.layer addSublayer:boraderLayer];
-    
-    gradientRectLayer.frame = CGRectMake(30, 24, channelRect.size.width + 4, 15);
-    [self.layer addSublayer:gradientRectLayer];
     
     redLayer.frame = channelRect;
     [self.layer addSublayer:redLayer];
@@ -196,27 +202,31 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
 
     gammaLayer.frame = channelRect;
     [self.layer addSublayer:gammaLayer];
-
-    sliderLayer.frame = CGRectMake(gradientRectLayer.frame.origin.x + gradientRectLayer.bounds.size.width - 10, 10, 15, 15);//23
-    [self.layer addSublayer:sliderLayer];
+    
+    if (isNeedSlider) {
+        [gradientRectLayer setNeedsDisplay];
+        [sliderLayer setNeedsDisplay];
+        [blueLayer setHidden:NO];
+        [sliderLayer setHidden:NO];
+    }
     
     [boraderLayer setNeedsDisplay];
-    [gradientRectLayer setNeedsDisplay];
     [gammaLayer setNeedsDisplay];
     [redLayer setNeedsDisplay];
     [greenLayer setNeedsDisplay];
     [blueLayer setNeedsDisplay];
-    [sliderLayer setNeedsDisplay];
 
     [boraderLayer setHidden:NO];
     [gradientRectLayer setHidden:NO];
     [gammaLayer setHidden:NO];
     [redLayer setHidden:NO];
     [greenLayer setHidden:NO];
-    [blueLayer setHidden:NO];
-    [sliderLayer setHidden:NO];
-    self.histogrameDictionary = [NSMutableDictionary dictionary];
-    
+
+    self.gammaDictionary = [NSMutableDictionary dictionary];
+    self.redDictionary = [NSMutableDictionary dictionary];
+    self.greenDictionary = [NSMutableDictionary dictionary];
+    self.blueDictionary = [NSMutableDictionary dictionary];
+    maxGammaValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
 }
 
 - (id)initWithFrame:(NSRect)frame
@@ -247,8 +257,10 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
     [greenLayer release]; greenLayer = nil;
     [blueLayer release]; blueLayer = nil;
     [sliderLayer release]; sliderLayer = nil;
-    [histogrameDictionary release]; histogrameDictionary = nil;
-
+    [redDictionary release]; redDictionary = nil;
+    [greenDictionary release]; greenDictionary = nil;
+    [blueDictionary release]; blueDictionary = nil;
+    [gammaDictionary release]; gammaDictionary = nil;
     [super dealloc];
 }
 
@@ -260,15 +272,16 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context
 {
     //要如何接 Dictionary 的資料
-    @synchronized (self){
+    @synchronized (self)
+    {
         if (layer == redLayer) {
-            [self drawHistogrameChannel:kOTHistogramChannel_Red withDictionary:histogrameDictionary withMaxValue:maxValue withContext:context];
+            [self drawHistogrameChannel:kOTHistogramChannel_Red withDictionary:redDictionary withMaxValue:maxRedValue withContext:context];
         } else if (layer == greenLayer) {
-            [self drawHistogrameChannel:kOTHistogramChannel_Green withDictionary:histogrameDictionary withMaxValue:maxValue withContext:context];
+            [self drawHistogrameChannel:kOTHistogramChannel_Green withDictionary:greenDictionary withMaxValue:maxGreenValue withContext:context];
         } else if (layer == blueLayer) {
-            [self drawHistogrameChannel:kOTHistogramChannel_Blue withDictionary:histogrameDictionary withMaxValue:maxValue withContext:context];
+            [self drawHistogrameChannel:kOTHistogramChannel_Blue withDictionary:blueDictionary withMaxValue:maxBlueValue withContext:context];
         } else if (layer == gammaLayer) {
-            [self drawHistogrameChannel:kOTHistogramChannel_Gamma withDictionary:histogrameDictionary withMaxValue:maxValue withContext:context];
+            [self drawHistogrameChannel:kOTHistogramChannel_Gamma withDictionary:gammaDictionary withMaxValue:maxGammaValue withContext:context];
         } else if (layer == boraderLayer) {
             [self drawBorderLayer:context];
         } else if (layer == gradientRectLayer) {
@@ -281,11 +294,9 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
     }
 }
 
-- (void)drawHistogramLayer:(kOTHistogram_Channel)channel withDictionary:(NSDictionary *)dictionary withMaxValue:(int)value
+- (void)drawHistogramLayer:(kOTHistogram_Channel)channel
 {
-    self.histogrameDictionary = dictionary;
-    maxValue = value;
-    
+
     CALayer *tmpLayer;
     switch (channel) {
         case kOTHistogramChannel_Red:
@@ -308,18 +319,24 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
 {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef channelColor;
+    NSDictionary *tmpDictionary = [dictionary copy];
+    
      switch (histogramChannel) {
          case kOTHistogramChannel_Red:
              channelColor = CGColorCreateFromNSColor([NSColor colorWithCalibratedRed:1.0 green:0.0 blue:0.0 alpha:0.5], colorSpace);
+             maxValue = maxRedValue;
              break;
          case kOTHistogramChannel_Green:
              channelColor = CGColorCreateFromNSColor([NSColor colorWithCalibratedRed:0.0 green:1.0 blue:0.0 alpha:0.5], colorSpace);
+             maxValue = maxGreenValue;
              break;
          case kOTHistogramChannel_Blue:
              channelColor = CGColorCreateFromNSColor([NSColor colorWithCalibratedRed:0.0 green:0.0 blue:1.0 alpha:0.5], colorSpace);
+             maxValue = maxBlueValue;
              break;
          default:
              channelColor = CGColorCreateFromNSColor([NSColor colorWithCalibratedRed:0.5 green:0.5 blue:0.5 alpha:0.5], colorSpace);
+             maxValue = maxGammaValue;
              break;
      }
     float lineWidth = 1.0f;
@@ -327,7 +344,7 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
     
     CGContextSetStrokeColorWithColor(context, channelColor); //線色
     CGContextSetLineCap(context, kCGLineCapRound); //線的接點
-    NSDictionary *tmpDictionary = [dictionary copy];
+    
     for (int i = 0; i < 256; i++) {
         NSString *tmpColorStringValue = [tmpDictionary objectForKey:[NSString stringWithFormat:@"%d", i]];
         int colorValue = [tmpColorStringValue intValue];
@@ -421,33 +438,54 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
     CGContextStrokePath(context);
 }
 
-- (void)makesAllChannelHidden
+- (void)setNeedSliderAdjustment:(BOOL)isNeed
 {
-    [redLayer setHidden:YES];
-    [greenLayer setHidden:YES];
-    [blueLayer setHidden:YES];
-    [gammaLayer setHidden:YES];
+    isNeedSlider = isNeed;
+    if (isNeedSlider) {
+        [gradientRectLayer setNeedsDisplay];
+        [sliderLayer setNeedsDisplay];
+        [blueLayer setHidden:NO];
+        [sliderLayer setHidden:NO];
+    } else {
+        [blueLayer setHidden:YES];
+        [sliderLayer setHidden:YES];
+    }
+}
+
+- (void)makesAllChannelHidden:(BOOL)isHidden
+{
+    [redLayer setHidden:isHidden];
+    [greenLayer setHidden:isHidden];
+    [blueLayer setHidden:isHidden];
+    [gammaLayer setHidden:isHidden];
 }
 
 - (void)makesChannelVisible:(kOTHistogram_Channel)histogramChannel
 {
-    [self makesAllChannelHidden];
+    [self makesAllChannelHidden:YES];
     CALayer * layerA;
     switch (histogramChannel) {
         case kOTHistogramChannel_Red:
             layerA = redLayer;
+            [layerA setHidden:NO];
             break;
         case kOTHistogramChannel_Green:
             layerA = greenLayer;
+            [layerA setHidden:NO];
             break;
         case kOTHistogramChannel_Blue:
             layerA = blueLayer;
+            [layerA setHidden:NO];
+            break;
+        case kOTHistogramChannel_All:
+            [self makesAllChannelHidden:NO];
             break;
         default:
             layerA = gammaLayer;
+            [layerA setHidden:NO];
             break;
     }
-    [layerA setHidden:NO];
+    
 }
 
 @end
