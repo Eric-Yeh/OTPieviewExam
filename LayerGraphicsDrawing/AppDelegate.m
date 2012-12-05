@@ -52,4 +52,9 @@
     //[otLayer changeLayerPosition:otLayer.layer1 toPosition:NSMakePoint(50, 50)];
 }
 
+- (IBAction)openExistImage:(id)sender {
+}
+
+- (IBAction)showHistogramWindow:(id)sender {
+}
 @end

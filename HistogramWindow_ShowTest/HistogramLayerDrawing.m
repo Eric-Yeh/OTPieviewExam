@@ -7,7 +7,7 @@
 //
 //這是直接與 Layer 的 Delegate 配合使用 
 #import "HistogramLayerDrawing.h"
-#import <QuartzCore/QuartzCore.h>
+
 @interface NSView (sliderBorderLayer)
 - (BOOL)otck_mouse:(NSPoint)point inCGRect:(CGRect)rect;
 @end
@@ -23,9 +23,12 @@
 @implementation HistogramLayerDrawing
 @synthesize gammaDictionary, redDictionary, greenDictionary, blueDictionary;
 @synthesize boraderLayer, gradientRectLayer, gammaLayer, redLayer, greenLayer, blueLayer, sliderLayer;
+//@synthesize otHistogramChannel;
 @synthesize delegate = _delegate;
 @synthesize sliderValue;
 @synthesize maxGammaValue, maxRedValue, maxGreenValue, maxBlueValue;
+//@synthesize otHistogramLayer;
+//@synthesize delegate = _delegate;
 
 #pragma mark Retina Display Support
 - (void)scaleDidChange:(NSNotification *)n
@@ -148,11 +151,6 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
 #pragma mark ---------------
 - (void)_layerinit
 {
-    self.gammaDictionary = [NSMutableDictionary dictionary];
-    self.redDictionary = [NSMutableDictionary dictionary];
-    self.greenDictionary = [NSMutableDictionary dictionary];
-    self.blueDictionary = [NSMutableDictionary dictionary];
-    maxGammaValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
     [self setWantsLayer:YES];
     isNeedSlider = NO;
     boraderLayer = [[CALayer alloc]init];
@@ -223,6 +221,12 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
     [gammaLayer setHidden:NO];
     [redLayer setHidden:NO];
     [greenLayer setHidden:NO];
+
+    self.gammaDictionary = [NSMutableDictionary dictionary];
+    self.redDictionary = [NSMutableDictionary dictionary];
+    self.greenDictionary = [NSMutableDictionary dictionary];
+    self.blueDictionary = [NSMutableDictionary dictionary];
+    maxGammaValue = 0, maxRedValue = 0, maxGreenValue = 0, maxBlueValue = 0;
 }
 
 - (id)initWithFrame:(NSRect)frame

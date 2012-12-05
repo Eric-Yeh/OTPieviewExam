@@ -43,6 +43,9 @@
     
     [self _initLoadImage:@"/Users/Eric/Pictures/lion-256height.jpg"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sliderValueNotification) name:@"sliderChange" object:nil];
+    
+    hvController = [[HistogramViewController alloc]initWithWindowNibName:@"HistogramViewController"];
+    [self.window addChildWindow:[hvController hWindow] ordered:NSWindowBelow];
 
 }
 
@@ -122,6 +125,13 @@
 //    [histogramController reLoadImage:self.oriImage.image];
 ////    [histogramController.hWindow setIsVisible:YES];
 ////    [histogramController.hWindow makeKeyAndOrderFront:self];
+    
+//    [hvController loadWindow];
+//    [hvController showWindow:nil];
+//    [hvController reLoadImage:self.oriImage.image];
+//    [[hvController hWindow]makeMainWindow];
+
+
 }
 
 - (IBAction)changeHistogram:(id)sender

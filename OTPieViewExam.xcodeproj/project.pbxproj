@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07243209166C4AB000A4E39A /* HistogramWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07243208166C4AB000A4E39A /* HistogramWindowController.m */; };
-		0724320B166C4AE800A4E39A /* HistogramWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0724320A166C4AE800A4E39A /* HistogramWindow.xib */; };
 		072F36291648FC680002D615 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F36281648FC680002D615 /* Quartz.framework */; };
 		072F362B1648FC6E0002D615 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F362A1648FC6E0002D615 /* QuartzCore.framework */; };
 		072F362C1648FC830002D615 /* Quartz.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 072F36281648FC680002D615 /* Quartz.framework */; };
@@ -30,6 +28,21 @@
 		0795EEF5162D612500BCE2EC /* OTUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0795EED9162D5ED500BCE2EC /* OTUIKit.framework */; };
 		0795EEF6162D612800BCE2EC /* OTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0795EED5162D5ED500BCE2EC /* OTFoundation.framework */; };
 		079F4C651654C53A00930D59 /* HistogramData.m in Sources */ = {isa = PBXBuildFile; fileRef = 079F4C641654C53A00930D59 /* HistogramData.m */; };
+		07A1D533166D8BF7006A9DB5 /* HistogramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A1D531166D8BF7006A9DB5 /* HistogramViewController.m */; };
+		07A1D534166D8BF7006A9DB5 /* HistogramViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07A1D532166D8BF7006A9DB5 /* HistogramViewController.xib */; };
+		07A1D53B166D9A6B006A9DB5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07834A8716071899009EC369 /* Cocoa.framework */; };
+		07A1D541166D9A6C006A9DB5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07A1D53F166D9A6C006A9DB5 /* InfoPlist.strings */; };
+		07A1D543166D9A6C006A9DB5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A1D542166D9A6C006A9DB5 /* main.m */; };
+		07A1D547166D9A6C006A9DB5 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 07A1D545166D9A6C006A9DB5 /* Credits.rtf */; };
+		07A1D54A166D9A6C006A9DB5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A1D549166D9A6C006A9DB5 /* AppDelegate.m */; };
+		07A1D54D166D9A6C006A9DB5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07A1D54B166D9A6C006A9DB5 /* MainMenu.xib */; };
+		07A1D55A166DA22A006A9DB5 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A1D559166DA22A006A9DB5 /* Quartz.framework */; };
+		07A1D55C166DA231006A9DB5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A1D55B166DA231006A9DB5 /* QuartzCore.framework */; };
+		07A1D55E166DA23C006A9DB5 /* QuartzCore.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 07A1D55B166DA231006A9DB5 /* QuartzCore.framework */; };
+		07A1D55F166DA23F006A9DB5 /* Quartz.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 07A1D559166DA22A006A9DB5 /* Quartz.framework */; };
+		07A1D560166DA4B2006A9DB5 /* HistogramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A1D557166D9AD2006A9DB5 /* HistogramViewController.m */; };
+		07A1D565166DA6E4006A9DB5 /* HistogramData.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A1D562166DA6E4006A9DB5 /* HistogramData.m */; };
+		07A1D566166DA6E4006A9DB5 /* HistogramLayerDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A1D564166DA6E4006A9DB5 /* HistogramLayerDrawing.m */; };
 		07C26CFD16548493008A7C33 /* HistogramLayerDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C26CFC16548493008A7C33 /* HistogramLayerDrawing.m */; };
 		07F8BA141659D13700A504D2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07834A8716071899009EC369 /* Cocoa.framework */; };
 		07F8BA1A1659D13700A504D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07F8BA181659D13700A504D2 /* InfoPlist.strings */; };
@@ -117,6 +130,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		07A1D55D166DA234006A9DB5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				07A1D55E166DA23C006A9DB5 /* QuartzCore.framework in CopyFiles */,
+				07A1D55F166DA23F006A9DB5 /* Quartz.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		07F8BA2F1659DF7300A504D2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -129,9 +153,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		07243207166C4AB000A4E39A /* HistogramWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramWindowController.h; sourceTree = "<group>"; };
-		07243208166C4AB000A4E39A /* HistogramWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramWindowController.m; sourceTree = "<group>"; };
-		0724320A166C4AE800A4E39A /* HistogramWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistogramWindow.xib; sourceTree = "<group>"; };
 		072F36281648FC680002D615 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		072F362A1648FC6E0002D615 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		075642C6165C8332006748A6 /* HistogramType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistogramType.h; sourceTree = "<group>"; };
@@ -165,6 +186,28 @@
 		0795EEC3162D5ED400BCE2EC /* OTCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OTCocoa.xcodeproj; path = OTCocoa/OTCocoa.xcodeproj; sourceTree = "<group>"; };
 		079F4C631654C53A00930D59 /* HistogramData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramData.h; sourceTree = "<group>"; };
 		079F4C641654C53A00930D59 /* HistogramData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramData.m; sourceTree = "<group>"; };
+		07A1D530166D8BF7006A9DB5 /* HistogramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramViewController.h; sourceTree = "<group>"; };
+		07A1D531166D8BF7006A9DB5 /* HistogramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramViewController.m; sourceTree = "<group>"; };
+		07A1D532166D8BF7006A9DB5 /* HistogramViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistogramViewController.xib; sourceTree = "<group>"; };
+		07A1D539166D9A6B006A9DB5 /* HistogramWindow_ShowTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HistogramWindow_ShowTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		07A1D53E166D9A6C006A9DB5 /* HistogramWindow_ShowTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HistogramWindow_ShowTest-Info.plist"; sourceTree = "<group>"; };
+		07A1D540166D9A6C006A9DB5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		07A1D542166D9A6C006A9DB5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		07A1D544166D9A6C006A9DB5 /* HistogramWindow_ShowTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HistogramWindow_ShowTest-Prefix.pch"; sourceTree = "<group>"; };
+		07A1D546166D9A6C006A9DB5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		07A1D548166D9A6C006A9DB5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		07A1D549166D9A6C006A9DB5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		07A1D54C166D9A6C006A9DB5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		07A1D555166D9AD2006A9DB5 /* HistogramType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistogramType.h; sourceTree = "<group>"; };
+		07A1D556166D9AD2006A9DB5 /* HistogramViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistogramViewController.h; sourceTree = "<group>"; };
+		07A1D557166D9AD2006A9DB5 /* HistogramViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistogramViewController.m; sourceTree = "<group>"; };
+		07A1D558166D9AD2006A9DB5 /* HistogramViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistogramViewController.xib; sourceTree = "<group>"; };
+		07A1D559166DA22A006A9DB5 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/Quartz.framework; sourceTree = DEVELOPER_DIR; };
+		07A1D55B166DA231006A9DB5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		07A1D561166DA6E4006A9DB5 /* HistogramData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramData.h; sourceTree = "<group>"; };
+		07A1D562166DA6E4006A9DB5 /* HistogramData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramData.m; sourceTree = "<group>"; };
+		07A1D563166DA6E4006A9DB5 /* HistogramLayerDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramLayerDrawing.h; sourceTree = "<group>"; };
+		07A1D564166DA6E4006A9DB5 /* HistogramLayerDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramLayerDrawing.m; sourceTree = "<group>"; };
 		07C26CFB16548493008A7C33 /* HistogramLayerDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramLayerDrawing.h; sourceTree = "<group>"; };
 		07C26CFC16548493008A7C33 /* HistogramLayerDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramLayerDrawing.m; sourceTree = "<group>"; };
 		07F8BA121659D13700A504D2 /* LayerGraphicsDrawing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LayerGraphicsDrawing.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -201,6 +244,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		07A1D536166D9A6B006A9DB5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07A1D55C166DA231006A9DB5 /* QuartzCore.framework in Frameworks */,
+				07A1D55A166DA22A006A9DB5 /* Quartz.framework in Frameworks */,
+				07A1D53B166D9A6B006A9DB5 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		07F8BA0F1659D13700A504D2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -220,9 +273,9 @@
 				07619D76164359CD0059E886 /* AppDelegate.h */,
 				07619D77164359CD0059E886 /* AppDelegate.m */,
 				07619D79164359CD0059E886 /* MainMenu.xib */,
-				07243207166C4AB000A4E39A /* HistogramWindowController.h */,
-				07243208166C4AB000A4E39A /* HistogramWindowController.m */,
-				0724320A166C4AE800A4E39A /* HistogramWindow.xib */,
+				07A1D530166D8BF7006A9DB5 /* HistogramViewController.h */,
+				07A1D531166D8BF7006A9DB5 /* HistogramViewController.m */,
+				07A1D532166D8BF7006A9DB5 /* HistogramViewController.xib */,
 				07619D8416439AEC0059E886 /* CorePlotView.h */,
 				07619D8516439AEC0059E886 /* CorePlotView.m */,
 				075642C6165C8332006748A6 /* HistogramType.h */,
@@ -263,10 +316,13 @@
 		07834A7816071899009EC369 = {
 			isa = PBXGroup;
 			children = (
+				07A1D55B166DA231006A9DB5 /* QuartzCore.framework */,
+				07A1D559166DA22A006A9DB5 /* Quartz.framework */,
 				0795EEC3162D5ED400BCE2EC /* OTCocoa.xcodeproj */,
 				07834A8D16071899009EC369 /* OTPieViewExam */,
 				07619D6A164359CD0059E886 /* OTHistogram */,
 				07F8BA151659D13700A504D2 /* LayerGraphicsDrawing */,
+				07A1D53C166D9A6B006A9DB5 /* HistogramWindow_ShowTest */,
 				07834A8616071899009EC369 /* Frameworks */,
 				07834A8416071899009EC369 /* Products */,
 			);
@@ -278,6 +334,7 @@
 				07834A8316071899009EC369 /* OTPieViewExam.app */,
 				07619D67164359CD0059E886 /* OTHistogram.app */,
 				07F8BA121659D13700A504D2 /* LayerGraphicsDrawing.app */,
+				07A1D539166D9A6B006A9DB5 /* HistogramWindow_ShowTest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -336,6 +393,37 @@
 				0795EEDD162D5ED500BCE2EC /* OTComposerKit.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		07A1D53C166D9A6B006A9DB5 /* HistogramWindow_ShowTest */ = {
+			isa = PBXGroup;
+			children = (
+				07A1D548166D9A6C006A9DB5 /* AppDelegate.h */,
+				07A1D549166D9A6C006A9DB5 /* AppDelegate.m */,
+				07A1D54B166D9A6C006A9DB5 /* MainMenu.xib */,
+				07A1D555166D9AD2006A9DB5 /* HistogramType.h */,
+				07A1D556166D9AD2006A9DB5 /* HistogramViewController.h */,
+				07A1D557166D9AD2006A9DB5 /* HistogramViewController.m */,
+				07A1D558166D9AD2006A9DB5 /* HistogramViewController.xib */,
+				07A1D561166DA6E4006A9DB5 /* HistogramData.h */,
+				07A1D562166DA6E4006A9DB5 /* HistogramData.m */,
+				07A1D563166DA6E4006A9DB5 /* HistogramLayerDrawing.h */,
+				07A1D564166DA6E4006A9DB5 /* HistogramLayerDrawing.m */,
+				07A1D53D166D9A6C006A9DB5 /* Supporting Files */,
+			);
+			path = HistogramWindow_ShowTest;
+			sourceTree = "<group>";
+		};
+		07A1D53D166D9A6C006A9DB5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				07A1D53E166D9A6C006A9DB5 /* HistogramWindow_ShowTest-Info.plist */,
+				07A1D53F166D9A6C006A9DB5 /* InfoPlist.strings */,
+				07A1D542166D9A6C006A9DB5 /* main.m */,
+				07A1D544166D9A6C006A9DB5 /* HistogramWindow_ShowTest-Prefix.pch */,
+				07A1D545166D9A6C006A9DB5 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		07F8BA151659D13700A504D2 /* LayerGraphicsDrawing */ = {
@@ -402,6 +490,24 @@
 			productReference = 07834A8316071899009EC369 /* OTPieViewExam.app */;
 			productType = "com.apple.product-type.application";
 		};
+		07A1D538166D9A6B006A9DB5 /* HistogramWindow_ShowTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07A1D54E166D9A6C006A9DB5 /* Build configuration list for PBXNativeTarget "HistogramWindow_ShowTest" */;
+			buildPhases = (
+				07A1D535166D9A6B006A9DB5 /* Sources */,
+				07A1D536166D9A6B006A9DB5 /* Frameworks */,
+				07A1D537166D9A6B006A9DB5 /* Resources */,
+				07A1D55D166DA234006A9DB5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HistogramWindow_ShowTest;
+			productName = HistogramWindow_ShowTest;
+			productReference = 07A1D539166D9A6B006A9DB5 /* HistogramWindow_ShowTest.app */;
+			productType = "com.apple.product-type.application";
+		};
 		07F8BA111659D13700A504D2 /* LayerGraphicsDrawing */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 07F8BA271659D13800A504D2 /* Build configuration list for PBXNativeTarget "LayerGraphicsDrawing" */;
@@ -450,6 +556,7 @@
 				07834A8216071899009EC369 /* OTPieViewExam */,
 				07619D66164359CD0059E886 /* OTHistogram */,
 				07F8BA111659D13700A504D2 /* LayerGraphicsDrawing */,
+				07A1D538166D9A6B006A9DB5 /* HistogramWindow_ShowTest */,
 			);
 		};
 /* End PBXProject section */
@@ -514,7 +621,7 @@
 				07619D6F164359CD0059E886 /* InfoPlist.strings in Resources */,
 				07619D75164359CD0059E886 /* Credits.rtf in Resources */,
 				07619D7B164359CD0059E886 /* MainMenu.xib in Resources */,
-				0724320B166C4AE800A4E39A /* HistogramWindow.xib in Resources */,
+				07A1D534166D8BF7006A9DB5 /* HistogramViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,6 +632,16 @@
 				07834A9216071899009EC369 /* InfoPlist.strings in Resources */,
 				07834A9816071899009EC369 /* Credits.rtf in Resources */,
 				07834A9E16071899009EC369 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		07A1D537166D9A6B006A9DB5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07A1D541166D9A6C006A9DB5 /* InfoPlist.strings in Resources */,
+				07A1D547166D9A6C006A9DB5 /* Credits.rtf in Resources */,
+				07A1D54D166D9A6C006A9DB5 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,7 +666,7 @@
 				07C26CFD16548493008A7C33 /* HistogramLayerDrawing.m in Sources */,
 				079F4C651654C53A00930D59 /* HistogramData.m in Sources */,
 				075642C7165CD921006748A6 /* AppDelegate.m in Sources */,
-				07243209166C4AB000A4E39A /* HistogramWindowController.m in Sources */,
+				07A1D533166D8BF7006A9DB5 /* HistogramViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +679,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		07A1D535166D9A6B006A9DB5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07A1D543166D9A6C006A9DB5 /* main.m in Sources */,
+				07A1D54A166D9A6C006A9DB5 /* AppDelegate.m in Sources */,
+				07A1D560166DA4B2006A9DB5 /* HistogramViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		07F8BA0E1659D13700A504D2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -569,6 +696,8 @@
 				07F8BA1C1659D13800A504D2 /* main.m in Sources */,
 				07F8BA231659D13800A504D2 /* AppDelegate.m in Sources */,
 				07F8BA2C1659D30C00A504D2 /* OTLayerDrawing.m in Sources */,
+				07A1D565166DA6E4006A9DB5 /* HistogramData.m in Sources */,
+				07A1D566166DA6E4006A9DB5 /* HistogramLayerDrawing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,6 +748,30 @@
 			isa = PBXVariantGroup;
 			children = (
 				07834A9D16071899009EC369 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		07A1D53F166D9A6C006A9DB5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07A1D540166D9A6C006A9DB5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		07A1D545166D9A6C006A9DB5 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07A1D546166D9A6C006A9DB5 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		07A1D54B166D9A6C006A9DB5 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07A1D54C166D9A6C006A9DB5 /* en */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -767,6 +920,40 @@
 			};
 			name = Release;
 		};
+		07A1D54F166D9A6C006A9DB5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HistogramWindow_ShowTest/HistogramWindow_ShowTest-Prefix.pch";
+				INFOPLIST_FILE = "HistogramWindow_ShowTest/HistogramWindow_ShowTest-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.7;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		07A1D550166D9A6C006A9DB5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HistogramWindow_ShowTest/HistogramWindow_ShowTest-Prefix.pch";
+				INFOPLIST_FILE = "HistogramWindow_ShowTest/HistogramWindow_ShowTest-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.7;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 		07F8BA281659D13800A504D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -821,6 +1008,15 @@
 			buildConfigurations = (
 				07834AA216071899009EC369 /* Debug */,
 				07834AA316071899009EC369 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		07A1D54E166D9A6C006A9DB5 /* Build configuration list for PBXNativeTarget "HistogramWindow_ShowTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07A1D54F166D9A6C006A9DB5 /* Debug */,
+				07A1D550166D9A6C006A9DB5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

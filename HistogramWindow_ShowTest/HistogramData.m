@@ -92,6 +92,8 @@
     [reSizeImage unlockFocus];
     NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[reSizeImage TIFFRepresentation]]autorelease];
     
+//    NSLog(@"%f %f", bitmapRep.size.width, bitmapRep.size.height);
+    //把 reSizeImage 給資料端做運算
     [self setHistogramData:bitmapRep];
     [self _dataInfoToDrawLayer];
 }
@@ -127,7 +129,7 @@
                                                 CGImageGetColorSpace(imageRef),
                                                 alphaInfo
                                                 );
-    CGContextSetInterpolationQuality(bitmap, kCGInterpolationNone);
+    CGContextSetInterpolationQuality(bitmap, kCGInterpolationNone);//這麼威，不要弄就好了
     CGContextDrawImage(bitmap, CGRectMake(thumbRect.origin.x, thumbRect.origin.y, thumbRect.size.width, thumbRect.size.height), imageRef);
     
     CGImageRef ref = CGBitmapContextCreateImage(bitmap);
@@ -135,6 +137,7 @@
     CGContextRelease(bitmap);
     CGImageRelease(ref);
 
+//    NSLog(@"%f %f", bitmapRep.size.width, bitmapRep.size.height);
     [self setHistogramData:bitmapRep];
     [self _dataInfoToDrawLayer];
 }
@@ -200,7 +203,7 @@
 #pragma mark Private Method
 - (void)setColorForDictionary:(NSColor *)color forRedDictionary:(NSMutableDictionary *)mtRedDictionary forGreenDictionary:(NSMutableDictionary *)mtGreenDictionary forBlueDictionary:(NSMutableDictionary *)mtBlueDictionary
 {
-    double_t redFloatValue, greenFloatValue, blueFloatValue;
+    float redFloatValue, greenFloatValue, blueFloatValue;
     [color getRed:&redFloatValue green:&greenFloatValue blue:&blueFloatValue alpha:NULL];
     int redIntValue, greenIntValue, blueIntValue;
     redIntValue = redFloatValue * 255.99999f;

@@ -4,10 +4,15 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>LayerGraphicsDrawing.xcscheme</key>
+		<key>HistogramWindow_ShowTest.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>7</integer>
+		</dict>
+		<key>LayerGraphicsDrawing.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>OTHistogram.xcscheme</key>
 		<dict>
@@ -28,6 +33,11 @@
 			<true/>
 		</dict>
 		<key>07834A8216071899009EC369</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>07A1D538166D9A6B006A9DB5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
