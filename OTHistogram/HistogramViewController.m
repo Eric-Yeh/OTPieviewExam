@@ -85,7 +85,7 @@
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[self.tmpImage TIFFRepresentation]]autorelease];
         //        [histogramDataInfo setHistogramData:bitmapRep withLayer:histogramDrawLayer];
-        [histogramDataInfo resizedCGImage:bitmapRep toSize:CGRectMake(0, 0, 320, 240)];
+        [histogramDataInfo resizedCGImage:bitmapRep];
     });
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sliderValueNotification) name:@"sliderChange" object:nil];
 }

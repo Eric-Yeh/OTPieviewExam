@@ -9,7 +9,7 @@
 #import "HistogramData.h"
 
 @implementation HistogramData
-
+@synthesize delegate;
 @synthesize histogramDrawLayer;
 
 - (id)initWithHistogramLayerDrawing:(HistogramLayerDrawing *)drawLayer
@@ -30,7 +30,7 @@
     [self setHistogramDataToChannel:kOTHistogramChannel_Green];
     [self setHistogramDataToChannel:kOTHistogramChannel_Blue];
     [self setHistogramDataToChannel:kOTHistogramChannel_Gamma];
-    [histogramDrawLayer makesChannelVisible:kOTHistogramChannel_All];
+//    [histogramDrawLayer makesChannelVisible:kOTHistogramChannel_All];
 }
 
 - (void)setHistogramDataToChannel:(kOTHistogram_Channel)channel;
@@ -60,9 +60,10 @@
             [self setColorForDictionary:tmpColor forRedDictionary:mutRedDictionary forGreenDictionary:mutGreenDictionary forBlueDictionary:mutBlueDictionary];
         }
     }
-    histogramDrawLayer.redDictionary = [mutRedDictionary copy];
-    histogramDrawLayer.greenDictionary = [mutGreenDictionary copy];
-    histogramDrawLayer.blueDictionary = [mutBlueDictionary copy];
+    //為什麼會愈變愈高？
+    histogramDrawLayer.redDictionary = mutRedDictionary;
+    histogramDrawLayer.greenDictionary = mutGreenDictionary;
+    histogramDrawLayer.blueDictionary = mutBlueDictionary;
     histogramDrawLayer.gammaDictionary = [[self saveToGammaDictionary:mutRedDictionary withGreenDictionary:mutGreenDictionary withBlueDictionary:mutBlueDictionary] copy];
     histogramDrawLayer.maxRedValue = maxRedValue;
     histogramDrawLayer.maxGreenValue = maxGreenValue;
@@ -96,20 +97,18 @@
     [self _dataInfoToDrawLayer];
 }
 
-- (void)resizedCGImage:(NSBitmapImageRep *)bmprep toSize:(CGRect)thumbRect
+- (void)resizedCGImage:(NSBitmapImageRep *)bmprep
 {
-    if (thumbRect.size.height <= 0 && thumbRect.size.width <= 0) {
-        return;
-    }
     //等比例縮放
+    //設成 320 x 240 有好的速度與不會與原圖相差太多的 histogram
     NSSize newSize = NSMakeSize( bmprep.size.width, bmprep.size.height);
-    if (bmprep.size.width > thumbRect.size.width) {
-        newSize.width =  thumbRect.size.width;
-        newSize.height = bmprep.size.height * thumbRect.size.width / bmprep.size.width;
+    if (bmprep.size.width > kOT_OTHistogramResizeImageWidth) {
+        newSize.width =  kOT_OTHistogramResizeImageWidth;
+        newSize.height = bmprep.size.height * kOT_OTHistogramResizeImageWidth / bmprep.size.width;
     }
-    if (bmprep.size.height > thumbRect.size.height) {
-        newSize.height = thumbRect.size.height;
-        newSize.width = bmprep.size.width * thumbRect.size.height / bmprep.size.height;
+    if (bmprep.size.height > kOT_OTHistogramResizeImageHeight) {
+        newSize.height = kOT_OTHistogramResizeImageHeight;
+        newSize.width = bmprep.size.width * kOT_OTHistogramResizeImageHeight / bmprep.size.height;
     }
     
     CGImageRef imageRef = bmprep.CGImage;
@@ -120,21 +119,21 @@
     
     CGContextRef bitmap = CGBitmapContextCreate(
                                                 NULL,
-                                                thumbRect.size.width,
-                                                thumbRect.size.height,
+                                                kOT_OTHistogramResizeImageWidth,
+                                                kOT_OTHistogramResizeImageHeight,
                                                 CGImageGetBitsPerComponent(imageRef),
-                                                4 * thumbRect.size.width, 
+                                                4 * kOT_OTHistogramResizeImageWidth,
                                                 CGImageGetColorSpace(imageRef),
                                                 alphaInfo
                                                 );
     CGContextSetInterpolationQuality(bitmap, kCGInterpolationNone);
-    CGContextDrawImage(bitmap, CGRectMake(thumbRect.origin.x, thumbRect.origin.y, thumbRect.size.width, thumbRect.size.height), imageRef);
+    CGContextDrawImage(bitmap, CGRectMake(0, 0, kOT_OTHistogramResizeImageWidth, kOT_OTHistogramResizeImageHeight), imageRef);
     
     CGImageRef ref = CGBitmapContextCreateImage(bitmap);
     NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithCGImage:ref]autorelease];
     CGContextRelease(bitmap);
     CGImageRelease(ref);
-
+    
     [self setHistogramData:bitmapRep];
     [self _dataInfoToDrawLayer];
 }
@@ -200,7 +199,7 @@
 #pragma mark Private Method
 - (void)setColorForDictionary:(NSColor *)color forRedDictionary:(NSMutableDictionary *)mtRedDictionary forGreenDictionary:(NSMutableDictionary *)mtGreenDictionary forBlueDictionary:(NSMutableDictionary *)mtBlueDictionary
 {
-    double_t redFloatValue, greenFloatValue, blueFloatValue;
+    CGFloat redFloatValue, greenFloatValue, blueFloatValue;
     [color getRed:&redFloatValue green:&greenFloatValue blue:&blueFloatValue alpha:NULL];
     int redIntValue, greenIntValue, blueIntValue;
     redIntValue = redFloatValue * 255.99999f;

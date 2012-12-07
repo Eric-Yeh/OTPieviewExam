@@ -9,8 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import <OTUIKit/OTPieView.h>
 #import <OTFoundation/OTFoundation.h>
-
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+#import <OTUIKit/OTHistogramData.h>
+#import <OTUIKit/NSImage+OTUIKit.h>
+@interface AppDelegateOTPieViewExam : NSObject <NSApplicationDelegate>
 {
     IBOutlet OTPieView *pieView;
     NSMutableDictionary *presetOneValues, *presetTwoValues, *presetThreeValues;
@@ -28,10 +29,12 @@
     NSTimer *movingTickTimer;
     int newSpeed;
     int oldSpeed;
-    
 
+    OTHistogramLayerDrawing *histogramDrawLayer;
+    OTHistogramData *histogramDataInfo;
 }
-
+@property (nonatomic, assign) IBOutlet OTHistogramLayerDrawing *histogramDrawLayer;
+@property (nonatomic, retain) OTHistogramData *histogramDataInfo;
 @property (assign) IBOutlet NSWindow *window;
 
 @property (nonatomic, assign) IBOutlet NSButton *presetButtonOne;

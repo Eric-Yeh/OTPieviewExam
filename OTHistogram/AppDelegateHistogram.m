@@ -6,14 +6,12 @@
 //  Copyright (c) 2012年 Ortery Technologies, Inc. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "AppDelegateHistogram.h"
 #define BEST_BYTE_ALIGNMENT 16
 #define COMPUTE_BEST_BYTES_PER_ROW(bpr)		( ( (bpr) + (BEST_BYTE_ALIGNMENT-1) ) & ~(BEST_BYTE_ALIGNMENT-1) )
 
-
-
 #pragma MainCode
-@implementation AppDelegate
+@implementation AppDelegateHistogram
 //NSImageView
 @synthesize window;
 @synthesize histogramPanel;
@@ -44,8 +42,8 @@
     [self _initLoadImage:@"/Users/Eric/Pictures/lion-256height.jpg"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sliderValueNotification) name:@"sliderChange" object:nil];
     
-    hvController = [[HistogramViewController alloc]initWithWindowNibName:@"HistogramViewController"];
-    [self.window addChildWindow:[hvController hWindow] ordered:NSWindowBelow];
+//    hvController = [[HistogramViewController alloc]initWithWindowNibName:@"HistogramViewController"];
+//    [self.window addChildWindow:[hvController hWindow] ordered:NSWindowBelow];
 
 }
 
@@ -83,8 +81,8 @@
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseFiles:YES];
     [openPanel setCanChooseDirectories:YES];
-    NSString *initPath = @"/Users/Eric/Pictures/PNGTest/";
-    [openPanel setDirectoryURL:[NSURL fileURLWithPath:initPath]];
+//    NSString *initPath = @"/Users/Eric/Pictures/PNGTest/";
+//    [openPanel setDirectoryURL:[NSURL fileURLWithPath:initPath]];
     [openPanel setAllowsMultipleSelection:NO];
     [openPanel setAllowedFileTypes:[NSArray arrayWithObject:@"jpg"]];
     if ([openPanel runModal] == NSOKButton)
@@ -108,17 +106,16 @@
 
 - (IBAction)resizeNSImage:(id)sender
 {
-    needReloadDataInfo = YES;
-    [histogramDataInfo resizedNSImage:self.dstImage.image toSize:NSMakeSize(320, 240)];
-    [self _initialSliderValue];
+//    needReloadDataInfo = YES;
+//    [histogramDataInfo resizedNSImage:self.dstImage.image toSize:NSMakeSize(320, 240)];
+//    [self _initialSliderValue];
 }
 
 - (IBAction)resizeCGImage:(id)sender
 {
-
     needReloadDataInfo = YES;
     NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[self.dstImage.image TIFFRepresentation]]autorelease];
-    [histogramDataInfo resizedCGImage:bitmapRep toSize:CGRectMake(0, 0, 320, 240)];
+    [histogramDataInfo resizedCGImage:bitmapRep];
     [self _initialSliderValue];
 
 //    HistogramWindowController *histogramController = [[[HistogramWindowController alloc]init]autorelease];
@@ -130,8 +127,6 @@
 //    [hvController showWindow:nil];
 //    [hvController reLoadImage:self.oriImage.image];
 //    [[hvController hWindow]makeMainWindow];
-
-
 }
 
 - (IBAction)changeHistogram:(id)sender
@@ -179,7 +174,8 @@
     self.oriImage.image = nImage;
     [nImage release];
     [self initializeDstImage:nil];
-    [self _refreshHistogramData];
+    [self resizeCGImage:nil];
+//    [self _refreshHistogramData];
 }
 
 - (void)_refreshHistogramData
@@ -194,7 +190,7 @@
 - (void)_initialSliderValue
 {
     [histogramDrawLayer _initialSlider];
-    [self.modePopUpButton selectItemAtIndex:0];
+    [self.modePopUpButton selectItemAtIndex:4];
     [self changeHistogram:nil];
     [self.histogramPanel setIsVisible:YES];
 }

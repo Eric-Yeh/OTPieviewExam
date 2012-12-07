@@ -11,7 +11,7 @@
 		072F362B1648FC6E0002D615 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F362A1648FC6E0002D615 /* QuartzCore.framework */; };
 		072F362C1648FC830002D615 /* Quartz.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 072F36281648FC680002D615 /* Quartz.framework */; };
 		072F362D1648FC870002D615 /* QuartzCore.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 072F362A1648FC6E0002D615 /* QuartzCore.framework */; };
-		075642C7165CD921006748A6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07619D77164359CD0059E886 /* AppDelegate.m */; };
+		075642C7165CD921006748A6 /* AppDelegateHistogram.m in Sources */ = {isa = PBXBuildFile; fileRef = 07619D77164359CD0059E886 /* AppDelegateHistogram.m */; };
 		07619D69164359CD0059E886 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07834A8716071899009EC369 /* Cocoa.framework */; };
 		07619D6F164359CD0059E886 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07619D6D164359CD0059E886 /* InfoPlist.strings */; };
 		07619D71164359CD0059E886 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07619D70164359CD0059E886 /* main.m */; };
@@ -21,12 +21,12 @@
 		07834A9216071899009EC369 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07834A9016071899009EC369 /* InfoPlist.strings */; };
 		07834A9416071899009EC369 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07834A9316071899009EC369 /* main.m */; };
 		07834A9816071899009EC369 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 07834A9616071899009EC369 /* Credits.rtf */; };
-		07834A9B16071899009EC369 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07834A9A16071899009EC369 /* AppDelegate.m */; };
+		07834A9B16071899009EC369 /* AppDelegateOTPieViewExam.m in Sources */ = {isa = PBXBuildFile; fileRef = 07834A9A16071899009EC369 /* AppDelegateOTPieViewExam.m */; };
 		07834A9E16071899009EC369 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07834A9C16071899009EC369 /* MainMenu.xib */; };
-		0795EEDE162D5EE800BCE2EC /* OTFoundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0795EED5162D5ED500BCE2EC /* OTFoundation.framework */; };
-		0795EEDF162D5EE800BCE2EC /* OTUIKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0795EED9162D5ED500BCE2EC /* OTUIKit.framework */; };
-		0795EEF5162D612500BCE2EC /* OTUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0795EED9162D5ED500BCE2EC /* OTUIKit.framework */; };
-		0795EEF6162D612800BCE2EC /* OTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0795EED5162D5ED500BCE2EC /* OTFoundation.framework */; };
+		07901E82166F928400C0D62F /* OTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07ADA134166F51D800BA9B91 /* OTFoundation.framework */; };
+		07901E83166F928400C0D62F /* OTUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07ADA138166F51D800BA9B91 /* OTUIKit.framework */; };
+		07901E84166F929700C0D62F /* OTFoundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 07ADA134166F51D800BA9B91 /* OTFoundation.framework */; };
+		07901E85166F929700C0D62F /* OTUIKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 07ADA138166F51D800BA9B91 /* OTUIKit.framework */; };
 		079F4C651654C53A00930D59 /* HistogramData.m in Sources */ = {isa = PBXBuildFile; fileRef = 079F4C641654C53A00930D59 /* HistogramData.m */; };
 		07A1D533166D8BF7006A9DB5 /* HistogramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A1D531166D8BF7006A9DB5 /* HistogramViewController.m */; };
 		07A1D534166D8BF7006A9DB5 /* HistogramViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07A1D532166D8BF7006A9DB5 /* HistogramViewController.xib */; };
@@ -48,7 +48,7 @@
 		07F8BA1A1659D13700A504D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07F8BA181659D13700A504D2 /* InfoPlist.strings */; };
 		07F8BA1C1659D13800A504D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F8BA1B1659D13800A504D2 /* main.m */; };
 		07F8BA201659D13800A504D2 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 07F8BA1E1659D13800A504D2 /* Credits.rtf */; };
-		07F8BA231659D13800A504D2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F8BA221659D13800A504D2 /* AppDelegate.m */; };
+		07F8BA231659D13800A504D2 /* AppDelegateLayerGraphicsDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F8BA221659D13800A504D2 /* AppDelegateLayerGraphicsDrawing.m */; };
 		07F8BA261659D13800A504D2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07F8BA241659D13800A504D2 /* MainMenu.xib */; };
 		07F8BA2C1659D30C00A504D2 /* OTLayerDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F8BA2B1659D30C00A504D2 /* OTLayerDrawing.m */; };
 		07F8BA2D1659DF6900A504D2 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F36281648FC680002D615 /* Quartz.framework */; };
@@ -56,51 +56,51 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0795EED0162D5ED500BCE2EC /* PBXContainerItemProxy */ = {
+		07ADA12F166F51D800BA9B91 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 0795EEC3162D5ED400BCE2EC /* OTCocoa.xcodeproj */;
+			containerPortal = 07ADA122166F51D800BA9B91 /* OTCocoa.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 9FA07CF115C1B2C400B276EC;
 			remoteInfo = OTCocoa;
 		};
-		0795EED2162D5ED500BCE2EC /* PBXContainerItemProxy */ = {
+		07ADA131166F51D800BA9B91 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 0795EEC3162D5ED400BCE2EC /* OTCocoa.xcodeproj */;
+			containerPortal = 07ADA122166F51D800BA9B91 /* OTCocoa.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 9FA07D0915C1B2C400B276EC;
 			remoteInfo = OTCocoaTests;
 		};
-		0795EED4162D5ED500BCE2EC /* PBXContainerItemProxy */ = {
+		07ADA133166F51D800BA9B91 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 0795EEC3162D5ED400BCE2EC /* OTCocoa.xcodeproj */;
+			containerPortal = 07ADA122166F51D800BA9B91 /* OTCocoa.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 9FA07D2615C1B32300B276EC;
 			remoteInfo = OTFoundation;
 		};
-		0795EED6162D5ED500BCE2EC /* PBXContainerItemProxy */ = {
+		07ADA135166F51D800BA9B91 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 0795EEC3162D5ED400BCE2EC /* OTCocoa.xcodeproj */;
+			containerPortal = 07ADA122166F51D800BA9B91 /* OTCocoa.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 9FA07D3715C1B32300B276EC;
 			remoteInfo = OTFoundationTests;
 		};
-		0795EED8162D5ED500BCE2EC /* PBXContainerItemProxy */ = {
+		07ADA137166F51D800BA9B91 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 0795EEC3162D5ED400BCE2EC /* OTCocoa.xcodeproj */;
+			containerPortal = 07ADA122166F51D800BA9B91 /* OTCocoa.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 9FA07D5115C1B33800B276EC;
 			remoteInfo = OTUIKit;
 		};
-		0795EEDA162D5ED500BCE2EC /* PBXContainerItemProxy */ = {
+		07ADA139166F51D800BA9B91 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 0795EEC3162D5ED400BCE2EC /* OTCocoa.xcodeproj */;
+			containerPortal = 07ADA122166F51D800BA9B91 /* OTCocoa.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 9FA07D6215C1B33800B276EC;
 			remoteInfo = OTUIKitTests;
 		};
-		0795EEDC162D5ED500BCE2EC /* PBXContainerItemProxy */ = {
+		07ADA13B166F51D800BA9B91 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 0795EEC3162D5ED400BCE2EC /* OTCocoa.xcodeproj */;
+			containerPortal = 07ADA122166F51D800BA9B91 /* OTCocoa.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 9F9FAE1515FE4726003127EC;
 			remoteInfo = OTComposerKit;
@@ -125,8 +125,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0795EEDE162D5EE800BCE2EC /* OTFoundation.framework in CopyFiles */,
-				0795EEDF162D5EE800BCE2EC /* OTUIKit.framework in CopyFiles */,
+				07901E84166F929700C0D62F /* OTFoundation.framework in CopyFiles */,
+				07901E85166F929700C0D62F /* OTUIKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,8 +164,8 @@
 		07619D70164359CD0059E886 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		07619D72164359CD0059E886 /* OTHistogram-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OTHistogram-Prefix.pch"; sourceTree = "<group>"; };
 		07619D74164359CD0059E886 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		07619D76164359CD0059E886 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		07619D77164359CD0059E886 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		07619D76164359CD0059E886 /* AppDelegateHistogram.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegateHistogram.h; sourceTree = "<group>"; };
+		07619D77164359CD0059E886 /* AppDelegateHistogram.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegateHistogram.m; sourceTree = "<group>"; };
 		07619D7A164359CD0059E886 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		07619D7F164379950059E886 /* CorePlot.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CorePlot.framework; sourceTree = "<group>"; };
 		07619D8416439AEC0059E886 /* CorePlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlotView.h; sourceTree = "<group>"; };
@@ -180,10 +180,9 @@
 		07834A9316071899009EC369 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		07834A9516071899009EC369 /* OTPieViewExam-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OTPieViewExam-Prefix.pch"; sourceTree = "<group>"; };
 		07834A9716071899009EC369 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		07834A9916071899009EC369 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		07834A9A16071899009EC369 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		07834A9916071899009EC369 /* AppDelegateOTPieViewExam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegateOTPieViewExam.h; sourceTree = "<group>"; };
+		07834A9A16071899009EC369 /* AppDelegateOTPieViewExam.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegateOTPieViewExam.m; sourceTree = "<group>"; };
 		07834A9D16071899009EC369 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		0795EEC3162D5ED400BCE2EC /* OTCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OTCocoa.xcodeproj; path = OTCocoa/OTCocoa.xcodeproj; sourceTree = "<group>"; };
 		079F4C631654C53A00930D59 /* HistogramData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramData.h; sourceTree = "<group>"; };
 		079F4C641654C53A00930D59 /* HistogramData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramData.m; sourceTree = "<group>"; };
 		07A1D530166D8BF7006A9DB5 /* HistogramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramViewController.h; sourceTree = "<group>"; };
@@ -208,6 +207,7 @@
 		07A1D562166DA6E4006A9DB5 /* HistogramData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramData.m; sourceTree = "<group>"; };
 		07A1D563166DA6E4006A9DB5 /* HistogramLayerDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramLayerDrawing.h; sourceTree = "<group>"; };
 		07A1D564166DA6E4006A9DB5 /* HistogramLayerDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramLayerDrawing.m; sourceTree = "<group>"; };
+		07ADA122166F51D800BA9B91 /* OTCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OTCocoa.xcodeproj; path = OTCocoa/OTCocoa.xcodeproj; sourceTree = "<group>"; };
 		07C26CFB16548493008A7C33 /* HistogramLayerDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistogramLayerDrawing.h; sourceTree = "<group>"; };
 		07C26CFC16548493008A7C33 /* HistogramLayerDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistogramLayerDrawing.m; sourceTree = "<group>"; };
 		07F8BA121659D13700A504D2 /* LayerGraphicsDrawing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LayerGraphicsDrawing.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -216,8 +216,8 @@
 		07F8BA1B1659D13800A504D2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		07F8BA1D1659D13800A504D2 /* LayerGraphicsDrawing-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LayerGraphicsDrawing-Prefix.pch"; sourceTree = "<group>"; };
 		07F8BA1F1659D13800A504D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		07F8BA211659D13800A504D2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		07F8BA221659D13800A504D2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		07F8BA211659D13800A504D2 /* AppDelegateLayerGraphicsDrawing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegateLayerGraphicsDrawing.h; sourceTree = "<group>"; };
+		07F8BA221659D13800A504D2 /* AppDelegateLayerGraphicsDrawing.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegateLayerGraphicsDrawing.m; sourceTree = "<group>"; };
 		07F8BA251659D13800A504D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		07F8BA2A1659D30C00A504D2 /* OTLayerDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTLayerDrawing.h; sourceTree = "<group>"; };
 		07F8BA2B1659D30C00A504D2 /* OTLayerDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTLayerDrawing.m; sourceTree = "<group>"; };
@@ -238,9 +238,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07901E82166F928400C0D62F /* OTFoundation.framework in Frameworks */,
+				07901E83166F928400C0D62F /* OTUIKit.framework in Frameworks */,
 				07834A8816071899009EC369 /* Cocoa.framework in Frameworks */,
-				0795EEF5162D612500BCE2EC /* OTUIKit.framework in Frameworks */,
-				0795EEF6162D612800BCE2EC /* OTFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,8 +270,8 @@
 		07619D6A164359CD0059E886 /* OTHistogram */ = {
 			isa = PBXGroup;
 			children = (
-				07619D76164359CD0059E886 /* AppDelegate.h */,
-				07619D77164359CD0059E886 /* AppDelegate.m */,
+				07619D76164359CD0059E886 /* AppDelegateHistogram.h */,
+				07619D77164359CD0059E886 /* AppDelegateHistogram.m */,
 				07619D79164359CD0059E886 /* MainMenu.xib */,
 				07A1D530166D8BF7006A9DB5 /* HistogramViewController.h */,
 				07A1D531166D8BF7006A9DB5 /* HistogramViewController.m */,
@@ -316,9 +316,9 @@
 		07834A7816071899009EC369 = {
 			isa = PBXGroup;
 			children = (
+				07ADA122166F51D800BA9B91 /* OTCocoa.xcodeproj */,
 				07A1D55B166DA231006A9DB5 /* QuartzCore.framework */,
 				07A1D559166DA22A006A9DB5 /* Quartz.framework */,
-				0795EEC3162D5ED400BCE2EC /* OTCocoa.xcodeproj */,
 				07834A8D16071899009EC369 /* OTPieViewExam */,
 				07619D6A164359CD0059E886 /* OTHistogram */,
 				07F8BA151659D13700A504D2 /* LayerGraphicsDrawing */,
@@ -361,8 +361,8 @@
 		07834A8D16071899009EC369 /* OTPieViewExam */ = {
 			isa = PBXGroup;
 			children = (
-				07834A9916071899009EC369 /* AppDelegate.h */,
-				07834A9A16071899009EC369 /* AppDelegate.m */,
+				07834A9916071899009EC369 /* AppDelegateOTPieViewExam.h */,
+				07834A9A16071899009EC369 /* AppDelegateOTPieViewExam.m */,
 				07834A9C16071899009EC369 /* MainMenu.xib */,
 				07834A8E16071899009EC369 /* Supporting Files */,
 			);
@@ -379,20 +379,6 @@
 				07834A9616071899009EC369 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		0795EEC4162D5ED400BCE2EC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0795EED1162D5ED500BCE2EC /* OTCocoa.framework */,
-				0795EED3162D5ED500BCE2EC /* OTCocoaTests.octest */,
-				0795EED5162D5ED500BCE2EC /* OTFoundation.framework */,
-				0795EED7162D5ED500BCE2EC /* OTFoundationTests.octest */,
-				0795EED9162D5ED500BCE2EC /* OTUIKit.framework */,
-				0795EEDB162D5ED500BCE2EC /* OTUIKitTests.octest */,
-				0795EEDD162D5ED500BCE2EC /* OTComposerKit.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		07A1D53C166D9A6B006A9DB5 /* HistogramWindow_ShowTest */ = {
@@ -426,11 +412,25 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		07ADA123166F51D800BA9B91 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07ADA130166F51D800BA9B91 /* OTCocoa.framework */,
+				07ADA132166F51D800BA9B91 /* OTCocoaTests.octest */,
+				07ADA134166F51D800BA9B91 /* OTFoundation.framework */,
+				07ADA136166F51D800BA9B91 /* OTFoundationTests.octest */,
+				07ADA138166F51D800BA9B91 /* OTUIKit.framework */,
+				07ADA13A166F51D800BA9B91 /* OTUIKitTests.octest */,
+				07ADA13C166F51D800BA9B91 /* OTComposerKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		07F8BA151659D13700A504D2 /* LayerGraphicsDrawing */ = {
 			isa = PBXGroup;
 			children = (
-				07F8BA211659D13800A504D2 /* AppDelegate.h */,
-				07F8BA221659D13800A504D2 /* AppDelegate.m */,
+				07F8BA211659D13800A504D2 /* AppDelegateLayerGraphicsDrawing.h */,
+				07F8BA221659D13800A504D2 /* AppDelegateLayerGraphicsDrawing.m */,
 				07F8BA2A1659D30C00A504D2 /* OTLayerDrawing.h */,
 				07F8BA2B1659D30C00A504D2 /* OTLayerDrawing.m */,
 				07F8BA241659D13800A504D2 /* MainMenu.xib */,
@@ -547,8 +547,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 0795EEC4162D5ED400BCE2EC /* Products */;
-					ProjectRef = 0795EEC3162D5ED400BCE2EC /* OTCocoa.xcodeproj */;
+					ProductGroup = 07ADA123166F51D800BA9B91 /* Products */;
+					ProjectRef = 07ADA122166F51D800BA9B91 /* OTCocoa.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -562,53 +562,53 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		0795EED1162D5ED500BCE2EC /* OTCocoa.framework */ = {
+		07ADA130166F51D800BA9B91 /* OTCocoa.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = OTCocoa.framework;
-			remoteRef = 0795EED0162D5ED500BCE2EC /* PBXContainerItemProxy */;
+			remoteRef = 07ADA12F166F51D800BA9B91 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		0795EED3162D5ED500BCE2EC /* OTCocoaTests.octest */ = {
+		07ADA132166F51D800BA9B91 /* OTCocoaTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = OTCocoaTests.octest;
-			remoteRef = 0795EED2162D5ED500BCE2EC /* PBXContainerItemProxy */;
+			remoteRef = 07ADA131166F51D800BA9B91 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		0795EED5162D5ED500BCE2EC /* OTFoundation.framework */ = {
+		07ADA134166F51D800BA9B91 /* OTFoundation.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = OTFoundation.framework;
-			remoteRef = 0795EED4162D5ED500BCE2EC /* PBXContainerItemProxy */;
+			remoteRef = 07ADA133166F51D800BA9B91 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		0795EED7162D5ED500BCE2EC /* OTFoundationTests.octest */ = {
+		07ADA136166F51D800BA9B91 /* OTFoundationTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = OTFoundationTests.octest;
-			remoteRef = 0795EED6162D5ED500BCE2EC /* PBXContainerItemProxy */;
+			remoteRef = 07ADA135166F51D800BA9B91 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		0795EED9162D5ED500BCE2EC /* OTUIKit.framework */ = {
+		07ADA138166F51D800BA9B91 /* OTUIKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = OTUIKit.framework;
-			remoteRef = 0795EED8162D5ED500BCE2EC /* PBXContainerItemProxy */;
+			remoteRef = 07ADA137166F51D800BA9B91 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		0795EEDB162D5ED500BCE2EC /* OTUIKitTests.octest */ = {
+		07ADA13A166F51D800BA9B91 /* OTUIKitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = OTUIKitTests.octest;
-			remoteRef = 0795EEDA162D5ED500BCE2EC /* PBXContainerItemProxy */;
+			remoteRef = 07ADA139166F51D800BA9B91 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		0795EEDD162D5ED500BCE2EC /* OTComposerKit.framework */ = {
+		07ADA13C166F51D800BA9B91 /* OTComposerKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = OTComposerKit.framework;
-			remoteRef = 0795EEDC162D5ED500BCE2EC /* PBXContainerItemProxy */;
+			remoteRef = 07ADA13B166F51D800BA9B91 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -665,7 +665,7 @@
 				07619D71164359CD0059E886 /* main.m in Sources */,
 				07C26CFD16548493008A7C33 /* HistogramLayerDrawing.m in Sources */,
 				079F4C651654C53A00930D59 /* HistogramData.m in Sources */,
-				075642C7165CD921006748A6 /* AppDelegate.m in Sources */,
+				075642C7165CD921006748A6 /* AppDelegateHistogram.m in Sources */,
 				07A1D533166D8BF7006A9DB5 /* HistogramViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -675,7 +675,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07834A9416071899009EC369 /* main.m in Sources */,
-				07834A9B16071899009EC369 /* AppDelegate.m in Sources */,
+				07834A9B16071899009EC369 /* AppDelegateOTPieViewExam.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,7 +694,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07F8BA1C1659D13800A504D2 /* main.m in Sources */,
-				07F8BA231659D13800A504D2 /* AppDelegate.m in Sources */,
+				07F8BA231659D13800A504D2 /* AppDelegateLayerGraphicsDrawing.m in Sources */,
 				07F8BA2C1659D30C00A504D2 /* OTLayerDrawing.m in Sources */,
 				07A1D565166DA6E4006A9DB5 /* HistogramData.m in Sources */,
 				07A1D566166DA6E4006A9DB5 /* HistogramLayerDrawing.m in Sources */,

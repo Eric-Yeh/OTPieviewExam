@@ -26,6 +26,7 @@
 @synthesize delegate = _delegate;
 @synthesize sliderValue;
 @synthesize maxGammaValue, maxRedValue, maxGreenValue, maxBlueValue;
+@synthesize isNeedSlider;
 
 #pragma mark Retina Display Support
 - (void)scaleDidChange:(NSNotification *)n
@@ -115,8 +116,7 @@
 	self.sliderLayer.position = moveToPoint;
 	[CATransaction commit];
     
-    if (isNeedSlider)
-        [self.sliderLayer setNeedsDisplay];
+    [self setNeedSliderAdjustment:self.isNeedSlider];
 }
 
 - (void)_dragSlider:(NSPoint)point
@@ -127,8 +127,7 @@
 	self.sliderLayer.position = insetPoint;
 	[CATransaction commit];
     
-    if (isNeedSlider) 
-        [self.sliderLayer setNeedsDisplay];
+    [self setNeedSliderAdjustment:self.isNeedSlider];
 }
 
 static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRect, CGRect parentRect)
@@ -205,12 +204,7 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
     gammaLayer.frame = channelRect;
     [self.layer addSublayer:gammaLayer];
     
-    if (isNeedSlider) {
-        [gradientRectLayer setNeedsDisplay];
-        [sliderLayer setNeedsDisplay];
-        [blueLayer setHidden:NO];
-        [sliderLayer setHidden:NO];
-    }
+    [self setNeedSliderAdjustment:self.isNeedSlider];
     
     [boraderLayer setNeedsDisplay];
     [gammaLayer setNeedsDisplay];
@@ -292,7 +286,6 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
 
 - (void)drawHistogramLayer:(kOTHistogram_Channel)channel
 {
-
     CALayer *tmpLayer;
     switch (channel) {
         case kOTHistogramChannel_Red:
@@ -313,6 +306,7 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
 
 - (void)drawHistogrameChannel:(kOTHistogram_Channel)histogramChannel withDictionary:(NSDictionary *)dictionary withMaxValue:(int)value withContext:(CGContextRef)context
 {
+    [self setNeedSliderAdjustment:self.isNeedSlider];
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef channelColor;
     NSDictionary *tmpDictionary = [dictionary copy];
@@ -353,7 +347,7 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
     }
     [dictionary release];
     if ([self.delegate respondsToSelector:@selector(histogramDrawingLayerFinish:)]) {
-        [self.delegate histogramDrawingLayerFinish:self];
+        [self.delegate histogramDrawingLayerFinish];
     }
 }
 
@@ -436,14 +430,14 @@ static CGPoint OTHistogramSliderRange(CGPoint lastMouseLocation, CGRect childRec
 
 - (void)setNeedSliderAdjustment:(BOOL)isNeed
 {
-    isNeedSlider = isNeed;
-    if (isNeedSlider) {
-        [gradientRectLayer setNeedsDisplay];
-        [sliderLayer setNeedsDisplay];
-        [blueLayer setHidden:NO];
+    self.isNeedSlider = isNeed;
+    [gradientRectLayer setNeedsDisplay];
+    [sliderLayer setNeedsDisplay];
+    if (self.isNeedSlider) {
+        [gradientRectLayer setHidden:NO];
         [sliderLayer setHidden:NO];
     } else {
-        [blueLayer setHidden:YES];
+        [gradientRectLayer setHidden:YES];
         [sliderLayer setHidden:YES];
     }
 }

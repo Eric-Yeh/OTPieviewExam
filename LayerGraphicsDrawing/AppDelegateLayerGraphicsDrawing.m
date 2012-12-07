@@ -6,9 +6,9 @@
 //  Copyright (c) 2012年 Ortery Technology, Inc. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "AppDelegateLayerGraphicsDrawing.h"
 
-@implementation AppDelegate
+@implementation AppDelegateLayerGraphicsDrawing
 @synthesize originImage, targetImage;
 
 - (void)dealloc

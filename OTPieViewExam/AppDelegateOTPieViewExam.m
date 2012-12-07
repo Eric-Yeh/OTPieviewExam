@@ -6,9 +6,9 @@
 //  Copyright (c) 2012年 Eric Yeh. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "AppDelegateOTPieViewExam.h"
 
-@implementation AppDelegate
+@implementation AppDelegateOTPieViewExam
 /* keys used in our preset dictionaries */
 NSString *kLevelKey = @"speed";
 NSString *kTicksKey = @"ticks";
@@ -28,7 +28,8 @@ NSString *kTitleKey = @"title";
 @synthesize directionMatrix;
 @synthesize graphicMatrix;
 
-
+@synthesize histogramDrawLayer;
+@synthesize histogramDataInfo;
 - (void)dealloc
 {
     [super dealloc];
@@ -71,6 +72,12 @@ NSString *kTitleKey = @"title";
     [self valueSet:nil];
     [pieView setDegrees:kGrpah_Circle];
     [pieView setDrawingClockwise:YES];
+    histogramDataInfo = [[OTHistogramData alloc]initWithHistogramLayerDrawing:histogramDrawLayer];
+    NSImage *nImage = [[NSImage alloc]initByReferencingFile:@"/Users/Eric/Pictures/lion-256height.jpg"];
+    NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep alloc] initWithData:[nImage TIFFRepresentation]]autorelease];
+    [histogramDataInfo resizedCGImage:bitmapRep];
+    [nImage release];
+//    [histogramDrawLayer makesChannelVisible:kOTHistogramChannel_All];
 
 }
 
@@ -113,9 +120,10 @@ NSString *kTitleKey = @"title";
 }
 
 - (IBAction)presetThree:(id)sender {
-    self.tokenField.stringValue = @"1,2,3,4,5,6,7,8,9,10,11,12";
-    [self valueSet:sender];
-
+//    self.tokenField.stringValue = @"1,2,3,4,5,6,7,8,9,10,11,12";
+//    [self valueSet:sender];
+//    [histogramDrawLayer makesChannelVisible:kOTHistogramChannel_All];
+    
 }
 
 - (IBAction)valueSet:(id)sender
